@@ -8,6 +8,7 @@ import org.apache.http.client.methods.HttpUriRequest;
 
 import com.dg.libs.rest.authentication.AuthenticationProvider;
 import com.dg.libs.rest.domain.ResponseStatus;
+import com.dg.libs.rest.exceptions.HttpException;
 
 public interface Rest {
 
@@ -36,6 +37,8 @@ public interface Rest {
     public abstract void addParam(final String name, final String value);
 
     public abstract void executeRequest(final HttpUriRequest request) throws IOException;
+
+    public void execute() throws HttpException;
 
     public abstract ResponseStatus getResponseStatus();
 

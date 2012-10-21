@@ -22,6 +22,7 @@ public class StringBodyRestClient extends BaseRestClient {
 	this.body = body;
     }
 
+    @Override
     public void execute() throws HttpException {
 	try {
 	    HttpPost request = new HttpPost(getUrl() + generateParametersString(getParams()));
