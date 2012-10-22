@@ -1,6 +1,5 @@
 ﻿package com.dg.libs.rest.parsers;
 
-import android.net.ParseException;
 
 /**
  * The {@link HttpResponseParser} interface has the responsibility to parse JSON
@@ -23,5 +22,5 @@ public interface HttpResponseParser<T> {
      *             Thrown when various JSON errors occur, such as missing
      *             attribute.
      */
-    public T parse(final String responseBody) throws ParseException;
+    public T parse(final String responseBody) throws Exception;
 }

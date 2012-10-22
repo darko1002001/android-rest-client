@@ -14,7 +14,6 @@ import com.dg.android.logger.Logger;
 import com.dg.libs.rest.exceptions.HttpException;
 
 /**
- * 
  * @author darko grozdanovski
  */
 public class ParametersRestClient extends BaseRestClient {
@@ -24,53 +23,51 @@ public class ParametersRestClient extends BaseRestClient {
     private RequestMethod method;
 
     public ParametersRestClient() {
-	super();
+        super();
     }
 
     public void setMethod(final RequestMethod method) {
-	this.method = method;
+        this.method = method;
     }
 
     @Override
     public void execute() throws HttpException {
-	try {
-	    switch (method) {
-	    case GET: {
-		final HttpGet request = new HttpGet(getUrl()
-			+ generateParametersString(getParams()));
-		executeRequest(request);
-		break;
-	    }
-	    case POST: {
-		final HttpPost request = new HttpPost(getUrl());
-		if (!getParams().isEmpty()) {
-		    request.setEntity(new UrlEncodedFormEntity(getParams(), HTTP.UTF_8));
-		}
-		executeRequest(request);
-		break;
-	    }
-	    case PUT: {
-		final HttpPut request = new HttpPut(getUrl());
-		if (!getParams().isEmpty()) {
-		    request.setEntity(new UrlEncodedFormEntity(getParams(), HTTP.UTF_8));
-		}
-		executeRequest(request);
-		break;
-	    }
-	    case DELETE: {
-		final HttpDelete request = new HttpDelete(getUrl()
-			+ generateParametersString(getParams()));
-		executeRequest(request);
-		break;
-	    }
-	    }
-	} catch (final UnsupportedEncodingException e) {
-	    Logger.w(TAG, "", e);
-	    throw new HttpException(e);
-	} catch (final IOException e) {
-	    Logger.w(TAG, "", e);
-	    throw new HttpException(e);
-	}
+        try {
+            switch (method) {
+                case GET: {
+                    final HttpGet request = new HttpGet(getUrl() + generateParametersString(getParams()));
+                    executeRequest(request);
+                    break;
+                }
+                case POST: {
+                    final HttpPost request = new HttpPost(getUrl());
+                    if (!getParams().isEmpty()) {
+                        request.setEntity(new UrlEncodedFormEntity(getParams(), HTTP.UTF_8));
+                    }
+                    executeRequest(request);
+                    break;
+                }
+                case PUT: {
+                    final HttpPut request = new HttpPut(getUrl());
+                    if (!getParams().isEmpty()) {
+                        request.setEntity(new UrlEncodedFormEntity(getParams(), HTTP.UTF_8));
+                    }
+                    executeRequest(request);
+                    break;
+                }
+                case DELETE: {
+                    final HttpDelete request = new HttpDelete(getUrl() + generateParametersString(getParams()));
+                    executeRequest(request);
+                    break;
+                }
+            }
+        } catch (final UnsupportedEncodingException e) {
+            Logger.w(TAG, "", e);
+            throw new HttpException(e);
+        } catch (final IOException e) {
+            Logger.w(TAG, "", e);
+            throw new HttpException(e);
+        }
     }
 
 }
