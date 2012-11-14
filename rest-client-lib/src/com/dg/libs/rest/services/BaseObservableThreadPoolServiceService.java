@@ -56,7 +56,7 @@ public abstract class BaseObservableThreadPoolServiceService extends BaseThreadP
 
     /**
      * Used to submit prioritized tasks to the Queue for the file download
-     *
+     * 
      * @author darko.grozdanovski
      */
     class WorkerThread implements Runnable, WorkerPriority {

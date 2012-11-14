@@ -9,25 +9,25 @@ public class BackgroundThreadResponseHandler<T> implements ResponseHandler<T> {
     protected final HttpCallback<T> callback;
 
     public BackgroundThreadResponseHandler(HttpCallback<T> callback) {
-	this.callback = callback;
+        this.callback = callback;
     }
 
     @Override
     public HttpCallback<T> getCallback() {
-	return callback;
+        return callback;
     }
 
     @Override
     public void handleSuccess(final T responseData) {
-	if (callback != null) {
-	    callback.onSuccess(responseData);
-	}
+        if (callback != null) {
+            callback.onSuccess(responseData);
+        }
     }
 
     @Override
     public void handleError(final ResponseStatus status) {
-	if (callback != null) {
-	    callback.onHttpError(status);
-	}
+        if (callback != null) {
+            callback.onHttpError(status);
+        }
     }
 }

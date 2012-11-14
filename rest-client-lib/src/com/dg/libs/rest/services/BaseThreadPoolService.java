@@ -48,6 +48,7 @@ abstract class BaseThreadPoolService extends Service {
         final PriorityBlockingQueue<Runnable> queue = new PriorityBlockingQueue<Runnable>(10, new ComparePriority());
         executor = new ThreadPoolExecutor(getCorePoolSize(), MAX_POOL_SIZE, 100L, TimeUnit.SECONDS, queue);
     }
+
     @Override
     public int onStartCommand(final Intent intent, final int flags, final int startId) {
         handleIntent(intent);
@@ -57,7 +58,6 @@ abstract class BaseThreadPoolService extends Service {
     /**
      * This method should be implemented to handle the execution of the background threads it runs
      * in the UI thread, so don't do processor heavy operations
-     *
      */
     public abstract void handleIntent(Intent intent);
 
@@ -94,7 +94,7 @@ abstract class BaseThreadPoolService extends Service {
 
     /**
      * Implement in the worker to be able to prioritize the execution
-     *
+     * 
      * @author darko.grozdanovski
      */
     public interface WorkerPriority {

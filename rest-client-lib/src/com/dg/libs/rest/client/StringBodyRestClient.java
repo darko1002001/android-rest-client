@@ -15,26 +15,26 @@ public class StringBodyRestClient extends BaseRestClient {
     private String body;
 
     public StringBodyRestClient() {
-	super();
+        super();
     }
 
     public void setBody(final String body) {
-	this.body = body;
+        this.body = body;
     }
 
     @Override
     public void execute() throws HttpException {
-	try {
-	    HttpPost request = new HttpPost(getUrl() + generateParametersString(getParams()));
-	    request.setEntity(new StringEntity(body, "UTF-8"));
-	    executeRequest(request);
-	} catch (UnsupportedEncodingException e) {
-	    Logger.w(TAG, "", e);
-	    throw new HttpException(e);
-	} catch (IOException e) {
-	    Logger.w(TAG, "", e);
-	    throw new HttpException(e);
-	}
+        try {
+            HttpPost request = new HttpPost(getUrl() + generateParametersString(getParams()));
+            request.setEntity(new StringEntity(body, "UTF-8"));
+            executeRequest(request);
+        } catch (UnsupportedEncodingException e) {
+            Logger.w(TAG, "", e);
+            throw new HttpException(e);
+        } catch (IOException e) {
+            Logger.w(TAG, "", e);
+            throw new HttpException(e);
+        }
     }
 
 }
