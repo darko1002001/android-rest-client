@@ -1,3 +1,6 @@
+
+[Follow to public page for more info](http://darko1002001.github.com/android-rest-client/)
+
 android-rest-client
 ===================
 
