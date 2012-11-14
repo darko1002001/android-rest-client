@@ -29,6 +29,5 @@ public class UsersTwitterRequest extends ParameterHttpRequestImpl<UserModel> {
     protected void prepareParams() {
         addParam("screen_name", screenName);
         addParam("include_entities", "" + true);
-
     }
 }
