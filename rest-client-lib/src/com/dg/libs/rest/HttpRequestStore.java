@@ -10,6 +10,8 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 
+import com.dg.libs.rest.domain.RequestOptions;
+import com.dg.libs.rest.domain.RequestWrapper;
 import com.dg.libs.rest.services.HTTPRequestExecutorService;
 
 /**
@@ -17,21 +19,22 @@ import com.dg.libs.rest.services.HTTPRequestExecutorService;
  */
 public class HttpRequestStore {
 
-    public static final String ID = "id";
-    public static final String IS_SUCCESSFUL = "isSuccessful";
-
     public static final String TAG = HttpRequestStore.class.getSimpleName();
 
-    private final Context context;
+    public static final String KEY_ID = "id";
+    public static final String IS_SUCCESSFUL = "isSuccessful";
 
+    private static final HashMap<Integer, RequestWrapper> map = new HashMap<Integer, RequestWrapper>();
+
+    private final AtomicInteger counter = new AtomicInteger();
+    private static Class<?> executorServiceClass = HTTPRequestExecutorService.class;
+
+    private final Context context;
     private static HttpRequestStore instance;
 
     private HttpRequestStore(final Context context) {
         this.context = context;
     }
-
-    private final AtomicInteger counter = new AtomicInteger();
-    private static Class<?> executorServiceClass = HTTPRequestExecutorService.class;
 
     public static HttpRequestStore getInstance(final Context context) {
         if (instance == null) {
@@ -42,48 +45,39 @@ public class HttpRequestStore {
 
     public static void init(final Class<?> executorServiceClass) {
         HttpRequestStore.executorServiceClass = executorServiceClass;
-
     }
 
-    private static final HashMap<Integer, HttpRequest> map = new HashMap<Integer, HttpRequest>();
-
-    public Integer addBlock(final HttpRequest block) {
-        return addBlock(counter.incrementAndGet(), block);
+    public Integer addRequest(final RequestWrapper block) {
+        return addRequest(counter.incrementAndGet(), block);
     }
 
-    public Integer addBlock(final Integer id, final HttpRequest block) {
+    public Integer addRequest(final Integer id, final RequestWrapper block) {
         map.put(id, block);
         return id;
     }
 
     public void removeBlock(final Integer id) {
-        if (map.containsKey(id)) {
-            map.remove(id);
-        }
+        map.remove(id);
     }
 
-    public HttpRequest getBlock(final Integer id) {
-        if (map.containsKey(id)) {
-            final HttpRequest httpRequestImpl = map.get(id);
-            return httpRequestImpl;
-        }
-        return null;
+    public RequestWrapper getRequest(final Integer id) {
+        return map.remove(id);
     }
 
-    public HttpRequest getBlock(final Intent intent) {
+    public RequestWrapper getRequest(final Intent intent) {
         final Bundle extras = intent.getExtras();
-        if (extras == null || extras.containsKey(ID) == false) {
+        if (extras == null || extras.containsKey(KEY_ID) == false) {
             throw new RuntimeException("Intent Must be Filled with ID of the block");
         }
-        final int id = extras.getInt(ID);
-        if (map.containsKey(id)) {
-            final HttpRequest httpRequestImpl = map.get(id);
-            return httpRequestImpl;
-        }
-        return null;
+        final int id = extras.getInt(KEY_ID);
+        return getRequest(id);
     }
 
     public Integer launchServiceIntent(final HttpRequest block) {
+        return launchServiceIntent(block, null);
+    }
+
+    public Integer launchServiceIntent(final HttpRequest block, RequestOptions options) {
         if (executorServiceClass == null) {
             throw new RuntimeException("Initialize the Executor service class in a class extending application");
         }
@@ -91,10 +85,11 @@ public class HttpRequestStore {
             throw new RuntimeException("Declare the " + executorServiceClass.getSimpleName() + " in your manifest");
         }
         final Intent service = new Intent(context, executorServiceClass);
-        final Integer addBlock = addBlock(block);
-        service.putExtra(ID, addBlock);
+        final RequestWrapper wrapper = new RequestWrapper(block, options);
+        final Integer requestId = addRequest(wrapper);
+        service.putExtra(KEY_ID, requestId);
         context.startService(service);
-        return addBlock;
+        return requestId;
     }
 
     public boolean isServiceAvailable() {

@@ -11,6 +11,7 @@ import android.os.IBinder;
 
 import com.dg.android.logger.Logger;
 import com.dg.libs.rest.HttpRequest;
+import com.dg.libs.rest.domain.DownloadPriority;
 
 /** @author darko.grozdanovski */
 public abstract class BaseObservableThreadPoolServiceService extends BaseThreadPoolService {
