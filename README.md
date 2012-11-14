@@ -34,13 +34,17 @@ Look at the demo project for details.
 ## Calling requests (From the demo project)
 
     ```
+
+    //----------------------------------
+    
     TwitterService.getUsersTwitterRequest(getApplicationContext(), "android", new HttpCallbackImplementation())
         .executeAsync();
     
-//----------------------------------
+    //----------------------------------
 
 
-// Callback returning your defined type
+    // Callback returning your defined type
+
     private final class HttpCallbackImplementation implements HttpCallback<UserModel> {
 
         @Override
