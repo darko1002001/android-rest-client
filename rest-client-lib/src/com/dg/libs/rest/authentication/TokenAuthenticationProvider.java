@@ -18,92 +18,88 @@ public class TokenAuthenticationProvider implements AuthenticationProvider {
 
     /**
      * <b> this object will be using a Reference to the application context via
-     * getApplicationContext() NOT the Activity context</b> Recomended to be
-     * initialized at the application startup or by initializing in your own
-     * class extending application
+     * getApplicationContext() NOT the Activity context</b> Recomended to be initialized at the
+     * application startup or by initializing in your own class extending application
      * <p>
      * <b> Dont forget to set the password on first init </b>
      * 
-     * @param context
-     *            it is only used into the first time init of the singleton, its
-     *            reference is stored so the singleton is alive during the
-     *            application lifecycle.
+     * @param context it is only used into the first time init of the singleton, its reference is
+     *        stored so the singleton is alive during the application lifecycle.
      * @return
      */
     public static synchronized TokenAuthenticationProvider getInstance() {
-	if (account == null) {
-	    throw new RuntimeException("Initialize the Provider first");
-	}
-	return account;
+        if (account == null) {
+            throw new RuntimeException("Initialize the Provider first");
+        }
+        return account;
     }
 
     public static synchronized void init(Context context) {
-	if (account == null) {
-	    account = new TokenAuthenticationProvider(context);
-	}
+        if (account == null) {
+            account = new TokenAuthenticationProvider(context);
+        }
     }
 
     private TokenAuthenticationProvider(final Context context) {
-	this.context = context.getApplicationContext();
-	initializeToken();
+        this.context = context.getApplicationContext();
+        initializeToken();
     }
 
     @Override
     public void authenticateRequest(BaseRestClient client) {
-	if (TextUtils.isEmpty(token)) {
-	    return;
-	}
-	client.addHeader("Authorization", "OAuth " + token);
+        if (TextUtils.isEmpty(token)) {
+            return;
+        }
+        client.addHeader("Authorization", "OAuth " + token);
     }
 
     public String getToken() {
-	return token;
+        return token;
     }
 
     public void setToken(String token) {
-	this.token = token;
-	saveApiKey(token);
+        this.token = token;
+        saveApiKey(token);
     }
 
     public boolean isTokenValid() {
-	return !TextUtils.isEmpty(token);
+        return !TextUtils.isEmpty(token);
     }
 
     public boolean clearAuth() {
-	Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
-	editor.remove(TOKEN_KEY);
-	boolean commit = editor.commit();
-	return commit;
+        Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        editor.remove(TOKEN_KEY);
+        boolean commit = editor.commit();
+        return commit;
     }
 
     /**
-     * Use as an alternative for saving the token to accounts (Note that using
-     * the account manager is a preferred and safer method)
+     * Use as an alternative for saving the token to accounts (Note that using the account manager
+     * is a preferred and safer method)
      * 
-     * @param apiKey
-     *            the token aqured from chute auth
+     * @param apiKey the token aqured from chute auth
      * @param context
      * @return if the save was successful
      */
     private boolean saveApiKey(final String apiKey) {
-	Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
-	editor.putString(TOKEN_KEY, apiKey);
-	boolean commit = editor.commit();
-	return commit;
+        Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        editor.putString(TOKEN_KEY, apiKey);
+        boolean commit = editor.commit();
+        return commit;
     }
 
     private String restoreApiKey() {
-	SharedPreferences savedSession = PreferenceManager.getDefaultSharedPreferences(context);
-	return savedSession.getString(TOKEN_KEY, "");
+        SharedPreferences savedSession = PreferenceManager.getDefaultSharedPreferences(context);
+        return savedSession.getString(TOKEN_KEY, "");
     }
 
     private void initializeToken() {
-	String apiKey = restoreApiKey();
-	if (!TextUtils.isEmpty(apiKey)) {
-	    this.setToken(apiKey);
-	    return;
-	}
-	// Set a manual token for testing
-	// this.setPassword("46e580a90085912ed11c565084f1f2465f28630bd58fa80cc98432f3078fc5ac");
+        String apiKey = restoreApiKey();
+        if (!TextUtils.isEmpty(apiKey)) {
+            this.setToken(apiKey);
+            return;
+        }
+        // Set a manual token for testing
+        // this.setPassword("46e580a90085912ed11c565084f1f2465f28630bd58fa80cc98432f3078fc5ac");
     }
 }
