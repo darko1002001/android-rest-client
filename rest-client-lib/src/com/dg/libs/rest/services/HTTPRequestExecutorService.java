@@ -8,8 +8,9 @@ public class HTTPRequestExecutorService extends BaseObservableThreadPoolServiceS
 
     @Override
     public void handleIntent(final Intent intent) {
-        getExecutor().execute(new WorkerThread(DownloadPriority.NORMAL,
-                HttpRequestStore.getInstance(getApplicationContext()).getBlock(intent)));
+	getExecutor().execute(
+		new WorkerThread(DownloadPriority.NORMAL, HttpRequestStore.getInstance(
+			getApplicationContext()).getBlock(intent)));
     }
 
 }
