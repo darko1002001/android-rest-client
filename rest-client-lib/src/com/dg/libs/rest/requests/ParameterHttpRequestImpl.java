@@ -20,7 +20,7 @@ public abstract class ParameterHttpRequestImpl<T> extends BaseHttpRequestImpl<T>
             final HttpCallback<T> callback) {
         super(context, parser, callback);
         client = new ParametersRestClient();
-        client.setMethod(requestMethod);
+        client.setRequestMethod(requestMethod);
     }
 
     @Override
