@@ -11,6 +11,7 @@ import android.os.IBinder;
 
 import com.dg.android.logger.Logger;
 import com.dg.libs.rest.HttpRequest;
+import com.dg.libs.rest.domain.DownloadPriority;
 
 /** @author darko.grozdanovski */
 public abstract class BaseObservableThreadPoolServiceService extends BaseThreadPoolService {
@@ -56,7 +57,7 @@ public abstract class BaseObservableThreadPoolServiceService extends BaseThreadP
 
     /**
      * Used to submit prioritized tasks to the Queue for the file download
-     *
+     * 
      * @author darko.grozdanovski
      */
     class WorkerThread implements Runnable, WorkerPriority {

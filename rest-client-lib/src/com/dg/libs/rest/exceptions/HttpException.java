@@ -4,7 +4,7 @@
  * usually represents a general error for the whole api call, if you need to know if the parsing
  * failed check the status of the response and the error message ( if status is SC_OK means the api
  * call was successful and there was a parsing error).
- *
+ * 
  * @author DArkO
  */
 public class HttpException extends Exception {

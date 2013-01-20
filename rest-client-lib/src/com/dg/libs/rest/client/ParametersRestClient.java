@@ -20,20 +20,14 @@ public class ParametersRestClient extends BaseRestClient {
 
     private static final String TAG = ParametersRestClient.class.getSimpleName();
 
-    private RequestMethod method;
-
     public ParametersRestClient() {
         super();
-    }
-
-    public void setMethod(final RequestMethod method) {
-        this.method = method;
     }
 
     @Override
     public void execute() throws HttpException {
         try {
-            switch (method) {
+            switch (getRequestMethod()) {
                 case GET: {
                     final HttpGet request = new HttpGet(getUrl() + generateParametersString(getParams()));
                     executeRequest(request);
@@ -70,4 +64,5 @@ public class ParametersRestClient extends BaseRestClient {
         }
     }
 
+	
 }

@@ -25,192 +25,211 @@ import com.dg.libs.rest.domain.ResponseStatus;
 
 public abstract class BaseRestClient implements Rest {
 
-    public enum RequestMethod {
-        GET, POST, PUT, DELETE
-    }
+	public enum RequestMethod {
+		GET, POST, PUT, DELETE
+	}
 
-    private static final String TAG = ParametersRestClient.class.getSimpleName();
+	private static final String TAG = ParametersRestClient.class
+			.getSimpleName();
 
-    private static DefaultHttpClient client;
 
-    private final ArrayList<NameValuePair> headers;
-    private final ArrayList<NameValuePair> params;
+	private static DefaultHttpClient client;
+	private RequestMethod requestMethod = RequestMethod.GET;
+	
+	private final ArrayList<NameValuePair> headers;
+	private final ArrayList<NameValuePair> params;
 
-    private String url;
+	private String url;
 
-    ResponseStatus responseStatus = new ResponseStatus();
-    private String response;
+	ResponseStatus responseStatus = new ResponseStatus();
+	private String response;
 
-    int connectionTimeout = 8000;
-    int socketTimeout = 12000;
+	int connectionTimeout = 8000;
+	int socketTimeout = 12000;
 
-    private AuthenticationProvider authProvider;
-    private static AuthenticationProvider authenticationProvider;
+	private AuthenticationProvider authProvider;
+	private static AuthenticationProvider authenticationProvider;
 
-    public BaseRestClient() {
-        headers = new ArrayList<NameValuePair>();
-        params = new ArrayList<NameValuePair>();
-        authenticateRequest();
-    }
+	public BaseRestClient() {
+		headers = new ArrayList<NameValuePair>();
+		params = new ArrayList<NameValuePair>();
+	}
 
-    @Override
-    public int getConnectionTimeout() {
-        return connectionTimeout;
-    }
+	@Override
+	public int getConnectionTimeout() {
+		return connectionTimeout;
+	}
 
-    @Override
-    public void setUrl(final String url) {
-        this.url = url;
-    }
+	@Override
+	public void setUrl(final String url) {
+		this.url = url;
+	}
 
-    @Override
-    public String getUrl() {
-        return url;
-    }
+	@Override
+	public String getUrl() {
+		return url;
+	}
 
-    @Override
-    public void setConnectionTimeout(final int connectionTimeout) {
-        this.connectionTimeout = connectionTimeout;
-    }
+	@Override
+	public void setConnectionTimeout(final int connectionTimeout) {
+		this.connectionTimeout = connectionTimeout;
+	}
 
-    @Override
-    public int getSocketTimeout() {
-        return socketTimeout;
-    }
+	@Override
+	public int getSocketTimeout() {
+		return socketTimeout;
+	}
 
-    @Override
-    public void setSocketTimeout(final int socketTimeout) {
-        this.socketTimeout = socketTimeout;
-    }
+	@Override
+	public void setSocketTimeout(final int socketTimeout) {
+		this.socketTimeout = socketTimeout;
+	}
 
-    @Override
-    public String getResponse() {
-        return response;
-    }
+	@Override
+	public String getResponse() {
+		return response;
+	}
 
-    @Override
-    public ResponseStatus getResponseStatus() {
-        return responseStatus;
-    }
+	@Override
+	public ResponseStatus getResponseStatus() {
+		return responseStatus;
+	}
 
-    @Override
-    public ArrayList<NameValuePair> getHeaders() {
-        return headers;
-    }
+	@Override
+	public ArrayList<NameValuePair> getHeaders() {
+		return headers;
+	}
 
-    @Override
-    public ArrayList<NameValuePair> getParams() {
-        return params;
-    }
+	@Override
+	public ArrayList<NameValuePair> getParams() {
+		return params;
+	}
 
-    @Override
-    public void addHeader(final String name, final String value) {
-        if (TextUtils.isEmpty(value) == false) {
-            headers.add(new BasicNameValuePair(name, value));
-        }
-    }
+	@Override
+	public void addHeader(final String name, final String value) {
+		if (TextUtils.isEmpty(value) == false) {
+			headers.add(new BasicNameValuePair(name, value));
+		}
+	}
 
-    @Override
-    public void addParam(final String name, final String value) {
-        if (TextUtils.isEmpty(value) == false) {
-            params.add(new BasicNameValuePair(name, value));
-        }
-    }
+	@Override
+	public void addParam(final String name, final String value) {
+		if (TextUtils.isEmpty(value) == false) {
+			params.add(new BasicNameValuePair(name, value));
+		}
+	}
 
-    @Override
-    public void setAuthentication(AuthenticationProvider authProvider) {
-        this.authProvider = authProvider;
-    }
+	@Override
+	public void setAuthentication(AuthenticationProvider authProvider) {
+		this.authProvider = authProvider;
+	}
+	
+	@Override
+	public void setRequestMethod(RequestMethod requestMethod) {
+		this.requestMethod = requestMethod;
+	}
 
-    public static void setDefaultAuthenticationProvider(AuthenticationProvider provider) {
-        BaseRestClient.authenticationProvider = provider;
-    }
+	@Override
+	public RequestMethod getRequestMethod() {
+		return requestMethod;
+	}
 
-    private void authenticateRequest() {
-        if (authProvider != null) {
-            authProvider.authenticateRequest(this);
-            return;
-        }
-        if (authenticationProvider != null) {
-            authenticationProvider.authenticateRequest(this);
-            return;
-        }
-        TokenAuthenticationProvider.getInstance().authenticateRequest(this);
-    }
+	public static void setDefaultAuthenticationProvider(
+			AuthenticationProvider provider) {
+		BaseRestClient.authenticationProvider = provider;
+	}
 
-    @Override
-    public void executeRequest(final HttpUriRequest request) throws IOException {
-        // add headers
-        for (NameValuePair h : getHeaders()) {
-            request.addHeader(h.getName(), h.getValue());
-        }
+	private void authenticateRequest() {
+		if (authProvider != null) {
+			authProvider.authenticateRequest(this);
+			return;
+		}
+		if (authenticationProvider != null) {
+			authenticationProvider.authenticateRequest(this);
+			return;
+		}
+		TokenAuthenticationProvider.getInstance().authenticateRequest(this);
+	}
 
-        final HttpParams httpParameters = new BasicHttpParams();
-        // Set the timeout in milliseconds until a connection is established.
-        HttpConnectionParams.setConnectionTimeout(httpParameters, connectionTimeout);
-        // Set the default socket timeout (SO_TIMEOUT)
-        // in milliseconds which is the timeout for waiting for data.
-        HttpConnectionParams.setSoTimeout(httpParameters, socketTimeout);
+	@Override
+	public void executeRequest(final HttpUriRequest request) throws IOException {
+		authenticateRequest();
 
-        getClient().setParams(httpParameters);
-        HttpResponse httpResponse;
-        InputStream instream = null;
-        try {
+		// add headers
+		for (NameValuePair h : getHeaders()) {
+			request.addHeader(h.getName(), h.getValue());
+		}
 
-            httpResponse = getClient().execute(request);
+		final HttpParams httpParameters = new BasicHttpParams();
+		// Set the timeout in milliseconds until a connection is established.
+		HttpConnectionParams.setConnectionTimeout(httpParameters,
+				connectionTimeout);
+		// Set the default socket timeout (SO_TIMEOUT)
+		// in milliseconds which is the timeout for waiting for data.
+		HttpConnectionParams.setSoTimeout(httpParameters, socketTimeout);
 
-            responseStatus.setStatusCode(httpResponse.getStatusLine().getStatusCode());
-            responseStatus.setStatusMessage(httpResponse.getStatusLine().getReasonPhrase());
+		getClient().setParams(httpParameters);
+		HttpResponse httpResponse;
+		InputStream instream = null;
+		try {
 
-            final HttpEntity entity = httpResponse.getEntity();
+			httpResponse = getClient().execute(request);
 
-            if (entity != null) {
+			responseStatus.setStatusCode(httpResponse.getStatusLine()
+					.getStatusCode());
+			responseStatus.setStatusMessage(httpResponse.getStatusLine()
+					.getReasonPhrase());
 
-                instream = entity.getContent();
-                response = StreamUtil.convertStreamToString(instream);
-                Log.d(TAG, "URL: " + url + " RESPONSE: " + response);
-                // Closing the input stream will trigger connection release
-                instream.close();
-            }
+			final HttpEntity entity = httpResponse.getEntity();
 
-        } catch (final IOException e) {
-            throw e;
-        } catch (final RuntimeException ex) {
-            // In case of an unexpected exception you may want to abort
-            // the HTTP request in order to shut down the underlying
-            // connection immediately.
-            request.abort();
-            throw ex;
-        } finally {
-            // Closing the input stream will trigger connection release
-            StreamUtil.silentClose(instream);
-        }
-    }
+			if (entity != null) {
 
-    public static DefaultHttpClient getClient() {
-        if (client == null) {
-            client = StreamUtil.generateClient();
-        }
-        return client;
-    }
+				instream = entity.getContent();
+				response = StreamUtil.convertStreamToString(instream);
+				Log.d(TAG, "URL: " + url + " RESPONSE: " + response);
+				// Closing the input stream will trigger connection release
+				instream.close();
+			}
 
-    public static String generateParametersString(final ArrayList<NameValuePair> params)
-            throws UnsupportedEncodingException {
-        // add parameters
-        String combinedParams = "";
-        if (params != null && !params.isEmpty()) {
-            combinedParams += "?";
-            for (final NameValuePair p : params) {
-                final String paramString = p.getName() + "="
-                        + URLEncoder.encode(p.getValue(), "UTF-8");
-                if (combinedParams.length() > 1) {
-                    combinedParams += "&" + paramString;
-                } else {
-                    combinedParams += paramString;
-                }
-            }
-        }
-        return combinedParams;
-    }
+		} catch (final IOException e) {
+			throw e;
+		} catch (final RuntimeException ex) {
+			// In case of an unexpected exception you may want to abort
+			// the HTTP request in order to shut down the underlying
+			// connection immediately.
+			request.abort();
+			throw ex;
+		} finally {
+			// Closing the input stream will trigger connection release
+			StreamUtil.silentClose(instream);
+		}
+	}
+
+	public static DefaultHttpClient getClient() {
+		if (client == null) {
+			client = StreamUtil.generateClient();
+		}
+		return client;
+	}
+
+	public static String generateParametersString(
+			final ArrayList<NameValuePair> params)
+			throws UnsupportedEncodingException {
+		// add parameters
+		String combinedParams = "";
+		if (params != null && !params.isEmpty()) {
+			combinedParams += "?";
+			for (final NameValuePair p : params) {
+				final String paramString = p.getName() + "="
+						+ URLEncoder.encode(p.getValue(), "UTF-8");
+				if (combinedParams.length() > 1) {
+					combinedParams += "&" + paramString;
+				} else {
+					combinedParams += paramString;
+				}
+			}
+		}
+		return combinedParams;
+	}
 
 }

@@ -1,4 +1,4 @@
-﻿package com.dg.libs.rest.requests;
+package com.dg.libs.rest.requests;
 
 import android.content.Context;
 
@@ -14,11 +14,13 @@ public abstract class ParameterHttpRequestImpl<T> extends BaseHttpRequestImpl<T>
     public static final String TAG = ParameterHttpRequestImpl.class.getSimpleName();
     protected ParametersRestClient client;
 
-    public ParameterHttpRequestImpl(final Context context, final RequestMethod requestMethod,
-            final HttpResponseParser<T> parser, final HttpCallback<T> callback) {
+    public ParameterHttpRequestImpl(final Context context,
+            final RequestMethod requestMethod,
+            final HttpResponseParser<T> parser,
+            final HttpCallback<T> callback) {
         super(context, parser, callback);
         client = new ParametersRestClient();
-        client.setMethod(requestMethod);
+        client.setRequestMethod(requestMethod);
     }
 
     @Override

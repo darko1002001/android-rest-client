@@ -7,6 +7,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.methods.HttpUriRequest;
 
 import com.dg.libs.rest.authentication.AuthenticationProvider;
+import com.dg.libs.rest.client.BaseRestClient.RequestMethod;
 import com.dg.libs.rest.domain.ResponseStatus;
 import com.dg.libs.rest.exceptions.HttpException;
 
@@ -35,6 +36,9 @@ public interface Rest {
     public abstract void addHeader(final String name, final String value);
 
     public abstract void addParam(final String name, final String value);
+    
+    public void setRequestMethod(RequestMethod requestMethod);
+    public RequestMethod getRequestMethod();
 
     public abstract void executeRequest(final HttpUriRequest request) throws IOException;
 

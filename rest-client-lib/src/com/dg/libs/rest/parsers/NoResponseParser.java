@@ -6,6 +6,6 @@ public class NoResponseParser implements HttpResponseParser<Void> {
 
     @Override
     public Void parse(String responseBody) {
-	return null;
+        return null;
     }
 }
