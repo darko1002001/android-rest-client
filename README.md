@@ -1,4 +1,3 @@
-
 [Follow to public page for more info](http://darko1002001.github.com/android-rest-client/)
 
 android-rest-client
@@ -32,6 +31,17 @@ Look at the demo project for details.
 1. Import the lib project into your workspace and add it as a library project
 2. Look into the library project manifest and copy the definitions
 3. Define a Class extending application and init the Authorization class
+
+## Manifest Declarations
+
+      <uses-permission android:name="android.permission.INTERNET" />
+    
+      <uses-sdk android:minSdkVersion="14" />
+    
+      <application>
+        <service android:name="com.dg.libs.rest.services.HTTPRequestExecutorService" >
+        </service>
+      </application>
 
 
 ## Calling requests (From the demo project)
