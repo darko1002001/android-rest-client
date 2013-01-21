@@ -10,7 +10,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.protocol.HTTP;
 
-import com.dg.android.logger.Logger;
+import com.dg.libs.android.logger.ALog;
 import com.dg.libs.rest.exceptions.HttpException;
 
 /**
@@ -56,10 +56,10 @@ public class ParametersRestClient extends BaseRestClient {
                 }
             }
         } catch (final UnsupportedEncodingException e) {
-            Logger.w(TAG, "", e);
+            ALog.w(TAG, "", e);
             throw new HttpException(e);
         } catch (final IOException e) {
-            Logger.w(TAG, "", e);
+            ALog.w(TAG, "", e);
             throw new HttpException(e);
         }
     }

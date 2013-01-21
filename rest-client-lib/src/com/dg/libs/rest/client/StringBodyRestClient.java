@@ -7,7 +7,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 
-import com.dg.android.logger.Logger;
+import com.dg.libs.android.logger.ALog;
 import com.dg.libs.rest.exceptions.HttpException;
 
 public class StringBodyRestClient extends BaseRestClient {
@@ -45,10 +45,10 @@ public class StringBodyRestClient extends BaseRestClient {
 			}
 			
 		} catch (UnsupportedEncodingException e) {
-			Logger.w(TAG, "", e);
+			ALog.w(TAG, "", e);
 			throw new HttpException(e);
 		} catch (IOException e) {
-			Logger.w(TAG, "", e);
+			ALog.w(TAG, "", e);
 			throw new HttpException(e);
 		}
 	}

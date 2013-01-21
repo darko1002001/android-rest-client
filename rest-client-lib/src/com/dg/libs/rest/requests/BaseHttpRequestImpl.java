@@ -2,7 +2,7 @@ package com.dg.libs.rest.requests;
 
 import android.content.Context;
 
-import com.dg.android.logger.Logger;
+import com.dg.libs.android.logger.ALog;
 import com.dg.libs.rest.HttpRequest;
 import com.dg.libs.rest.HttpRequestStore;
 import com.dg.libs.rest.callbacks.HttpCallback;
@@ -61,13 +61,13 @@ public abstract class BaseHttpRequestImpl<T> implements HttpRequest {
             // Execute the HTTP request
         } catch (final Exception e) {
             ResponseStatus responseStatus = ResponseStatus.getConnectionErrorStatus();
-            Logger.d(TAG, responseStatus.toString(), e);
+            ALog.d(TAG, responseStatus.toString(), e);
             handler.handleError(responseStatus);
             return;
         }
 
         final ResponseStatus status = client.getResponseStatus();
-        Logger.d(TAG, status.toString());
+        ALog.d(TAG, status.toString());
         if (status.getStatusCode() < 200 || status.getStatusCode() >= 300) {
             handler.handleError(status);
             return;
@@ -78,7 +78,7 @@ public abstract class BaseHttpRequestImpl<T> implements HttpRequest {
             handler.handleSuccess(responseData);
         } catch (final Exception e) {
             ResponseStatus responseStatus = ResponseStatus.getParseErrorStatus();
-            Logger.d(TAG, responseStatus.toString(), e);
+            ALog.d(TAG, responseStatus.toString(), e);
             handler.handleError(responseStatus);
         }
 

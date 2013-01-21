@@ -9,7 +9,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
 
-import com.dg.android.logger.Logger;
+import com.dg.libs.android.logger.ALog;
 import com.dg.libs.rest.HttpRequest;
 import com.dg.libs.rest.domain.DownloadPriority;
 
@@ -29,7 +29,7 @@ public abstract class BaseObservableThreadPoolServiceService extends BaseThreadP
 
             @Override
             public void run() {
-                Logger.d("Shutting down " + TAG);
+                ALog.d("Shutting down " + TAG);
                 stopSelf();
             }
         };

@@ -5,7 +5,7 @@ package com.dg.libs.rest.services;
 
 import java.util.LinkedList;
 
-import com.dg.android.logger.Logger;
+import com.dg.libs.android.logger.ALog;
 
 /** @author darko.grozdanovski */
 public abstract class ThreadCountObserver {
@@ -23,16 +23,16 @@ public abstract class ThreadCountObserver {
             observerList.add(r);
         }
         newRunnableRegistered();
-        Logger.d(TAG, "observer list size on register: " + observerList.size());
+        ALog.d(TAG, "observer list size on register: " + observerList.size());
     }
 
     public void unregisterRunnable(final Runnable r) {
         synchronized (observerList) {
             observerList.remove(r);
         }
-        Logger.d(TAG, "observer list size on unregister: " + observerList.size());
+        ALog.d(TAG, "observer list size on unregister: " + observerList.size());
         if (observerList.size() == 0) {
-            Logger.d(TAG, "observer calling finish method");
+            ALog.d(TAG, "observer calling finish method");
             onThreadsFinished();
         }
     }

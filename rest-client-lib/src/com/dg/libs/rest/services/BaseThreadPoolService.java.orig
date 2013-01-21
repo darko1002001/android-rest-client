@@ -31,12 +31,12 @@ abstract class BaseThreadPoolService extends Service {
 	try {
 	    executor.shutdown();
 	} catch (Exception e) {
-	    Logger.w(TAG, "", e);
+	    ALog.w(TAG, "", e);
 	}
 	try {
 	    singleThreadExecutor.shutdown();
 	} catch (Exception e) {
-	    Logger.w(TAG, "", e);
+	    ALog.w(TAG, "", e);
 	}
     };
 =======
