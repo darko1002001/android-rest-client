@@ -72,7 +72,7 @@
           </execution>
         </executions>
         <configuration>
-          <finalName>uber-${artifactId}-${version}</finalName>
+          <finalName>${artifactId}-${version}-with-dependencies</finalName>
         </configuration>
       </plugin>
     </plugins>
