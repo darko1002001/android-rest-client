@@ -2,8 +2,8 @@ package com.dg.examples.restclientdemo.app;
 
 import android.app.Application;
 
-import com.dg.android.logger.Logger;
-import com.dg.android.logger.Logger.DebugLevel;
+import com.dg.libs.android.logger.ALog;
+import com.dg.libs.android.logger.ALog.DebugLevel;
 import com.dg.libs.rest.authentication.TokenAuthenticationProvider;
 
 public class App extends Application {
@@ -14,6 +14,6 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         TokenAuthenticationProvider.init(this);
-        Logger.setDebugLevel(DebugLevel.ALL);
+        ALog.setDebugLevel(DebugLevel.ALL);
     }
 }
