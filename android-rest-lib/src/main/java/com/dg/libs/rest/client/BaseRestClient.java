@@ -183,7 +183,7 @@ public abstract class BaseRestClient implements Rest {
                 UnicodeBOMInputStream unicodeBOMInputStream = new UnicodeBOMInputStream(instream);
                 unicodeBOMInputStream.skipBOM();
                 response = StreamUtil.convertStreamToString(unicodeBOMInputStream);
-                Log.d(TAG, "URL: " + url + " RESPONSE: " + response);
+                Log.d(TAG, "URL: " + request.getURI().toString() + " RESPONSE: " + response);
                 // Closing the input stream will trigger connection release
                 instream.close();
             }
