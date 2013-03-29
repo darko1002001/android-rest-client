@@ -25,15 +25,16 @@ public abstract class StringBodyHttpRequestImpl<T> extends BaseHttpRequestImpl<T
     }
 
     @Override
-    protected void prepareAndExecuteRequest() throws HttpException {
+    protected void prepareRequest() throws HttpException {
         prepareParams();
-        client.execute();
+        setBody(bodyContents());
     }
 
-    public void setBody(final String body) {
-        ALog.d(TAG, "String body" + body);
-        client.setBody(body);
+    private void setBody(final String body) {
+        client.setBody(bodyContents());
     }
+    
+    public abstract String bodyContents();
 
     @Override
     public Rest getClient() {

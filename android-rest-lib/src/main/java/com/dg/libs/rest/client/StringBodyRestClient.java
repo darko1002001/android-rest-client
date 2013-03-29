@@ -26,16 +26,15 @@ public class StringBodyRestClient extends BaseRestClient {
 
 	@Override
 	public void execute() throws HttpException {
-
 		try {
 			switch (getRequestMethod()) {
 			case POST:
-				HttpPost postRequest = new HttpPost(getUrl());
+				HttpPost postRequest = new HttpPost(getUrl() + generateParametersString(getParams()));
 				postRequest.setEntity(new StringEntity(body, "UTF-8"));
 				executeRequest(postRequest);
 				break;
 			case PUT:
-				HttpPut putRequest = new HttpPut(getUrl());
+				HttpPut putRequest = new HttpPut(getUrl() + generateParametersString(getParams()));
 				putRequest.setEntity(new StringEntity(body, "UTF-8"));
 				executeRequest(putRequest);
 				break;
@@ -43,7 +42,6 @@ public class StringBodyRestClient extends BaseRestClient {
 				throw new RuntimeException(
 						"RequestMethod not supported, Only POST and PUT can contain body");
 			}
-			
 		} catch (UnsupportedEncodingException e) {
 			ALog.w(TAG, "", e);
 			throw new HttpException(e);

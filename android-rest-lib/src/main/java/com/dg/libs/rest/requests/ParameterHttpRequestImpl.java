@@ -24,17 +24,12 @@ public abstract class ParameterHttpRequestImpl<T> extends BaseHttpRequestImpl<T>
     }
 
     @Override
-    protected void prepareAndExecuteRequest() throws HttpException {
+    protected void prepareRequest() throws HttpException {
         prepareParams();
-        client.execute();
     }
 
     @Override
     public Rest getClient() {
         return client;
-    }
-
-    public void addParam(final String key, final String value) {
-        client.addParam(key, value);
     }
 }

@@ -15,81 +15,89 @@ import com.dg.libs.rest.parsers.HttpResponseParser;
 
 public abstract class BaseHttpRequestImpl<T> implements HttpRequest {
 
-    public static final String TAG = BaseHttpRequestImpl.class.getSimpleName();
+	public static final String TAG = BaseHttpRequestImpl.class.getSimpleName();
 
-    private final Context context;
+	private final Context context;
 
-    private final HttpResponseParser<T> parser;
-    private ResponseHandler<T> handler;
-    private final HttpCallback<T> callback;
+	private final HttpResponseParser<T> parser;
+	private ResponseHandler<T> handler;
+	private final HttpCallback<T> callback;
 
-    public BaseHttpRequestImpl(final Context context, final HttpResponseParser<T> parser, final HttpCallback<T> callback) {
-        super();
-        this.parser = parser;
-        this.callback = callback;
-        this.context = context.getApplicationContext();
-    }
+	public BaseHttpRequestImpl(final Context context, final HttpResponseParser<T> parser, final HttpCallback<T> callback) {
+		super();
+		this.parser = parser;
+		this.callback = callback;
+		this.context = context.getApplicationContext();
+	}
 
-    public abstract Rest getClient();
+	public abstract Rest getClient();
 
-    public Context getContext() {
-        return context;
-    }
+	public Context getContext() {
+		return context;
+	}
 
-    protected HttpCallback<T> getCallback() {
-        return callback;
-    }
+	protected HttpCallback<T> getCallback() {
+		return callback;
+	}
 
-    public void setHandler(ResponseHandler<T> handler) {
-        this.handler = handler;
-    }
+	public void addParam(final String key, final String value) {
+		getClient().addParam(key, value);
+	}
 
-    protected HttpResponseParser<T> getParser() {
-        return parser;
-    }
+	public void addHeader(final String key, final String value) {
+		getClient().addHeader(key, value);
+	}
 
-    protected void runRequest(final String url) {
+	public void setHandler(ResponseHandler<T> handler) {
+		this.handler = handler;
+	}
 
-        if (handler == null) {
-            handler = new UIThreadResponseHandler<T>(callback);
-        }
+	protected HttpResponseParser<T> getParser() {
+		return parser;
+	}
 
-        final Rest client = getClient();
-        try {
-            client.setUrl(url);
-            prepareAndExecuteRequest();
-            // Execute the HTTP request
-        } catch (final Exception e) {
-            ResponseStatus responseStatus = ResponseStatus.getConnectionErrorStatus();
-            ALog.d(TAG, responseStatus.toString(), e);
-            handler.handleError(responseStatus);
-            return;
-        }
+	protected void runRequest(final String url) {
 
-        final ResponseStatus status = client.getResponseStatus();
-        ALog.d(TAG, status.toString());
-        if (status.getStatusCode() < 200 || status.getStatusCode() >= 300) {
-            handler.handleError(status);
-            return;
-        }
+		if (handler == null) {
+			handler = new UIThreadResponseHandler<T>(callback);
+		}
 
-        try {
-            final T responseData = parser.parse(client.getResponse());
-            handler.handleSuccess(responseData);
-        } catch (final Exception e) {
-            ResponseStatus responseStatus = ResponseStatus.getParseErrorStatus();
-            ALog.d(TAG, responseStatus.toString(), e);
-            handler.handleError(responseStatus);
-        }
+		final Rest client = getClient();
+		try {
+			client.setUrl(url);
+			prepareRequest();
+			client.execute();
+		} catch (final Exception e) {
+			ResponseStatus responseStatus = ResponseStatus.getConnectionErrorStatus();
+			ALog.d(TAG, responseStatus.toString(), e);
+			handler.handleError(responseStatus);
+			return;
+		}
 
-    }
+		final ResponseStatus status = client.getResponseStatus();
+		ALog.d(TAG, status.toString());
+		if (status.getStatusCode() < 200 || status.getStatusCode() >= 300) {
+			handler.handleError(status);
+			return;
+		}
 
-    @Override
-    public void executeAsync() {
-        HttpRequestStore.getInstance(context).launchServiceIntent(this);
-    }
+		try {
+			final T responseData = parser.parse(client.getResponse());
+			handler.handleSuccess(responseData);
+		} catch (final Exception e) {
+			ResponseStatus responseStatus = ResponseStatus.getParseErrorStatus();
+			ALog.d(TAG, responseStatus.toString(), e);
+			handler.handleError(responseStatus);
+		}
 
-    protected abstract void prepareAndExecuteRequest() throws HttpException;
+	}
 
-    protected abstract void prepareParams();
+	@Override
+	public void executeAsync() {
+		HttpRequestStore.getInstance(context).launchServiceIntent(this);
+	}
+
+	protected abstract void prepareRequest() throws HttpException;
+
+	protected abstract void prepareParams();
 }

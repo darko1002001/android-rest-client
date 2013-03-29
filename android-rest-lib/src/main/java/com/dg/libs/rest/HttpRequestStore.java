@@ -1,13 +1,10 @@
 ﻿package com.dg.libs.rest;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 
 import com.dg.libs.rest.domain.RequestOptions;
@@ -79,10 +76,8 @@ public class HttpRequestStore {
 
     public Integer launchServiceIntent(final HttpRequest block, RequestOptions options) {
         if (executorServiceClass == null) {
-            throw new RuntimeException("Initialize the Executor service class in a class extending application");
-        }
-        if (isServiceAvailable() == false) {
-            throw new RuntimeException("Declare the " + executorServiceClass.getSimpleName() + " in your manifest");
+            throw new RuntimeException(
+                    "Initialize the Executor service class in a class extending application");
         }
         final Intent service = new Intent(context, executorServiceClass);
         final RequestWrapper wrapper = new RequestWrapper(block, options);
@@ -90,17 +85,6 @@ public class HttpRequestStore {
         service.putExtra(KEY_ID, requestId);
         context.startService(service);
         return requestId;
-    }
-
-    public boolean isServiceAvailable() {
-        final PackageManager packageManager = context.getPackageManager();
-        final Intent intent = new Intent(context, executorServiceClass);
-        final List<ResolveInfo> resolveInfo = packageManager.queryIntentServices(intent,
-                PackageManager.MATCH_DEFAULT_ONLY);
-        if (resolveInfo.size() > 0) {
-            return true;
-        }
-        return false;
     }
 
 }
