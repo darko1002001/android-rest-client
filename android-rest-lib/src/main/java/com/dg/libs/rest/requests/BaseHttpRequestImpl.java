@@ -9,7 +9,9 @@ import com.dg.libs.rest.callbacks.HttpCallback;
 import com.dg.libs.rest.client.Rest;
 import com.dg.libs.rest.domain.ResponseStatus;
 import com.dg.libs.rest.exceptions.HttpException;
+import com.dg.libs.rest.handlers.DefaultResponseStatusHandler;
 import com.dg.libs.rest.handlers.ResponseHandler;
+import com.dg.libs.rest.handlers.ResponseStatusHandler;
 import com.dg.libs.rest.handlers.UIThreadResponseHandler;
 import com.dg.libs.rest.parsers.HttpResponseParser;
 
@@ -21,6 +23,7 @@ public abstract class BaseHttpRequestImpl<T> implements HttpRequest {
 
 	private final HttpResponseParser<T> parser;
 	private ResponseHandler<T> handler;
+	private ResponseStatusHandler statusHandler;
 	private final HttpCallback<T> callback;
 
 	public BaseHttpRequestImpl(final Context context, final HttpResponseParser<T> parser, final HttpCallback<T> callback) {
@@ -48,8 +51,27 @@ public abstract class BaseHttpRequestImpl<T> implements HttpRequest {
 		getClient().addHeader(key, value);
 	}
 
-	public void setHandler(ResponseHandler<T> handler) {
+	/**
+	 * Set a custom handler that will be triggered when the response returns
+	 * either Success or Fail. You can choose where this info is sent.
+	 * **Default** is the UIThreadREsponseHandler implementation which runs the
+	 * appropriate callback on the UI thread.
+	 * 
+	 * @param handler
+	 */
+	public void setResponseHandler(ResponseHandler<T> handler) {
 		this.handler = handler;
+	}
+
+	/**
+	 * By default success is a code in the range of 2xx. Everything else triggers
+	 * an Error. You can set a handler which will take into account your own
+	 * custom error codes to determine if the response is a success or fail.
+	 * 
+	 * @param statusHandler
+	 */
+	public void setStatusHandler(ResponseStatusHandler statusHandler) {
+		this.statusHandler = statusHandler;
 	}
 
 	protected HttpResponseParser<T> getParser() {
@@ -60,6 +82,9 @@ public abstract class BaseHttpRequestImpl<T> implements HttpRequest {
 
 		if (handler == null) {
 			handler = new UIThreadResponseHandler<T>(callback);
+		}
+		if (statusHandler == null) {
+			statusHandler = new DefaultResponseStatusHandler();
 		}
 
 		final Rest client = getClient();
@@ -76,13 +101,13 @@ public abstract class BaseHttpRequestImpl<T> implements HttpRequest {
 
 		final ResponseStatus status = client.getResponseStatus();
 		ALog.d(TAG, status.toString());
-		if (status.getStatusCode() < 200 || status.getStatusCode() >= 300) {
+		if (statusHandler.hasErrorInStatus(status)) {
 			handler.handleError(status);
 			return;
 		}
-
 		try {
 			final T responseData = parser.parse(client.getResponse());
+			client.closeStream();
 			handler.handleSuccess(responseData);
 		} catch (final Exception e) {
 			ResponseStatus responseStatus = ResponseStatus.getParseErrorStatus();
@@ -99,5 +124,10 @@ public abstract class BaseHttpRequestImpl<T> implements HttpRequest {
 
 	protected abstract void prepareRequest() throws HttpException;
 
+	/**
+	 * Use this method to add the required data to the request. This will happen
+	 * in the background thread which enables you to pre-process the parameters,
+	 * do queries etc..
+	 */
 	protected abstract void prepareParams();
 }

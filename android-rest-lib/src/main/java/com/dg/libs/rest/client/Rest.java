@@ -1,6 +1,7 @@
 package com.dg.libs.rest.client;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import org.apache.http.NameValuePair;
@@ -13,37 +14,40 @@ import com.dg.libs.rest.exceptions.HttpException;
 
 public interface Rest {
 
-    public abstract int getConnectionTimeout();
+	public abstract int getConnectionTimeout();
 
-    public abstract void setUrl(final String url);
+	public abstract void setUrl(final String url);
 
-    public abstract String getUrl();
+	public abstract String getUrl();
 
-    public abstract void setConnectionTimeout(final int connectionTimeout);
+	public abstract void setConnectionTimeout(final int connectionTimeout);
 
-    public abstract int getSocketTimeout();
+	public abstract int getSocketTimeout();
 
-    public abstract void setSocketTimeout(final int socketTimeout);
+	public abstract void setSocketTimeout(final int socketTimeout);
 
-    public abstract void setAuthentication(final AuthenticationProvider authProvider);
+	public abstract void setAuthentication(final AuthenticationProvider authProvider);
 
-    public abstract String getResponse();
+	public abstract InputStream getResponse();
 
-    public abstract ArrayList<NameValuePair> getHeaders();
+	public abstract ArrayList<NameValuePair> getHeaders();
 
-    public abstract ArrayList<NameValuePair> getParams();
+	public abstract ArrayList<NameValuePair> getParams();
 
-    public abstract void addHeader(final String name, final String value);
+	public abstract void addHeader(final String name, final String value);
 
-    public abstract void addParam(final String name, final String value);
-    
-    public void setRequestMethod(RequestMethod requestMethod);
-    public RequestMethod getRequestMethod();
+	public abstract void addParam(final String name, final String value);
 
-    public abstract void executeRequest(final HttpUriRequest request) throws IOException;
+	public void setRequestMethod(RequestMethod requestMethod);
 
-    public void execute() throws HttpException;
+	public RequestMethod getRequestMethod();
 
-    public abstract ResponseStatus getResponseStatus();
+	public abstract void executeRequest(final HttpUriRequest request) throws IOException;
+
+	public void execute() throws HttpException;
+
+	public void closeStream();
+
+	public abstract ResponseStatus getResponseStatus();
 
 }

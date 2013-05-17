@@ -19,7 +19,6 @@ public class HttpRequestStore {
     public static final String TAG = HttpRequestStore.class.getSimpleName();
 
     public static final String KEY_ID = "id";
-    public static final String IS_SUCCESSFUL = "isSuccessful";
 
     private static final HashMap<Integer, RequestWrapper> map = new HashMap<Integer, RequestWrapper>();
 
