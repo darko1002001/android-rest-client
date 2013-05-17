@@ -1,0 +1,35 @@
+package com.dg.examples.restclientdemo.communication.requests;
+
+import android.content.Context;
+
+import com.dg.libs.rest.callbacks.HttpCallback;
+import com.dg.libs.rest.client.BaseRestClient.RequestMethod;
+import com.dg.libs.rest.parsers.HttpResponseParser;
+import com.dg.libs.rest.requests.StringBodyHttpRequestImpl;
+
+public class StringBodyRequest extends StringBodyHttpRequestImpl<String> {
+
+	public StringBodyRequest(Context context,  HttpResponseParser<String> parser,
+			HttpCallback<String> callback) {
+		super(context, RequestMethod.POST /* Or can be RequestMethod.PUT*/, parser, callback);
+	}
+
+	@Override
+	public void execute() {
+		runRequest("Some URL goes here");
+	}
+
+	@Override
+	public String bodyContents() {
+		// Return the string you want to send in the body
+		return "This is the string i want to set as a body";
+	}
+
+	@Override
+	protected void prepareParams() {
+		// Same as the regular parameter request
+		addParam("key", "value");
+		addHeader("key", "value");
+	}
+
+}
