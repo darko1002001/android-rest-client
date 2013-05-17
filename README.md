@@ -79,3 +79,14 @@ Two callback methods are created each executing by default in the Android UI Thr
 
 
 
+# Changelog:
+
+## Release 1.1.0
+   Reworked the HttpRequestParser to return an InputStream instead of a String.
+   Use StringResponseParser (extend or use directly) to get the input stream into a String
+   
+   
+# TODO
+
+Add File POST and PUT body requests that will enable the user to upload files.
+Add File Parser which will convert the response stream to file
