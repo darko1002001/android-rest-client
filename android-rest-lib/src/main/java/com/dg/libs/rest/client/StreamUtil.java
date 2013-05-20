@@ -1,6 +1,5 @@
 package com.dg.libs.rest.client;
 
-import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import com.dg.libs.rest.domain.RequestOptions;
 import com.dg.libs.rest.domain.RequestWrapper;
 import com.dg.libs.rest.services.HTTPRequestExecutorService;
+import com.squareup.okhttp.OkHttpClient;
 
 /**
  * @author Darko.Grozdanovski

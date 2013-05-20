@@ -14,18 +14,10 @@ import com.dg.libs.rest.exceptions.HttpException;
 
 public interface Rest {
 
-	public abstract int getConnectionTimeout();
-
 	public abstract void setUrl(final String url);
 
 	public abstract String getUrl();
-
-	public abstract void setConnectionTimeout(final int connectionTimeout);
-
-	public abstract int getSocketTimeout();
-
-	public abstract void setSocketTimeout(final int socketTimeout);
-
+	
 	public abstract void setAuthentication(final AuthenticationProvider authProvider);
 
 	public abstract InputStream getResponse();

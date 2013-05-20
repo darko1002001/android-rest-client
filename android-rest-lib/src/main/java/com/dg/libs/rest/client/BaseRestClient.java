@@ -10,12 +10,9 @@ import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
 
 import android.text.TextUtils;
 
@@ -33,7 +30,7 @@ public abstract class BaseRestClient implements Rest {
 
 	private static final String TAG = ParametersRestClient.class.getSimpleName();
 
-	private static DefaultHttpClient client;
+	private static HttpClient client;
 	private RequestMethod requestMethod = RequestMethod.GET;
 
 	private final ArrayList<NameValuePair> headers;
@@ -44,20 +41,12 @@ public abstract class BaseRestClient implements Rest {
 	ResponseStatus responseStatus = new ResponseStatus();
 	private InputStream responseStream;
 
-	int connectionTimeout = 8000;
-	int socketTimeout = 12000;
-
 	private AuthenticationProvider authProvider;
 	private static AuthenticationProvider authenticationProvider;
 
 	public BaseRestClient() {
 		headers = new ArrayList<NameValuePair>();
 		params = new ArrayList<NameValuePair>();
-	}
-
-	@Override
-	public int getConnectionTimeout() {
-		return connectionTimeout;
 	}
 
 	@Override
@@ -68,21 +57,6 @@ public abstract class BaseRestClient implements Rest {
 	@Override
 	public String getUrl() {
 		return url;
-	}
-
-	@Override
-	public void setConnectionTimeout(final int connectionTimeout) {
-		this.connectionTimeout = connectionTimeout;
-	}
-
-	@Override
-	public int getSocketTimeout() {
-		return socketTimeout;
-	}
-
-	@Override
-	public void setSocketTimeout(final int socketTimeout) {
-		this.socketTimeout = socketTimeout;
 	}
 
 	@Override
@@ -158,15 +132,6 @@ public abstract class BaseRestClient implements Rest {
 		for (NameValuePair h : getHeaders()) {
 			request.addHeader(h.getName(), h.getValue());
 		}
-
-		final HttpParams httpParameters = new BasicHttpParams();
-		// Set the timeout in milliseconds until a connection is established.
-		HttpConnectionParams.setConnectionTimeout(httpParameters, connectionTimeout);
-		// Set the default socket timeout (SO_TIMEOUT)
-		// in milliseconds which is the timeout for waiting for data.
-		HttpConnectionParams.setSoTimeout(httpParameters, socketTimeout);
-
-		getClient().setParams(httpParameters);
 		HttpResponse httpResponse;
 		try {
 
@@ -194,9 +159,9 @@ public abstract class BaseRestClient implements Rest {
 		IOUtils.closeQuietly(responseStream);
 	}
 
-	public static DefaultHttpClient getClient() {
+	public static HttpClient getClient() {
 		if (client == null) {
-			client = StreamUtil.generateClient();
+			client = new ExtendedOkApacheClient();
 		}
 		return client;
 	}
