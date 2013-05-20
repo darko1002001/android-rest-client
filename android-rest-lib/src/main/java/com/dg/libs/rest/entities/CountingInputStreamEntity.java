@@ -7,52 +7,53 @@ import java.io.OutputStream;
 import org.apache.http.entity.InputStreamEntity;
 
 public class CountingInputStreamEntity extends InputStreamEntity {
+	public interface UploadListener {
 
-    private UploadListener listener;
+		public void onChange(long current);
+	}
 
-    public CountingInputStreamEntity(final InputStream instream, final long length) {
-        super(instream, length);
-    }
+	private UploadListener listener;
 
-    public void setUploadListener(final UploadListener listener) {
-        this.listener = listener;
-    }
+	public CountingInputStreamEntity(final InputStream instream, final long length) {
+		super(instream, length);
+	}
 
-    @Override
-    public void writeTo(final OutputStream outstream) throws IOException {
-        super.writeTo(new CountingOutputStream(outstream));
-    }
+	public void setUploadListener(final UploadListener listener) {
+		this.listener = listener;
+	}
 
-    class CountingOutputStream extends OutputStream {
+	@Override
+	public void writeTo(final OutputStream outstream) throws IOException {
+		super.writeTo(new CountingOutputStream(outstream));
+	}
 
-        private long counter = 0l;
-        private final OutputStream outputStream;
+	class CountingOutputStream extends OutputStream {
 
-        public CountingOutputStream(final OutputStream outputStream) {
-            this.outputStream = outputStream;
-        }
+		private long counter = 0l;
+		private final OutputStream outputStream;
 
-        @Override
-        public void write(final byte[] buffer, final int offset, final int count) throws IOException {
-            this.outputStream.write(buffer, offset, count);
-            this.counter += count;
-            listener.onChange(counter);
-        }
+		public CountingOutputStream(final OutputStream outputStream) {
+			this.outputStream = outputStream;
+		}
 
-        @Override
-        public void write(final int oneByte) throws IOException {
-            this.outputStream.write(oneByte);
-            counter++;
-            if (listener != null) {
-                // int percent = (int) ((counter * 100) / length);
-                listener.onChange(counter);
-            }
-        }
-    }
+		@Override
+		public void write(final byte[] buffer, final int offset, final int count) throws IOException {
+			this.outputStream.write(buffer, offset, count);
+			this.counter += count;
+			if(listener!=null) {
+				listener.onChange(counter);
+			}
+		}
 
-    public interface UploadListener {
-
-        public void onChange(long current);
-    }
+		@Override
+		public void write(final int oneByte) throws IOException {
+			this.outputStream.write(oneByte);
+			counter++;
+			if (listener != null) {
+				// int percent = (int) ((counter * 100) / length);
+				listener.onChange(counter);
+			}
+		}
+	}
 
 }
