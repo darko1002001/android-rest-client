@@ -8,7 +8,6 @@ import com.dg.libs.rest.HttpRequestStore;
 import com.dg.libs.rest.callbacks.HttpCallback;
 import com.dg.libs.rest.client.Rest;
 import com.dg.libs.rest.domain.ResponseStatus;
-import com.dg.libs.rest.exceptions.HttpException;
 import com.dg.libs.rest.handlers.DefaultResponseStatusHandler;
 import com.dg.libs.rest.handlers.ResponseHandler;
 import com.dg.libs.rest.handlers.ResponseStatusHandler;
@@ -50,6 +49,15 @@ public abstract class BaseHttpRequestImpl<T> implements HttpRequest {
 	public void addHeader(final String key, final String value) {
 		getClient().addHeader(key, value);
 	}
+	
+	@Override
+	public void execute() {
+		doBeforeRunRequestInBackgroundThread();
+		runRequest(getUrl());
+		doAfterRunRequestInBackgroundThread();
+	}
+
+	protected abstract String getUrl();
 
 	/**
 	 * Set a custom handler that will be triggered when the response returns
@@ -90,7 +98,6 @@ public abstract class BaseHttpRequestImpl<T> implements HttpRequest {
 		final Rest client = getClient();
 		try {
 			client.setUrl(url);
-			prepareRequest();
 			client.execute();
 		} catch (final Exception e) {
 			ResponseStatus responseStatus = ResponseStatus.getConnectionErrorStatus();
@@ -122,12 +129,19 @@ public abstract class BaseHttpRequestImpl<T> implements HttpRequest {
 		HttpRequestStore.getInstance(context).launchServiceIntent(this);
 	}
 
-	protected abstract void prepareRequest() throws HttpException;
-
 	/**
 	 * Use this method to add the required data to the request. This will happen
 	 * in the background thread which enables you to pre-process the parameters,
 	 * do queries etc..
 	 */
-	protected abstract void prepareParams();
+	protected void doBeforeRunRequestInBackgroundThread() {
+	}
+	
+	/**
+	 * This will happen
+	 * in the background thread which enables you to do some cleanup in the background after the request finishes
+	 */
+	protected void doAfterRunRequestInBackgroundThread() {
+		
+	}
 }

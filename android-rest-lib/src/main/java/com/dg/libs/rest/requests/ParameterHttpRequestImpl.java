@@ -6,7 +6,6 @@ import com.dg.libs.rest.callbacks.HttpCallback;
 import com.dg.libs.rest.client.BaseRestClient.RequestMethod;
 import com.dg.libs.rest.client.ParametersRestClient;
 import com.dg.libs.rest.client.Rest;
-import com.dg.libs.rest.exceptions.HttpException;
 import com.dg.libs.rest.parsers.HttpResponseParser;
 
 public abstract class ParameterHttpRequestImpl<T> extends BaseHttpRequestImpl<T> {
@@ -21,11 +20,6 @@ public abstract class ParameterHttpRequestImpl<T> extends BaseHttpRequestImpl<T>
         super(context, parser, callback);
         client = new ParametersRestClient();
         client.setRequestMethod(requestMethod);
-    }
-
-    @Override
-    protected void prepareRequest() throws HttpException {
-        prepareParams();
     }
 
     @Override

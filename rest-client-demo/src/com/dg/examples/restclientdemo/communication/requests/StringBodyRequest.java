@@ -12,11 +12,8 @@ public class StringBodyRequest extends StringBodyHttpRequestImpl<String> {
 	public StringBodyRequest(Context context,  HttpResponseParser<String> parser,
 			HttpCallback<String> callback) {
 		super(context, RequestMethod.POST /* Or can be RequestMethod.PUT*/, parser, callback);
-	}
-
-	@Override
-	public void execute() {
-		runRequest("Some URL goes here");
+		addParam("key", "value");
+		addHeader("key", "value");
 	}
 
 	@Override
@@ -26,10 +23,9 @@ public class StringBodyRequest extends StringBodyHttpRequestImpl<String> {
 	}
 
 	@Override
-	protected void prepareParams() {
-		// Same as the regular parameter request
-		addParam("key", "value");
-		addHeader("key", "value");
+	protected String getUrl() {
+		// TODO Auto-generated method stub
+		return "The URL you want to open connection to";
 	}
 
 }

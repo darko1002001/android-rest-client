@@ -11,23 +11,20 @@ import com.dg.libs.rest.requests.ParameterHttpRequestImpl;
 
 public class UsersTwitterRequest extends ParameterHttpRequestImpl<UserModel> {
 
-    private final String screenName;
 
     public UsersTwitterRequest(Context context, String screenName, HttpCallback<UserModel> callback) {
         super(context, RequestMethod.GET, new UsersTwitterParser(), callback);
-        this.screenName = screenName;
+        addParam("screen_name", screenName);
+        addParam("include_entities", "" + true);
     }
 
     public static final String TAG = UsersTwitterRequest.class.getSimpleName();
 
-    @Override
-    public void execute() {
-        runRequest(RestConstants.TWITTER_USERS);
-    }
 
-    @Override
-    protected void prepareParams() {
-        addParam("screen_name", screenName);
-        addParam("include_entities", "" + true);
-    }
+	@Override
+	protected String getUrl() {
+		return RestConstants.TWITTER_USERS;
+	}
+
+    
 }

@@ -3,25 +3,25 @@ package com.dg.libs.rest.client;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
-import org.apache.http.entity.StringEntity;
 
 import com.dg.libs.android.logger.ALog;
 import com.dg.libs.rest.exceptions.HttpException;
 
-public class StringBodyRestClient extends BaseRestClient {
+public class EntityBodyRestClient extends BaseRestClient {
 
-	public static final String TAG = StringBodyRestClient.class.getSimpleName();
-	private String body;
+	public static final String TAG = EntityBodyRestClient.class.getSimpleName();
+	private HttpEntity entity;
 
-
-	public StringBodyRestClient() {
+	public EntityBodyRestClient() {
 		super();
 	}
 
-	public void setBody(final String body) {
-		this.body = body;
+	public void setEntity(HttpEntity entity) {
+		this.entity = entity;
+
 	}
 
 	@Override
@@ -30,17 +30,17 @@ public class StringBodyRestClient extends BaseRestClient {
 			switch (getRequestMethod()) {
 			case POST:
 				HttpPost postRequest = new HttpPost(getUrl() + generateParametersString(getParams()));
-				postRequest.setEntity(new StringEntity(body, "UTF-8"));
+				postRequest.setEntity(entity);
 				executeRequest(postRequest);
 				break;
 			case PUT:
+
 				HttpPut putRequest = new HttpPut(getUrl() + generateParametersString(getParams()));
-				putRequest.setEntity(new StringEntity(body, "UTF-8"));
+				putRequest.setEntity(entity);
 				executeRequest(putRequest);
 				break;
 			default:
-				throw new RuntimeException(
-						"RequestMethod not supported, Only POST and PUT can contain body");
+				throw new RuntimeException("RequestMethod not supported, Only POST and PUT can contain body");
 			}
 		} catch (UnsupportedEncodingException e) {
 			ALog.w(TAG, "", e);
@@ -50,7 +50,5 @@ public class StringBodyRestClient extends BaseRestClient {
 			throw new HttpException(e);
 		}
 	}
-
-	
 
 }

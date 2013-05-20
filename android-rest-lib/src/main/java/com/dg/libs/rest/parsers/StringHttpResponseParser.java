@@ -3,7 +3,6 @@ package com.dg.libs.rest.parsers;
 import java.io.InputStream;
 
 import com.dg.libs.rest.client.StreamUtil;
-import com.dg.libs.rest.entities.UnicodeBOMInputStream;
 
 /**
  * The {@link HttpResponseParser} interface has the responsibility to parse
