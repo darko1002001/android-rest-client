@@ -6,6 +6,22 @@ android-rest-client
 A simple rest API client library
 
 
+used libraries
+================
+
+Uses OKHTTP from square
+https://github.com/square/okhttp
+
+Uses Jackson from FasterXML to parse JSON responses
+https://github.com/FasterXML/jackson
+
+jackson-core
+jackson-annotations
+jackson-databind
+
+
+
+
 Overview
 ================
 
@@ -31,6 +47,12 @@ Look at the demo project for details.
 1. Import the lib project into your workspace and add it as a library project
 2. Look into the library project manifest and copy the definitions
 3. Define a Class extending application and init the Authorization class
+
+
+## Adding just the JAR files
+
+The library can be added inside /libs as a JAR. The dependencies include a version of Jackson for parsing JSON requests. you can use the regular jar
+and add your own parsers if the responses aren't JSON or you want to use a different library for parsing them.
 
 ## Manifest Declarations
 
@@ -78,15 +100,34 @@ Look at the demo project for details.
 Two callback methods are created each executing by default in the Android UI Thread so you don't have to implement the logic for switching back to UI from another thread.
 
 
+## SDK that uses This library:
+      
+Chute
+https://github.com/chute/Chute-SDK/tree/master/Android
+
+
+
+## Use of Authentication Provider
+
+Look at the demo project to see how the Authentication Provider can be set. Use this if you need to define a custom logic
+(Parameters and/or headers that will be appended on each request). You can also specify a provider for individual requests.
+
 
 # Changelog:
+
+## Release 1.3.0
+
+   Added Entity body requests which are now the base class for the String body request.
+   Opens options to add FileEntity body which enables you to upload streams from files.
+   File Requests also include a progress listener which you can set if you want to track the progress.
+   Added File Parser which save the response stream to a specified file location.
 
 ## Release 1.1.0
    Reworked the HttpRequestParser to return an InputStream instead of a String.
    Use StringResponseParser (extend or use directly) to get the input stream into a String
    
+
    
 # TODO
 
-Add File POST and PUT body requests that will enable the user to upload files.
-Add File Parser which will convert the response stream to file
+Split the Jackson support inside a new library so the HTTP library is cleaner. convert to parent/child maven project.
