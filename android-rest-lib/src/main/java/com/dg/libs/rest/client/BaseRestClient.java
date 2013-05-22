@@ -121,7 +121,6 @@ public abstract class BaseRestClient implements Rest {
 			authenticationProvider.authenticateRequest(this);
 			return;
 		}
-		TokenAuthenticationProvider.getInstance().authenticateRequest(this);
 	}
 
 	@Override
