@@ -41,6 +41,9 @@ Usage:
 
 Look at the demo project for details.
 
+Also this demo sample project
+https://github.com/darko1002001/sync-notes-android
+
 
 ## Steps to setup the library
 
