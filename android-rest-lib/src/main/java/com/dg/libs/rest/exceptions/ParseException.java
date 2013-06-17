@@ -1,4 +1,4 @@
-﻿package com.dg.libs.rest.exceptions;
+package com.dg.libs.rest.exceptions;
 
 public class ParseException extends HttpException {
 

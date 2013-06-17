@@ -2,7 +2,7 @@ package com.dg.libs.rest.requests;
 
 import android.content.Context;
 
-import com.dg.libs.android.logger.ALog;
+import com.araneaapps.android.libs.logger.ALog;
 import com.dg.libs.rest.HttpRequest;
 import com.dg.libs.rest.HttpRequestStore;
 import com.dg.libs.rest.callbacks.HttpCallback;

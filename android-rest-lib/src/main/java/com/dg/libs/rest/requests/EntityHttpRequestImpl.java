@@ -1,14 +1,14 @@
 package com.dg.libs.rest.requests;
 
-import org.apache.http.HttpEntity;
-
 import android.content.Context;
 
 import com.dg.libs.rest.callbacks.HttpCallback;
 import com.dg.libs.rest.client.BaseRestClient.RequestMethod;
-import com.dg.libs.rest.client.Rest;
 import com.dg.libs.rest.client.EntityBodyRestClient;
+import com.dg.libs.rest.client.Rest;
 import com.dg.libs.rest.parsers.HttpResponseParser;
+
+import org.apache.http.HttpEntity;
 
 public abstract class EntityHttpRequestImpl<T> extends BaseHttpRequestImpl<T> {
 

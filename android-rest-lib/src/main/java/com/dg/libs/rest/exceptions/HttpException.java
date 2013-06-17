@@ -1,4 +1,4 @@
-﻿package com.dg.libs.rest.exceptions;
+package com.dg.libs.rest.exceptions;
 
 /**
  * usually represents a general error for the whole api call, if you need to know if the parsing

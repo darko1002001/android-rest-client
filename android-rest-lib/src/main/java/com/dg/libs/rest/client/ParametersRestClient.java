@@ -1,4 +1,4 @@
-﻿package com.dg.libs.rest.client;
+package com.dg.libs.rest.client;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -9,8 +9,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.protocol.HTTP;
+import com.araneaapps.android.libs.logger.ALog;
 
-import com.dg.libs.android.logger.ALog;
 import com.dg.libs.rest.exceptions.HttpException;
 
 /**

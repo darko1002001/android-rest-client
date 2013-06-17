@@ -7,7 +7,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 
-import com.dg.libs.android.logger.ALog;
+import com.araneaapps.android.libs.logger.ALog;
 import com.dg.libs.rest.exceptions.HttpException;
 
 public class EntityBodyRestClient extends BaseRestClient {

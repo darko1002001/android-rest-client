@@ -1,4 +1,4 @@
-﻿package com.dg.libs.rest.callbacks;
+package com.dg.libs.rest.callbacks;
 
 import com.dg.libs.rest.domain.ResponseStatus;
 

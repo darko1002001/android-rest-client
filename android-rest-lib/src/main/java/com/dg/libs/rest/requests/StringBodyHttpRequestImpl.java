@@ -1,16 +1,16 @@
 package com.dg.libs.rest.requests;
 
-import java.io.UnsupportedEncodingException;
+import android.content.Context;
+
+import com.araneaapps.android.libs.logger.ALog;
+import com.dg.libs.rest.callbacks.HttpCallback;
+import com.dg.libs.rest.client.BaseRestClient.RequestMethod;
+import com.dg.libs.rest.parsers.HttpResponseParser;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.StringEntity;
 
-import android.content.Context;
-
-import com.dg.libs.android.logger.ALog;
-import com.dg.libs.rest.callbacks.HttpCallback;
-import com.dg.libs.rest.client.BaseRestClient.RequestMethod;
-import com.dg.libs.rest.parsers.HttpResponseParser;
+import java.io.UnsupportedEncodingException;
 
 public abstract class StringBodyHttpRequestImpl<T> extends EntityHttpRequestImpl<T> {
 

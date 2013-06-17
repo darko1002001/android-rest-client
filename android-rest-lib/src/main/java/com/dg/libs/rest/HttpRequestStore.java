@@ -1,4 +1,4 @@
-﻿package com.dg.libs.rest;
+package com.dg.libs.rest;
 
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;

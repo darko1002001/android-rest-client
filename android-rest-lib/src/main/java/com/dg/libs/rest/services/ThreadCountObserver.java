@@ -3,9 +3,9 @@
  */
 package com.dg.libs.rest.services;
 
-import java.util.LinkedList;
+import com.araneaapps.android.libs.logger.ALog;
 
-import com.dg.libs.android.logger.ALog;
+import java.util.LinkedList;
 
 /** @author darko.grozdanovski */
 public abstract class ThreadCountObserver {

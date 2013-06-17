@@ -1,4 +1,4 @@
-﻿package com.dg.libs.rest;
+package com.dg.libs.rest;
 
 /**
  * @author darko.grozdanovski The {@link HttpRequest} interface has the

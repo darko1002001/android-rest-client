@@ -3,15 +3,15 @@
  */
 package com.dg.libs.rest.services;
 
-import java.util.concurrent.TimeUnit;
-
 import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
 
-import com.dg.libs.android.logger.ALog;
+import com.araneaapps.android.libs.logger.ALog;
 import com.dg.libs.rest.HttpRequest;
 import com.dg.libs.rest.domain.DownloadPriority;
+
+import java.util.concurrent.TimeUnit;
 
 /** @author darko.grozdanovski */
 public abstract class BaseObservableThreadPoolServiceService extends BaseThreadPoolService {

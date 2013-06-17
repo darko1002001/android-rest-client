@@ -1,4 +1,4 @@
-﻿package com.dg.libs.rest.parsers;
+package com.dg.libs.rest.parsers;
 
 import java.io.InputStream;
 
