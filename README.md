@@ -106,7 +106,7 @@ Two callback methods are created each executing by default in the Android UI Thr
 ## SDK that uses This library:
       
 Chute
-https://github.com/chute/Chute-SDK/tree/master/Android
+https://github.com/chute/Chute-SDK-V2-Android
 
 
 
