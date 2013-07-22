@@ -23,6 +23,7 @@
     <module>rest-demo</module>
   </modules>
 
+  
   <scm>
     <url>https://github.com/darko1002001/android-rest-client/</url>
     <connection>scm:git:git@github.com:darko1002001/android-rest-client.git</connection>
@@ -40,7 +41,7 @@
     <developers>
         <developer>
             <name>Darko Grozdanovski</name>
-            <email>darkogrozdanovski@gmail.com</email>
+            <email>darko@aranea-apps.com</email>
             <id>darko1002001</id>
             <roles>
                 <role>developer</role>

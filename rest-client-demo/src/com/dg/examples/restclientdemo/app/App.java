@@ -2,8 +2,8 @@ package com.dg.examples.restclientdemo.app;
 
 import android.app.Application;
 
-import com.dg.libs.android.logger.ALog;
-import com.dg.libs.android.logger.ALog.DebugLevel;
+import com.araneaapps.android.libs.logger.ALog;
+import com.araneaapps.android.libs.logger.ALog.DebugLevel;
 import com.dg.libs.rest.authentication.TokenAuthenticationProvider;
 
 public class App extends Application {
