@@ -5,7 +5,8 @@ public class RestConstants {
 
     public static final String TAG = RestConstants.class.getSimpleName();
 
-    public static final String BASE_URL = "https://api.twitter.com";
+    public static final String BASE_URL = "https://ajax.googleapis.com";
 
-    public static final String TWITTER_USERS = BASE_URL + "/1/users/show.json";
+    public static final String GOOGLE_BLOGS = BASE_URL + "/ajax/services/feed/find";
 }
+

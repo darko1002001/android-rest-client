@@ -11,7 +11,7 @@
 
     <groupId>com.aranea-apps.android.libs</groupId>
 	<artifactId>android-rest</artifactId>
-	<version>1.3.2-SNAPSHOT</version>
+	<version>1.3.3-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>android-rest-lib</name>
 	<description>This is a library for android for Making RestFul Requests</description>

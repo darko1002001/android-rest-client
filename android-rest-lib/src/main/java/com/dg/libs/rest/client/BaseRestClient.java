@@ -144,7 +144,6 @@ public abstract class BaseRestClient implements Rest {
 				UnicodeBOMInputStream unicodeBOMInputStream = new UnicodeBOMInputStream(entity.getContent());
 				unicodeBOMInputStream.skipBOM();
 				responseStream = unicodeBOMInputStream;
-				ALog.d(TAG, "URL: " + request.getURI().toString());
 			}
 		} catch (final IOException e) {
 			closeStream();

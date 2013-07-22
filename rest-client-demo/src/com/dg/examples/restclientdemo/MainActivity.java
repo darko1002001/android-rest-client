@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dg.examples.restclientdemo.communication.TwitterService;
-import com.dg.examples.restclientdemo.domain.UserModel;
+import com.dg.examples.restclientdemo.communication.GoogleService;
+import com.dg.examples.restclientdemo.domain.ResponseModel;
 import com.dg.libs.rest.callbacks.HttpCallback;
 import com.dg.libs.rest.domain.ResponseStatus;
 
@@ -22,14 +22,14 @@ public class MainActivity extends Activity {
 
         textViewResponse = (TextView) findViewById(R.id.textViewResponse);
 
-        TwitterService.getUsersTwitterRequest(getApplicationContext(), "android", new HttpCallbackImplementation())
+        GoogleService.getGoogleBlogsRequest(getApplicationContext(), "Official Google Blogs", new GoogleBlogsCallback())
         .executeAsync();
     }
 
-    private final class HttpCallbackImplementation implements HttpCallback<UserModel> {
+    private final class GoogleBlogsCallback implements HttpCallback<ResponseModel> {
 
         @Override
-        public void onSuccess(UserModel responseData) {
+        public void onSuccess(ResponseModel responseData) {
             textViewResponse.setText(responseData.toString());
         }
 
