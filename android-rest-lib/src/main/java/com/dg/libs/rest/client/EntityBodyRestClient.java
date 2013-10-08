@@ -26,6 +26,7 @@ public class EntityBodyRestClient extends BaseRestClient {
 
   @Override
   public void execute() throws HttpException {
+    super.execute();
     try {
       switch (getRequestMethod()) {
       case POST:

@@ -19,6 +19,7 @@ import android.text.TextUtils;
 import com.dg.libs.rest.authentication.AuthenticationProvider;
 import com.dg.libs.rest.domain.ResponseStatus;
 import com.dg.libs.rest.entities.UnicodeBOMInputStream;
+import com.dg.libs.rest.exceptions.HttpException;
 
 public abstract class BaseRestClient implements Rest {
 
@@ -127,6 +128,11 @@ public abstract class BaseRestClient implements Rest {
   public static void setDefaultAuthenticationProvider(AuthenticationProvider provider) {
     BaseRestClient.authenticationProvider = provider;
   }
+  
+  @Override
+  public void execute() throws HttpException {
+    authenticateRequest();
+  }
 
   private void authenticateRequest() {
     if (authProvider != null) {
@@ -141,8 +147,6 @@ public abstract class BaseRestClient implements Rest {
 
   @Override
   public void executeRequest(final HttpUriRequest request) throws IOException {
-    authenticateRequest();
-
     // add headers
     for (NameValuePair h : getHeaders()) {
       request.addHeader(h.getName(), h.getValue());

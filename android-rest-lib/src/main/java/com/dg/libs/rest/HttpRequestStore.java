@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.araneaapps.android.libs.logger.ALog;
 import com.dg.libs.rest.domain.RequestOptions;
 import com.dg.libs.rest.domain.RequestWrapper;
 import com.dg.libs.rest.services.HTTPRequestExecutorService;
@@ -57,6 +58,7 @@ public class HttpRequestStore {
   }
 
   public RequestWrapper getRequest(final Integer id) {
+    ALog.d("Request with id: " + id + " pulled");
     return map.remove(id);
   }
 
