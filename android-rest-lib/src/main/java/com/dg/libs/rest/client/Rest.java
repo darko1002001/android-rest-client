@@ -14,32 +14,36 @@ import com.dg.libs.rest.exceptions.HttpException;
 
 public interface Rest {
 
-	public abstract void setUrl(final String url);
+  public abstract void setUrl(final String url);
 
-	public abstract String getUrl();
-	
-	public abstract void setAuthentication(final AuthenticationProvider authProvider);
+  public abstract String getUrl();
 
-	public abstract InputStream getResponse();
+  public abstract void setAuthentication(final AuthenticationProvider authProvider);
 
-	public abstract ArrayList<NameValuePair> getHeaders();
+  public abstract InputStream getResponse();
 
-	public abstract ArrayList<NameValuePair> getParams();
+  public abstract ArrayList<NameValuePair> getHeaders();
 
-	public abstract void addHeader(final String name, final String value);
+  public abstract ArrayList<NameValuePair> getParams();
 
-	public abstract void addParam(final String name, final String value);
+  public abstract void addHeader(final String name, final String value);
 
-	public void setRequestMethod(RequestMethod requestMethod);
+  public abstract void addParam(final String name, final String value);
 
-	public RequestMethod getRequestMethod();
+  public void setRequestMethod(RequestMethod requestMethod);
 
-	public abstract void executeRequest(final HttpUriRequest request) throws IOException;
+  public RequestMethod getRequestMethod();
 
-	public void execute() throws HttpException;
+  public abstract void executeRequest(final HttpUriRequest request) throws IOException;
 
-	public void closeStream();
+  public void execute() throws HttpException;
 
-	public abstract ResponseStatus getResponseStatus();
+  public void closeStream();
 
+  public abstract ResponseStatus getResponseStatus();
+
+  public void setConnectionTimeout(int timeout);
+
+  public void setSocketTimeout(int timeout);
+  
 }

@@ -4,5 +4,5 @@ import com.dg.libs.rest.client.BaseRestClient;
 
 public interface AuthenticationProvider {
 
-    public void authenticateRequest(BaseRestClient client);
+  public void authenticateRequest(BaseRestClient client);
 }

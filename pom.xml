@@ -70,7 +70,7 @@
 		<android.sdk.platform>16</android.sdk.platform>
 
 		<github.downloads.repositoryOwner>darko1002001</github.downloads.repositoryOwner>
-		<github.downloads.repositoryName>android-logger</github.downloads.repositoryName>
+		<github.downloads.repositoryName>android-rest-client</github.downloads.repositoryName>
 	</properties>
 	<dependencies>
 		<dependency>

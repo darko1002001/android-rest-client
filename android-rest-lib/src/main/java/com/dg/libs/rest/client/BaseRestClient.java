@@ -1,11 +1,10 @@
 package com.dg.libs.rest.client;
 
-import android.text.TextUtils;
-
-import com.araneaapps.android.libs.logger.ALog;
-import com.dg.libs.rest.authentication.AuthenticationProvider;
-import com.dg.libs.rest.domain.ResponseStatus;
-import com.dg.libs.rest.entities.UnicodeBOMInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
@@ -15,170 +14,193 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.message.BasicNameValuePair;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.ArrayList;
+import android.text.TextUtils;
+
+import com.dg.libs.rest.authentication.AuthenticationProvider;
+import com.dg.libs.rest.domain.ResponseStatus;
+import com.dg.libs.rest.entities.UnicodeBOMInputStream;
 
 public abstract class BaseRestClient implements Rest {
 
-	public enum RequestMethod {
-		GET, POST, PUT, DELETE
-	}
+  public enum RequestMethod {
+    GET, POST, PUT, DELETE
+  }
 
-	private static final String TAG = ParametersRestClient.class.getSimpleName();
+  private static final String TAG = ParametersRestClient.class.getSimpleName();
 
-	private static HttpClient client;
-	private RequestMethod requestMethod = RequestMethod.GET;
+  private static HttpClient defaultClient;
+  private ExtendedOkApacheClient client;
 
-	private final ArrayList<NameValuePair> headers;
-	private final ArrayList<NameValuePair> params;
+  private RequestMethod requestMethod = RequestMethod.GET;
 
-	private String url;
+  private final ArrayList<NameValuePair> headers;
+  private final ArrayList<NameValuePair> params;
 
-	ResponseStatus responseStatus = new ResponseStatus();
-	private InputStream responseStream;
+  private String url;
 
-	private AuthenticationProvider authProvider;
-	private static AuthenticationProvider authenticationProvider;
+  ResponseStatus responseStatus = new ResponseStatus();
+  private InputStream responseStream;
 
-	public BaseRestClient() {
-		headers = new ArrayList<NameValuePair>();
-		params = new ArrayList<NameValuePair>();
-	}
+  private AuthenticationProvider authProvider;
+  private static AuthenticationProvider authenticationProvider;
 
-	@Override
-	public void setUrl(final String url) {
-		this.url = url;
-	}
+  public BaseRestClient() {
+    headers = new ArrayList<NameValuePair>();
+    params = new ArrayList<NameValuePair>();
+  }
 
-	@Override
-	public String getUrl() {
-		return url;
-	}
+  @Override
+  public void setUrl(final String url) {
+    this.url = url;
+  }
 
-	@Override
-	public InputStream getResponse() {
-		return responseStream;
-	}
+  @Override
+  public String getUrl() {
+    return url;
+  }
 
-	@Override
-	public ResponseStatus getResponseStatus() {
-		return responseStatus;
-	}
+  @Override
+  public InputStream getResponse() {
+    return responseStream;
+  }
 
-	@Override
-	public ArrayList<NameValuePair> getHeaders() {
-		return headers;
-	}
+  @Override
+  public ResponseStatus getResponseStatus() {
+    return responseStatus;
+  }
 
-	@Override
-	public ArrayList<NameValuePair> getParams() {
-		return params;
-	}
+  @Override
+  public ArrayList<NameValuePair> getHeaders() {
+    return headers;
+  }
 
-	@Override
-	public void addHeader(final String name, final String value) {
-		if (TextUtils.isEmpty(value) == false) {
-			headers.add(new BasicNameValuePair(name, value));
-		}
-	}
+  @Override
+  public ArrayList<NameValuePair> getParams() {
+    return params;
+  }
 
-	@Override
-	public void addParam(final String name, final String value) {
-		if (TextUtils.isEmpty(value) == false) {
-			params.add(new BasicNameValuePair(name, value));
-		}
-	}
+  @Override
+  public void setConnectionTimeout(int timeout) {
+    if (client == null) {
+      client = new ExtendedOkApacheClient();
+    }
+    client.setConnectionTimeout(timeout);
+  }
 
-	@Override
-	public void setAuthentication(AuthenticationProvider authProvider) {
-		this.authProvider = authProvider;
-	}
+  @Override
+  public void setSocketTimeout(int timeout) {
+    if (client == null) {
+      client = new ExtendedOkApacheClient();
+    }
+    client.setSocketTimeout(timeout);
+  }
 
-	@Override
-	public void setRequestMethod(RequestMethod requestMethod) {
-		this.requestMethod = requestMethod;
-	}
+  @Override
+  public void addHeader(final String name, final String value) {
+    if (TextUtils.isEmpty(value) == false) {
+      headers.add(new BasicNameValuePair(name, value));
+    }
+  }
 
-	@Override
-	public RequestMethod getRequestMethod() {
-		return requestMethod;
-	}
+  @Override
+  public void addParam(final String name, final String value) {
+    if (TextUtils.isEmpty(value) == false) {
+      params.add(new BasicNameValuePair(name, value));
+    }
+  }
 
-	public static void setDefaultAuthenticationProvider(AuthenticationProvider provider) {
-		BaseRestClient.authenticationProvider = provider;
-	}
+  @Override
+  public void setAuthentication(AuthenticationProvider authProvider) {
+    this.authProvider = authProvider;
+  }
 
-	private void authenticateRequest() {
-		if (authProvider != null) {
-			authProvider.authenticateRequest(this);
-			return;
-		}
-		if (authenticationProvider != null) {
-			authenticationProvider.authenticateRequest(this);
-			return;
-		}
-	}
+  @Override
+  public void setRequestMethod(RequestMethod requestMethod) {
+    this.requestMethod = requestMethod;
+  }
 
-	@Override
-	public void executeRequest(final HttpUriRequest request) throws IOException {
-		authenticateRequest();
+  @Override
+  public RequestMethod getRequestMethod() {
+    return requestMethod;
+  }
 
-		// add headers
-		for (NameValuePair h : getHeaders()) {
-			request.addHeader(h.getName(), h.getValue());
-		}
-		HttpResponse httpResponse;
-		try {
+  public static void setDefaultAuthenticationProvider(AuthenticationProvider provider) {
+    BaseRestClient.authenticationProvider = provider;
+  }
 
-			httpResponse = getClient().execute(request);
+  private void authenticateRequest() {
+    if (authProvider != null) {
+      authProvider.authenticateRequest(this);
+      return;
+    }
+    if (authenticationProvider != null) {
+      authenticationProvider.authenticateRequest(this);
+      return;
+    }
+  }
 
-			responseStatus.setStatusCode(httpResponse.getStatusLine().getStatusCode());
-			responseStatus.setStatusMessage(httpResponse.getStatusLine().getReasonPhrase());
+  @Override
+  public void executeRequest(final HttpUriRequest request) throws IOException {
+    authenticateRequest();
 
-			final HttpEntity entity = httpResponse.getEntity();
+    // add headers
+    for (NameValuePair h : getHeaders()) {
+      request.addHeader(h.getName(), h.getValue());
+    }
+    HttpResponse httpResponse;
+    try {
 
-			if (entity != null) {
-				UnicodeBOMInputStream unicodeBOMInputStream = new UnicodeBOMInputStream(entity.getContent());
-				unicodeBOMInputStream.skipBOM();
-				responseStream = unicodeBOMInputStream;
-			}
-		} catch (final IOException e) {
-			closeStream();
-			throw e;
-		}
-	}
+      httpResponse = getClient().execute(request);
 
-	@Override
-	public void closeStream() {
-		IOUtils.closeQuietly(responseStream);
-	}
+      responseStatus.setStatusCode(httpResponse.getStatusLine().getStatusCode());
+      responseStatus.setStatusMessage(httpResponse.getStatusLine().getReasonPhrase());
 
-	public static HttpClient getClient() {
-		if (client == null) {
-			client = new ExtendedOkApacheClient();
-		}
-		return client;
-	}
+      final HttpEntity entity = httpResponse.getEntity();
 
-	public static String generateParametersString(final ArrayList<NameValuePair> params)
-			throws UnsupportedEncodingException {
-		// add parameters
-		String combinedParams = "";
-		if (params != null && !params.isEmpty()) {
-			combinedParams += "?";
-			for (final NameValuePair p : params) {
-				final String paramString = p.getName() + "=" + URLEncoder.encode(p.getValue(), "UTF-8");
-				if (combinedParams.length() > 1) {
-					combinedParams += "&" + paramString;
-				} else {
-					combinedParams += paramString;
-				}
-			}
-		}
-		return combinedParams;
-	}
+      if (entity != null) {
+        UnicodeBOMInputStream unicodeBOMInputStream = new UnicodeBOMInputStream(
+            entity.getContent());
+        unicodeBOMInputStream.skipBOM();
+        responseStream = unicodeBOMInputStream;
+      }
+    } catch (final IOException e) {
+      closeStream();
+      throw e;
+    }
+  }
+
+  @Override
+  public void closeStream() {
+    IOUtils.closeQuietly(responseStream);
+  }
+
+  public HttpClient getClient() {
+    if (client != null) {
+      return client;
+    }
+    if (defaultClient == null) {
+      defaultClient = new ExtendedOkApacheClient();
+    }
+    return defaultClient;
+  }
+
+  public static String generateParametersString(final ArrayList<NameValuePair> params)
+      throws UnsupportedEncodingException {
+    // add parameters
+    String combinedParams = "";
+    if (params != null && !params.isEmpty()) {
+      combinedParams += "?";
+      for (final NameValuePair p : params) {
+        final String paramString = p.getName() + "="
+            + URLEncoder.encode(p.getValue(), "UTF-8");
+        if (combinedParams.length() > 1) {
+          combinedParams += "&" + paramString;
+        } else {
+          combinedParams += paramString;
+        }
+      }
+    }
+    return combinedParams;
+  }
 
 }

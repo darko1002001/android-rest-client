@@ -5,9 +5,9 @@ import com.dg.libs.rest.domain.ResponseStatus;
 
 public interface ResponseHandler<T> {
 
-    public HttpCallback<T> getCallback();
+  public HttpCallback<T> getCallback();
 
-    public void handleSuccess(final T responseData);
+  public void handleSuccess(final T responseData);
 
-    public void handleError(final ResponseStatus status);
+  public void handleError(final ResponseStatus status);
 }

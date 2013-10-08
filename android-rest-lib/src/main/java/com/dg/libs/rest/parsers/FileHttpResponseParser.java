@@ -8,18 +8,18 @@ import org.apache.commons.io.IOUtils;
 
 public abstract class FileHttpResponseParser implements HttpResponseParser<File> {
 
-	private File outputFile;
-	
-	public FileHttpResponseParser(File outputFile) {
-		super();
-		this.outputFile = outputFile;
-	}
+  private File outputFile;
 
-	@Override
-	public File parse(final InputStream responseStream) throws Exception {
-		FileOutputStream outputStream = new FileOutputStream(outputFile);
-		IOUtils.copy(responseStream, outputStream);
-		return outputFile;
-	}
+  public FileHttpResponseParser(File outputFile) {
+    super();
+    this.outputFile = outputFile;
+  }
+
+  @Override
+  public File parse(final InputStream responseStream) throws Exception {
+    FileOutputStream outputStream = new FileOutputStream(outputFile);
+    IOUtils.copy(responseStream, outputStream);
+    return outputFile;
+  }
 
 }

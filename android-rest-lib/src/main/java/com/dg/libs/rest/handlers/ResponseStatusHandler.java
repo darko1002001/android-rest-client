@@ -4,6 +4,6 @@ import com.dg.libs.rest.domain.ResponseStatus;
 
 public interface ResponseStatusHandler {
 
-	public boolean hasErrorInStatus(ResponseStatus status);
+  public boolean hasErrorInStatus(ResponseStatus status);
 
 }

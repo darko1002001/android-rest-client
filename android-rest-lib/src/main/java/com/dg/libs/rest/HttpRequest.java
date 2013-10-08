@@ -8,16 +8,16 @@ package com.dg.libs.rest;
  */
 public interface HttpRequest {
 
-    /**
-     * This method runs asynchronously in the same thread as the application and
-     * launches a service for further server communication.
-     */
-    public void executeAsync();
+  /**
+   * This method runs asynchronously in the same thread as the application and
+   * launches a service for further server communication.
+   */
+  public void executeAsync();
 
-    /**
-     * This method runs in a different thread and executes the request for the
-     * server.
-     */
-    public abstract void execute();
+  /**
+   * This method runs in a different thread and executes the request for the
+   * server.
+   */
+  public abstract void execute();
 
 }

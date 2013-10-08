@@ -1,5 +1,11 @@
 package com.dg.libs.rest.requests;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+
+import org.apache.http.HttpEntity;
+
 import android.content.Context;
 
 import com.araneaapps.android.libs.logger.ALog;
@@ -9,39 +15,34 @@ import com.dg.libs.rest.entities.CountingInputStreamEntity;
 import com.dg.libs.rest.entities.CountingInputStreamEntity.UploadListener;
 import com.dg.libs.rest.parsers.HttpResponseParser;
 
-import org.apache.http.HttpEntity;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-
 public abstract class FileBodyHttpRequestImpl<T> extends EntityHttpRequestImpl<T> {
 
-	public static final String TAG = FileBodyHttpRequestImpl.class.getSimpleName();
-	private UploadListener listener;
+  public static final String TAG = FileBodyHttpRequestImpl.class.getSimpleName();
+  private UploadListener listener;
 
-	public FileBodyHttpRequestImpl(final Context context, RequestMethod requestMethod,
-			final HttpResponseParser<T> parser, final HttpCallback<T> callback) {
-		super(context, requestMethod, parser, callback);
-	}
+  public FileBodyHttpRequestImpl(final Context context, RequestMethod requestMethod,
+      final HttpResponseParser<T> parser, final HttpCallback<T> callback) {
+    super(context, requestMethod, parser, callback);
+  }
 
-	public abstract File fileToSend();
-	
-	public void setListener(UploadListener listener) {
-		this.listener = listener;
-	}
+  public abstract File fileToSend();
 
-	@Override
-	public HttpEntity getEntity() {
-		try {
-			File file = fileToSend();
-			FileInputStream fileInputStream = new FileInputStream(file);
-			CountingInputStreamEntity countingInputStreamEntity = new CountingInputStreamEntity(fileInputStream, file.length());
-			countingInputStreamEntity.setUploadListener(listener);
-			return countingInputStreamEntity;
-		} catch (IOException e) {
-			ALog.e(e);
-		}
-		return null;
-	}
+  public void setListener(UploadListener listener) {
+    this.listener = listener;
+  }
+
+  @Override
+  public HttpEntity getEntity() {
+    try {
+      File file = fileToSend();
+      FileInputStream fileInputStream = new FileInputStream(file);
+      CountingInputStreamEntity countingInputStreamEntity = new CountingInputStreamEntity(
+          fileInputStream, file.length());
+      countingInputStreamEntity.setUploadListener(listener);
+      return countingInputStreamEntity;
+    } catch (IOException e) {
+      ALog.e(e);
+    }
+    return null;
+  }
 }
