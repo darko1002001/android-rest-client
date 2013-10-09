@@ -118,6 +118,11 @@ Look at the demo project to see how the Authentication Provider can be set. Use 
 
 # Changelog:
 
+## Release 1.3.5
+
+  Fix issue with add param with token provider
+  Added socket timeout and connection timeout setters by calling `getClient().set...` inside any of the request classes. 
+
 ## Release 1.3.0
 
    Added Entity body requests which are now the base class for the String body request.
