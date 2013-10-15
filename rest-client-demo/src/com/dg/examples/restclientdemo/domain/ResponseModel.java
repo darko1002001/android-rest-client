@@ -2,6 +2,7 @@ package com.dg.examples.restclientdemo.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+
 public class ResponseModel {
 	// To learn how to configure this go here:
 	// http://wiki.fasterxml.com/JacksonInFiveMinutes

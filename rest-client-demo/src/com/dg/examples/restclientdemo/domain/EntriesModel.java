@@ -2,6 +2,7 @@ package com.dg.examples.restclientdemo.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+
 public class EntriesModel {
 
 	@JsonProperty

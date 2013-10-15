@@ -1,5 +1,6 @@
 package com.dg.examples.restclientdemo.communication;
 
+
 import android.content.Context;
 
 import com.dg.examples.restclientdemo.communication.requests.BlogsGoogleRequest;

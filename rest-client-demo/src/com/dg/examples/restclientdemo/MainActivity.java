@@ -10,6 +10,7 @@ import com.dg.examples.restclientdemo.domain.ResponseModel;
 import com.dg.libs.rest.callbacks.HttpCallback;
 import com.dg.libs.rest.domain.ResponseStatus;
 
+
 public class MainActivity extends Activity {
 
 
