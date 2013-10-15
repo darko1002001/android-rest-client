@@ -20,7 +20,7 @@
 
 	<modules>
 		<module>android-rest-lib</module>
-		<module>rest-client-demo</module>
+	<!-- 	<module>rest-client-demo</module> -->
 	</modules>
 
 
