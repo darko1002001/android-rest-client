@@ -35,12 +35,22 @@ public class HttpRequestStore {
 
   public static HttpRequestStore getInstance(final Context context) {
     if (instance == null) {
+      ALog.e("USE THE APPLICATION CLASS AND CALL HTTPRequestStore.init(context) to wire the singleton to the App Class loader");
       instance = new HttpRequestStore(context.getApplicationContext());
     }
     return instance;
   }
 
-  public static void init(final Class<?> executorServiceClass) {
+  /*
+   * Use this in the Application class to wire the singleton to the Application Classloader
+   */
+  public static void init(Context context){
+    if (instance == null) {
+      instance = new HttpRequestStore(context.getApplicationContext());
+    }
+  }
+  
+  public static void setExecutorClass(final Class<?> executorServiceClass) {
     HttpRequestStore.executorServiceClass = executorServiceClass;
   }
 
