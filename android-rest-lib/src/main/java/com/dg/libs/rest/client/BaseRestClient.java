@@ -16,6 +16,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 import android.text.TextUtils;
 
+import com.araneaapps.android.libs.logger.ALog;
 import com.dg.libs.rest.authentication.AuthenticationProvider;
 import com.dg.libs.rest.domain.ResponseStatus;
 import com.dg.libs.rest.entities.UnicodeBOMInputStream;
@@ -154,6 +155,7 @@ public abstract class BaseRestClient implements Rest {
     HttpResponse httpResponse;
     try {
 
+      ALog.d(request.getURI().toString());
       httpResponse = getClient().execute(request);
 
       responseStatus.setStatusCode(httpResponse.getStatusLine().getStatusCode());
