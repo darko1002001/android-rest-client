@@ -30,8 +30,8 @@ public abstract class BaseRestClient implements Rest {
 
   private static final String TAG = ParametersRestClient.class.getSimpleName();
 
-  private static HttpClient defaultClient;
-  private ExtendedOkApacheClient client;
+  private static ExtendedOkHttpClient defaultClient;
+  private ExtendedOkHttpClient client;
 
   private RequestMethod requestMethod = RequestMethod.GET;
 
@@ -84,7 +84,7 @@ public abstract class BaseRestClient implements Rest {
   @Override
   public void setConnectionTimeout(int timeout) {
     if (client == null) {
-      client = new ExtendedOkApacheClient();
+      client = new ExtendedOkHttpClient();
     }
     client.setConnectionTimeout(timeout);
   }
@@ -92,7 +92,7 @@ public abstract class BaseRestClient implements Rest {
   @Override
   public void setSocketTimeout(int timeout) {
     if (client == null) {
-      client = new ExtendedOkApacheClient();
+      client = new ExtendedOkHttpClient();
     }
     client.setSocketTimeout(timeout);
   }
@@ -180,12 +180,12 @@ public abstract class BaseRestClient implements Rest {
     IOUtils.closeQuietly(responseStream);
   }
 
-  public HttpClient getClient() {
+  public ExtendedOkHttpClient getClient() {
     if (client != null) {
       return client;
     }
     if (defaultClient == null) {
-      defaultClient = new ExtendedOkApacheClient();
+      defaultClient = new ExtendedOkHttpClient();
     }
     return defaultClient;
   }
