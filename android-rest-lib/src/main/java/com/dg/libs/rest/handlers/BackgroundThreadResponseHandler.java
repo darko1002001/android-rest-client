@@ -18,9 +18,9 @@ public class BackgroundThreadResponseHandler<T> implements ResponseHandler<T> {
   }
 
   @Override
-  public void handleSuccess(final T responseData) {
+  public void handleSuccess(final ResponseStatus responseCode, final T responseData) {
     if (callback != null) {
-      callback.onSuccess(responseData);
+      callback.onSuccess(responseCode, responseData);
     }
   }
 

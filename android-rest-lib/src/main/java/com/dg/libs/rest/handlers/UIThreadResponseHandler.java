@@ -20,13 +20,13 @@ public class UIThreadResponseHandler<T> extends BackgroundThreadResponseHandler<
   }
 
   @Override
-  public void handleSuccess(final T responseData) {
+  public void handleSuccess(final ResponseStatus responseCode, final T responseData) {
     handler.post(new Runnable() {
 
       @Override
       public void run() {
         if (callback != null) {
-          callback.onSuccess(responseData);
+          callback.onSuccess(responseCode, responseData);
         }
       }
     });

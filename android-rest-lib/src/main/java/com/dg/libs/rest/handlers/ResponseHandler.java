@@ -7,7 +7,7 @@ public interface ResponseHandler<T> {
 
   public HttpCallback<T> getCallback();
 
-  public void handleSuccess(final T responseData);
+  public void handleSuccess(final ResponseStatus responseCode, final T responseData);
 
   public void handleError(final ResponseStatus status);
 }
