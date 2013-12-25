@@ -10,7 +10,7 @@ public class UIThreadResponseHandler<T> extends BackgroundThreadResponseHandler<
     implements ResponseHandler<T> {
 
   public static final String TAG = UIThreadResponseHandler.class.getSimpleName();
-  private static Handler handler;
+  protected static Handler handler;
 
   public UIThreadResponseHandler(HttpCallback<T> callback) {
     super(callback);
