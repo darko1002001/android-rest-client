@@ -3,10 +3,10 @@ package com.dg.examples.restclientdemo.communication.requests;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
+import com.araneaapps.android.libs.asyncrunners.enums.DownloadPriority;
+import com.araneaapps.android.libs.asyncrunners.models.RequestOptions;
 import com.dg.libs.rest.callbacks.HttpCallback;
 import com.dg.libs.rest.client.BaseRestClient;
-import com.dg.libs.rest.domain.DownloadPriority;
-import com.dg.libs.rest.domain.RequestOptions;
 import com.dg.libs.rest.domain.ResponseStatus;
 import com.dg.libs.rest.handlers.UIThreadResponseHandler;
 import com.dg.libs.rest.parsers.HttpResponseParser;
@@ -36,9 +36,9 @@ public class CustomHandlersRequest extends ParameterHttpRequestImpl<Void> {
     // You can add custom request options for specific request. there is a queue running the requests so new requests coming in
     // will be sorted and executed according to priority if needed.
     // ex. you queue 50 downloads but you want the app to still run API get requests without waiting for everything else to finish first.
-    RequestOptions requestOptions = new RequestOptions();
-    requestOptions.setPriority(DownloadPriority.HIGH);
-    requestOptions.setRunInSingleThread(true);// defaults to false
+    RequestOptions requestOptions = new RequestOptions.RequestOptionsBuilder()
+        .setPriority(DownloadPriority.HIGH)
+        .setRunInSingleThread(true).build();
     setRequestOptions(requestOptions);
   }
 
@@ -47,7 +47,7 @@ public class CustomHandlersRequest extends ParameterHttpRequestImpl<Void> {
     // This method will also run in the background thread. Returning true means you have handled the request and this will be
     // the last piece of code which will be executed.
     // False means the execution will continue with the parser and then success if the request is parsed successfully.
-    if(status.getStatusCode() == 204) {
+    if (status.getStatusCode() == 204) {
 
       callback.onCustomResult(status);// careful this runs in Background thread.
 
@@ -124,7 +124,7 @@ public class CustomHandlersRequest extends ParameterHttpRequestImpl<Void> {
 
     }
 
-    public void onCustomResult(ResponseStatus status){
+    public void onCustomResult(ResponseStatus status) {
     }
   }
 }

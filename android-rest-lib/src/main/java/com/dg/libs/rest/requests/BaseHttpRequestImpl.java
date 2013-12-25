@@ -1,12 +1,12 @@
 package com.dg.libs.rest.requests;
 
 import android.content.Context;
+import com.araneaapps.android.libs.asyncrunners.models.RequestOptions;
+import com.araneaapps.android.libs.asyncrunners.models.TaskStore;
 import com.araneaapps.android.libs.logger.ALog;
 import com.dg.libs.rest.HttpRequest;
-import com.dg.libs.rest.HttpRequestStore;
 import com.dg.libs.rest.callbacks.HttpCallback;
 import com.dg.libs.rest.client.Rest;
-import com.dg.libs.rest.domain.RequestOptions;
 import com.dg.libs.rest.domain.ResponseStatus;
 import com.dg.libs.rest.handlers.DefaultResponseStatusHandler;
 import com.dg.libs.rest.handlers.ResponseHandler;
@@ -58,7 +58,7 @@ public abstract class BaseHttpRequestImpl<T> implements HttpRequest {
   }
 
   @Override
-  public void execute() {
+  public void run() {
     doBeforeRunRequestInBackgroundThread();
     runRequest(getUrl());
     doAfterRunRequestInBackgroundThread();
@@ -143,7 +143,7 @@ public abstract class BaseHttpRequestImpl<T> implements HttpRequest {
 
   @Override
   public void executeAsync() {
-    HttpRequestStore.getInstance(context).launchServiceIntent(this, getRequestOptions());
+    TaskStore.get(context).queue(this, getRequestOptions());
   }
 
   public RequestOptions getRequestOptions() {

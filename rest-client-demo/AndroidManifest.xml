@@ -23,7 +23,7 @@
       </intent-filter>
     </activity>
     
-    <service android:name="com.dg.libs.rest.services.HTTPRequestExecutorService" />
+    <service android:name="com.araneaapps.android.libs.asyncrunners.services.ExecutorService" />
     
   </application>
 

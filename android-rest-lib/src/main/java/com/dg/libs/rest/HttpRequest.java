@@ -6,18 +6,12 @@ package com.dg.libs.rest;
  *         for data exchange with the server behind the scenes. It contains
  *         methods that run in threads.
  */
-public interface HttpRequest {
+public interface HttpRequest extends Runnable{
 
   /**
    * This method runs asynchronously in the same thread as the application and
    * launches a service for further server communication.
    */
   public void executeAsync();
-
-  /**
-   * This method runs in a different thread and executes the request for the
-   * server.
-   */
-  public abstract void execute();
 
 }

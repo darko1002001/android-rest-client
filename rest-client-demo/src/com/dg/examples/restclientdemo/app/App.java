@@ -1,6 +1,7 @@
 package com.dg.examples.restclientdemo.app;
 
 import android.app.Application;
+import com.araneaapps.android.libs.asyncrunners.models.AsyncRunners;
 import com.araneaapps.android.libs.logger.ALog;
 import com.araneaapps.android.libs.logger.ALog.DebugLevel;
 import com.dg.libs.rest.authentication.AuthenticationProvider;
@@ -13,9 +14,8 @@ public class App extends Application {
   @Override
   public void onCreate() {
     super.onCreate();
-
     ALog.setDebugLevel(DebugLevel.ALL);
-
+    AsyncRunners.init(this);
     BaseRestClient.setDefaultAuthenticationProvider(new AuthenticationProvider() {
       @Override
       public void authenticateRequest(BaseRestClient client) {
