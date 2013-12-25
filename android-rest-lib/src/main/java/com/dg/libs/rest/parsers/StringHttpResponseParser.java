@@ -1,8 +1,8 @@
 package com.dg.libs.rest.parsers;
 
-import java.io.InputStream;
+import org.apache.commons.io.IOUtils;
 
-import com.dg.libs.rest.client.StreamUtil;
+import java.io.InputStream;
 
 /**
  * The {@link HttpResponseParser} interface has the responsibility to parse
@@ -28,7 +28,7 @@ public abstract class StringHttpResponseParser<T> implements HttpResponseParser<
    */
   @Override
   public T parse(final InputStream responseStream) throws Exception {
-    return parse(StreamUtil.convertStreamToString(responseStream));
+    return parse(IOUtils.toString(responseStream));
   }
 
   public abstract T parse(final String response) throws Exception;

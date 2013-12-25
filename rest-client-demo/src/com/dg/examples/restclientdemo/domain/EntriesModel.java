@@ -5,56 +5,55 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class EntriesModel {
 
-	@JsonProperty
-	private String url;
-	
-	@JsonProperty
-	private String title;
-	
-	@JsonProperty
-	private String contentSnippet;
-	
-	@JsonProperty
-	private String link;
+  @JsonProperty
+  private String url;
 
-	public String getUrl() {
-		return url;
-	}
+  @JsonProperty
+  private String title;
 
-	public void setUrl(String url) {
-		this.url = url;
-	}
+  @JsonProperty
+  private String contentSnippet;
 
-	public String getTitle() {
-		return title;
-	}
+  @JsonProperty
+  private String link;
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+  public String getUrl() {
+    return url;
+  }
 
-	public String getContentSnippet() {
-		return contentSnippet;
-	}
+  public void setUrl(String url) {
+    this.url = url;
+  }
 
-	public void setContentSnippet(String contentSnippet) {
-		this.contentSnippet = contentSnippet;
-	}
+  public String getTitle() {
+    return title;
+  }
 
-	public String getLink() {
-		return link;
-	}
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
-	public void setLink(String link) {
-		this.link = link;
-	}
+  public String getContentSnippet() {
+    return contentSnippet;
+  }
 
-	@Override
-	public String toString() {
-		return "EntriesModel [url=" + url + ", title=" + title
-				+ ", contentSnippet=" + contentSnippet + ", link=" + link + "]";
-	}
-	
-	
-	
+  public void setContentSnippet(String contentSnippet) {
+    this.contentSnippet = contentSnippet;
+  }
+
+  public String getLink() {
+    return link;
+  }
+
+  public void setLink(String link) {
+    this.link = link;
+  }
+
+  @Override
+  public String toString() {
+    return "EntriesModel [url=" + url + ", title=" + title
+        + ", contentSnippet=" + contentSnippet + ", link=" + link + "]";
+  }
+
+
 }

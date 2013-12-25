@@ -1,12 +1,12 @@
 package com.dg.libs.rest.requests;
 
 import android.content.Context;
-
 import com.araneaapps.android.libs.logger.ALog;
 import com.dg.libs.rest.HttpRequest;
 import com.dg.libs.rest.HttpRequestStore;
 import com.dg.libs.rest.callbacks.HttpCallback;
 import com.dg.libs.rest.client.Rest;
+import com.dg.libs.rest.domain.RequestOptions;
 import com.dg.libs.rest.domain.ResponseStatus;
 import com.dg.libs.rest.handlers.DefaultResponseStatusHandler;
 import com.dg.libs.rest.handlers.ResponseHandler;
@@ -25,8 +25,10 @@ public abstract class BaseHttpRequestImpl<T> implements HttpRequest {
   private ResponseStatusHandler statusHandler;
   private final HttpCallback<T> callback;
 
+  RequestOptions requestOptions = null;
+
   public BaseHttpRequestImpl(final Context context, final HttpResponseParser<T> parser,
-      final HttpCallback<T> callback) {
+                             final HttpCallback<T> callback) {
     super();
     this.parser = parser;
     this.callback = callback;
@@ -47,6 +49,10 @@ public abstract class BaseHttpRequestImpl<T> implements HttpRequest {
     getClient().addParam(key, value);
   }
 
+  public ResponseHandler<T> getHandler() {
+    return handler;
+  }
+
   public void addHeader(final String key, final String value) {
     getClient().addHeader(key, value);
   }
@@ -65,7 +71,7 @@ public abstract class BaseHttpRequestImpl<T> implements HttpRequest {
    * either Success or Fail. You can choose where this info is sent. **Default**
    * is the UIThreadREsponseHandler implementation which runs the appropriate
    * callback on the UI thread.
-   * 
+   *
    * @param handler
    */
   public void setResponseHandler(ResponseHandler<T> handler) {
@@ -76,7 +82,7 @@ public abstract class BaseHttpRequestImpl<T> implements HttpRequest {
    * By default success is a code in the range of 2xx. Everything else triggers
    * an Error. You can set a handler which will take into account your own
    * custom error codes to determine if the response is a success or fail.
-   * 
+   *
    * @param statusHandler
    */
   public void setStatusHandler(ResponseStatusHandler statusHandler) {
@@ -109,8 +115,7 @@ public abstract class BaseHttpRequestImpl<T> implements HttpRequest {
 
     final ResponseStatus status = client.getResponseStatus();
     ALog.d(TAG, status.toString());
-    if (statusHandler.hasErrorInStatus(status)) {
-      handler.handleError(status);
+    if (handleResponseStatus(status)) {
       return;
     }
     try {
@@ -125,9 +130,28 @@ public abstract class BaseHttpRequestImpl<T> implements HttpRequest {
 
   }
 
+  /**
+   * Return true if you have handled the status yourself.
+   * */
+  protected boolean handleResponseStatus(ResponseStatus status) {
+    if (statusHandler.hasErrorInStatus(status)) {
+      handler.handleError(status);
+      return true;
+    }
+    return false;
+  }
+
   @Override
   public void executeAsync() {
-    HttpRequestStore.getInstance(context).launchServiceIntent(this);
+    HttpRequestStore.getInstance(context).launchServiceIntent(this, getRequestOptions());
+  }
+
+  public RequestOptions getRequestOptions() {
+    return requestOptions;
+  }
+
+  public void setRequestOptions(RequestOptions requestOptions) {
+    this.requestOptions = requestOptions;
   }
 
   /**
