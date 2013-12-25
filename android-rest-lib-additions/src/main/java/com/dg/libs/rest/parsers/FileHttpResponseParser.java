@@ -1,10 +1,10 @@
 package com.dg.libs.rest.parsers;
 
+import org.apache.commons.io.IOUtils;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-
-import org.apache.commons.io.IOUtils;
 
 public abstract class FileHttpResponseParser implements HttpResponseParser<File> {
 

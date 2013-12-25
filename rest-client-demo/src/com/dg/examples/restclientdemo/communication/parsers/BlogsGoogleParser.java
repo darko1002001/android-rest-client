@@ -1,7 +1,6 @@
 package com.dg.examples.restclientdemo.communication.parsers;
 
 import com.dg.examples.restclientdemo.domain.ResponseModel;
-import com.dg.libs.rest.parsers.BaseJacksonMapperResponseParser;
 
 import java.io.InputStream;
 

@@ -8,10 +8,10 @@
 	</parent>
 
 
-	<artifactId>android-rest</artifactId>
+	<artifactId>android-rest-additions</artifactId>
 	<packaging>jar</packaging>
-	<name>android-rest-lib</name>
-	<description>This is a library for android for Making RestFul Requests</description>
+	<name>android-rest-lib-additions</name>
+	<description>The additional parsers and classes for rest-lib</description>
 	<licenses>
 		<license>
 			<name>The Apache Software License, Version 2.0</name>
@@ -19,32 +19,36 @@
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
+
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<dependencies>
+    <dependency>
+      <groupId>com.aranea-apps.android.libs</groupId>
+      <artifactId>android-rest</artifactId>
+      <version>${project.version}</version>
+    </dependency>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.3.0</version>
 		</dependency>
 		<dependency>
-			<groupId>com.google.android</groupId>
-			<artifactId>android</artifactId>
-			<version>2.2.1</version>
-			<scope>provided</scope>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.3.0</version>
 		</dependency>
 		<dependency>
-			<groupId>com.squareup.okhttp</groupId>
-			<artifactId>okhttp</artifactId>
-			<version>1.2.1</version>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.3.0</version>
 		</dependency>
 		<dependency>
-			<groupId>com.aranea-apps.android.libs</groupId>
-			<artifactId>android-logger</artifactId>
-			<version>1.0.10</version>
-			<type>jar</type>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.0.1</version>
 		</dependency>
 	</dependencies>
 	<build>

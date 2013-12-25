@@ -25,6 +25,11 @@
       <artifactId>android-rest</artifactId>
       <version>${project.version}</version>
     </dependency>
+    <dependency>
+      <groupId>com.aranea-apps.android.libs</groupId>
+      <artifactId>android-rest-additions</artifactId>
+      <version>${project.version}</version>
+    </dependency>
   </dependencies>
   <build>
     <finalName>${project.artifactId}</finalName>

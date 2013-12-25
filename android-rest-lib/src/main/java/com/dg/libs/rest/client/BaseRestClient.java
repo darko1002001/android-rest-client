@@ -1,26 +1,22 @@
 package com.dg.libs.rest.client;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-
-import org.apache.commons.io.IOUtils;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.message.BasicNameValuePair;
-
 import android.text.TextUtils;
-
 import com.araneaapps.android.libs.logger.ALog;
 import com.dg.libs.rest.authentication.AuthenticationProvider;
 import com.dg.libs.rest.domain.ResponseStatus;
 import com.dg.libs.rest.entities.UnicodeBOMInputStream;
 import com.dg.libs.rest.exceptions.HttpException;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 
 public abstract class BaseRestClient implements Rest {
 
@@ -129,7 +125,7 @@ public abstract class BaseRestClient implements Rest {
   public static void setDefaultAuthenticationProvider(AuthenticationProvider provider) {
     BaseRestClient.authenticationProvider = provider;
   }
-  
+
   @Override
   public void execute() throws HttpException {
     authenticateRequest();
@@ -177,7 +173,13 @@ public abstract class BaseRestClient implements Rest {
 
   @Override
   public void closeStream() {
-    IOUtils.closeQuietly(responseStream);
+    try {
+      if (responseStream != null) {
+        responseStream.close();
+      }
+    } catch (IOException e) {
+    }
+
   }
 
   public ExtendedOkHttpClient getClient() {
