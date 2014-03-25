@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.aranea-apps.android.demo</groupId>
   <artifactId>rest-client-demo</artifactId>
-  <version>1.5.0</version>
+  <version>1.5.1-SNAPSHOT</version>
 
   <packaging>apk</packaging>
   <name>Rest Client Demo</name>
@@ -10,7 +10,7 @@
   <parent>
     <groupId>com.aranea-apps.android.libs</groupId>
     <artifactId>parent</artifactId>
-    <version>1.5.0</version>
+    <version>1.5.1-SNAPSHOT</version>
   </parent>
 
   <dependencies>
