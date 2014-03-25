@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" version="4">
+<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_6" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
@@ -14,6 +14,7 @@
     <orderEntry type="library" name="Maven: com.squareup.okhttp:okhttp:1.2.1" level="project" />
     <orderEntry type="library" name="Maven: com.squareup.okhttp:okhttp-protocols:1.2.1" level="project" />
     <orderEntry type="library" name="Maven: com.aranea-apps.android.libs:android-logger:1.0.10" level="project" />
+    <orderEntry type="library" name="Maven: com.aranea-apps.android.libs:android-async-runners:1.0.0" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.3.0" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.3.0" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.3.0" level="project" />

@@ -9,16 +9,33 @@ A simple rest API client library
 used libraries
 ================
 
-Uses OKHTTP from square
+Main Rest client uses OKHTTP from square
 https://github.com/square/okhttp
 
-Uses Jackson from FasterXML to parse JSON responses
-https://github.com/FasterXML/jackson
+to provide HTTP layer compatibility across android OS versions and manufacturers
 
-jackson-core
-jackson-annotations
-jackson-databind
+Additions library uses:
 
+    <dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.0.1</version>
+		</dependency>
 
 
 
@@ -64,8 +81,7 @@ and add your own parsers if the responses aren't JSON or you want to use a diffe
       <uses-sdk android:minSdkVersion="14" />
     
       <application>
-        <service android:name="com.dg.libs.rest.services.HTTPRequestExecutorService" >
-        </service>
+      <service android:name="com.araneaapps.android.libs.asyncrunners.services.ExecutorService"></service>
       </application>
 
 
@@ -117,6 +133,14 @@ Look at the demo project to see how the Authentication Provider can be set. Use 
 
 
 # Changelog:
+
+## Release 1.4.0
+
+  Created a new project additions which now has some helper libraries and classes such as Jackson JSON parser, IOUtils from apache etc...
+  Moved the async part (Service with executors) of the library to a new more general project on github not specific to just HTTP.
+  HttpRequestStore.init(context) is now replaced with AsyncRunners.init(context) which will provide a wrapping layer around the code that should be initialized in the App class
+  HttpRequest now extends Runnable interface
+  Added the option to override a handleStatus method in BaseHttpRequestImpl to be able to do custom result handing based on the status (see demo for sample)
 
 ## Release 1.3.5
 

@@ -45,7 +45,7 @@
     <orderEntry type="library" name="Maven: com.squareup.okhttp:okhttp-protocols:1.2.1" level="project" />
     <orderEntry type="library" name="Maven: com.aranea-apps.android.libs:android-logger:1.0.10" level="project" />
     <orderEntry type="library" name="Maven: com.aranea-apps.android.libs:android-async-runners:1.0.0" level="project" />
-    <orderEntry type="module" module-name="android-rest-additions" />
+    <orderEntry type="module" module-name="android-rest-lib-additions" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.3.0" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.3.0" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.3.0" level="project" />
