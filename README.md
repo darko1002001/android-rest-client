@@ -134,6 +134,12 @@ Look at the demo project to see how the Authentication Provider can be set. Use 
 
 # Changelog:
 
+## Release 1.6.0
+
+### Breaking changes
+
+  Added response status to success callback implementation
+
 ## Release 1.4.0
 
   Created a new project additions which now has some helper libraries and classes such as Jackson JSON parser, IOUtils from apache etc...

@@ -2,7 +2,6 @@ package com.dg.libs.rest.handlers;
 
 import android.os.Handler;
 import android.os.Looper;
-
 import com.dg.libs.rest.callbacks.HttpCallback;
 import com.dg.libs.rest.domain.ResponseStatus;
 
@@ -20,13 +19,13 @@ public class UIThreadResponseHandler<T> extends BackgroundThreadResponseHandler<
   }
 
   @Override
-  public void handleSuccess(final T responseData) {
+  public void handleSuccess(final T responseData, final ResponseStatus status) {
     handler.post(new Runnable() {
 
       @Override
       public void run() {
         if (callback != null) {
-          callback.onSuccess(responseData);
+          callback.onSuccess(responseData, status);
         }
       }
     });

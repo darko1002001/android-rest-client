@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public abstract class BaseRestClient implements Rest {
 
   public enum RequestMethod {
-    GET, POST, PUT, DELETE
+    GET, POST, PUT, PATCH, DELETE;
   }
 
   private static final String TAG = ParametersRestClient.class.getSimpleName();

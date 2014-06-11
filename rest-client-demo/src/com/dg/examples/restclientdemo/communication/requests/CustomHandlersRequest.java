@@ -115,8 +115,10 @@ public class CustomHandlersRequest extends ParameterHttpRequestImpl<Void> {
   }
 
   private static class VoidHttpCallback implements HttpCallback<Void> {
+
     @Override
-    public void onSuccess(Void responseData) {
+    public void onSuccess(Void responseData, ResponseStatus responseStatus) {
+
     }
 
     @Override

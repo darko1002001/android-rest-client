@@ -1,8 +1,8 @@
 package com.dg.libs.rest.client;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-
+import com.araneaapps.android.libs.logger.ALog;
+import com.dg.libs.rest.entities.HttpPatch;
+import com.dg.libs.rest.exceptions.HttpException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
@@ -10,8 +10,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.protocol.HTTP;
 
-import com.araneaapps.android.libs.logger.ALog;
-import com.dg.libs.rest.exceptions.HttpException;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 /**
  * @author darko grozdanovski
@@ -45,6 +45,14 @@ public class ParametersRestClient extends BaseRestClient {
       }
       case PUT: {
         final HttpPut request = new HttpPut(getUrl());
+        if (!getParams().isEmpty()) {
+          request.setEntity(new UrlEncodedFormEntity(getParams(), HTTP.UTF_8));
+        }
+        executeRequest(request);
+        break;
+      }
+      case PATCH: {
+        final HttpPatch request = new HttpPatch(getUrl());
         if (!getParams().isEmpty()) {
           request.setEntity(new UrlEncodedFormEntity(getParams(), HTTP.UTF_8));
         }

@@ -20,14 +20,14 @@ public interface HttpCallback<T> {
    * @param responseData
    *          It can be of any type.
    */
-  public void onSuccess(T responseData);
+  public void onSuccess(T responseData, ResponseStatus responseStatus);
 
   /**
    * This method shows that the callback has failed due to server issue, no
    * connectivity or parser error
    * 
-   * @param responseCode
+   * @param responseStatus
    */
-  public void onHttpError(ResponseStatus responseCode);
+  public void onHttpError(ResponseStatus responseStatus);
 
 }

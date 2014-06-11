@@ -1,14 +1,14 @@
 package com.dg.libs.rest.client;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-
+import com.araneaapps.android.libs.logger.ALog;
+import com.dg.libs.rest.entities.HttpPatch;
+import com.dg.libs.rest.exceptions.HttpException;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 
-import com.araneaapps.android.libs.logger.ALog;
-import com.dg.libs.rest.exceptions.HttpException;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 public class EntityBodyRestClient extends BaseRestClient {
 
@@ -41,6 +41,10 @@ public class EntityBodyRestClient extends BaseRestClient {
         putRequest.setEntity(entity);
         executeRequest(putRequest);
         break;
+      case PATCH:
+        HttpPatch patchRequest = new HttpPatch(getUrl() + generateParametersString(getParams()));
+        patchRequest.setEntity(entity);
+        executeRequest(patchRequest);
       default:
         throw new RuntimeException(
             "RequestMethod not supported, Only POST and PUT can contain body");

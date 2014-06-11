@@ -8,8 +8,12 @@
         <option name="CUSTOM_APK_RESOURCE_FOLDER" value="/target/generated-sources/combined-resources/res" />
         <option name="APK_PATH" value="/target/rest-client-demo.apk" />
         <option name="RUN_PROCESS_RESOURCES_MAVEN_TASK" value="false" />
+        <option name="UPDATE_PROPERTY_FILES" value="false" />
         <option name="COMPILE_CUSTOM_GENERATED_SOURCES" value="false" />
         <includeAssetsFromLibraries>true</includeAssetsFromLibraries>
+        <resOverlayFolders>
+          <path>/res-overlay</path>
+        </resOverlayFolders>
       </configuration>
     </facet>
   </component>
@@ -41,15 +45,14 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: xpp3:xpp3:1.1.4c" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.json:json:20080701" level="project" />
     <orderEntry type="module" module-name="android-rest" />
-    <orderEntry type="library" name="Maven: com.squareup.okhttp:okhttp:1.2.1" level="project" />
-    <orderEntry type="library" name="Maven: com.squareup.okhttp:okhttp-protocols:1.2.1" level="project" />
+    <orderEntry type="library" name="Maven: com.squareup.okhttp:okhttp:1.6.0" level="project" />
     <orderEntry type="library" name="Maven: com.aranea-apps.android.libs:android-logger:1.0.10" level="project" />
-    <orderEntry type="library" name="Maven: com.aranea-apps.android.libs:android-async-runners:1.0.0" level="project" />
+    <orderEntry type="library" name="Maven: com.aranea-apps.android.libs:android-async-runners:1.0.1" level="project" />
     <orderEntry type="module" module-name="android-rest-lib-additions" />
-    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.3.0" level="project" />
-    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.3.0" level="project" />
-    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.3.0" level="project" />
-    <orderEntry type="library" name="Maven: commons-io:commons-io:2.0.1" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.4.0" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.4.0" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.4.0" level="project" />
+    <orderEntry type="library" name="Maven: commons-io:commons-io:2.4" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.8.1" level="project" />
   </component>
 </module>

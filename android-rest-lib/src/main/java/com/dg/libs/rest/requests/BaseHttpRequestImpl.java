@@ -121,7 +121,7 @@ public abstract class BaseHttpRequestImpl<T> implements HttpRequest {
     try {
       final T responseData = parser.parse(client.getResponse());
       client.closeStream();
-      handler.handleSuccess(responseData);
+      handler.handleSuccess(responseData, status);
     } catch (final Exception e) {
       ResponseStatus responseStatus = ResponseStatus.getParseErrorStatus();
       ALog.d(TAG, responseStatus.toString(), e);
