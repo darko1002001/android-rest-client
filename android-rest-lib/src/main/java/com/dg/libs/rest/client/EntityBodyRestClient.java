@@ -45,6 +45,7 @@ public class EntityBodyRestClient extends BaseRestClient {
         HttpPatch patchRequest = new HttpPatch(getUrl() + generateParametersString(getParams()));
         patchRequest.setEntity(entity);
         executeRequest(patchRequest);
+        break;
       default:
         throw new RuntimeException(
             "RequestMethod not supported, Only POST and PUT can contain body");
