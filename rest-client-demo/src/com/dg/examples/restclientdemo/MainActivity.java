@@ -26,7 +26,7 @@ public class MainActivity extends Activity {
     GoogleService.getGoogleBlogsRequest(getApplicationContext(), "Official Google Blogs", new GoogleBlogsCallback())
         .executeAsync();
 
-    new PatchRequest(getApplicationContext(), "Hello", new HttpCallback<Void>() {
+    new PatchRequest("Hello", new HttpCallback<Void>() {
       @Override
       public void onSuccess(Void responseData, ResponseStatus responseStatus) {
         Toast.makeText(getApplicationContext(), "Success patch", Toast.LENGTH_LONG).show();

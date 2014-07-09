@@ -1,5 +1,6 @@
 package com.dg.libs.rest.client;
 
+import com.dg.libs.rest.RestClientConfiguration;
 import com.squareup.okhttp.OkHttpClient;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -27,8 +28,8 @@ import static org.apache.http.HttpVersion.HTTP_1_1;
 public class ExtendedOkHttpClient {
   protected final OkHttpClient client;
 
-  int connectionTimeout = 5000;
-  int socketTimeout = 20000;
+  int connectionTimeout;
+  int socketTimeout;
 
   public ExtendedOkHttpClient() {
     this(new OkHttpClient());
@@ -36,6 +37,10 @@ public class ExtendedOkHttpClient {
 
   public ExtendedOkHttpClient(OkHttpClient client) {
     this.client = client;
+
+
+    connectionTimeout = RestClientConfiguration.get().getConnectionTimeout();
+    socketTimeout = RestClientConfiguration.get().getSocketTimeout();
   }
 
   protected HttpURLConnection openConnection(URL url) {

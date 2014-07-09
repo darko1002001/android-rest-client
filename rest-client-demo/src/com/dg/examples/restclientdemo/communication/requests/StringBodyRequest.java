@@ -1,7 +1,6 @@
 package com.dg.examples.restclientdemo.communication.requests;
 
 
-import android.content.Context;
 import com.dg.libs.rest.callbacks.HttpCallback;
 import com.dg.libs.rest.client.BaseRestClient.RequestMethod;
 import com.dg.libs.rest.parsers.HttpResponseParser;
@@ -9,9 +8,9 @@ import com.dg.libs.rest.requests.StringBodyHttpRequestImpl;
 
 public class StringBodyRequest extends StringBodyHttpRequestImpl<String> {
 
-  public StringBodyRequest(Context context, HttpResponseParser<String> parser,
+  public StringBodyRequest(HttpResponseParser<String> parser,
                            HttpCallback<String> callback) {
-    super(context, RequestMethod.POST /* Or can be RequestMethod.PUT*/, parser, callback);
+    super(RequestMethod.POST /* Or can be RequestMethod.PUT*/, parser, callback);
     addParam("key", "value");
     addHeader("key", "value");
   }

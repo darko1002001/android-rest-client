@@ -1,28 +1,25 @@
 package com.dg.libs.rest.requests;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-
-import org.apache.http.HttpEntity;
-
-import android.content.Context;
-
 import com.araneaapps.android.libs.logger.ALog;
 import com.dg.libs.rest.callbacks.HttpCallback;
 import com.dg.libs.rest.client.BaseRestClient.RequestMethod;
 import com.dg.libs.rest.entities.CountingInputStreamEntity;
 import com.dg.libs.rest.entities.CountingInputStreamEntity.UploadListener;
 import com.dg.libs.rest.parsers.HttpResponseParser;
+import org.apache.http.HttpEntity;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 public abstract class FileBodyHttpRequestImpl<T> extends EntityHttpRequestImpl<T> {
 
   public static final String TAG = FileBodyHttpRequestImpl.class.getSimpleName();
   private UploadListener listener;
 
-  public FileBodyHttpRequestImpl(final Context context, RequestMethod requestMethod,
+  public FileBodyHttpRequestImpl(RequestMethod requestMethod,
       final HttpResponseParser<T> parser, final HttpCallback<T> callback) {
-    super(context, requestMethod, parser, callback);
+    super(requestMethod, parser, callback);
   }
 
   public abstract File fileToSend();

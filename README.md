@@ -65,8 +65,8 @@ https://github.com/darko1002001/sync-notes-android
 ## Steps to setup the library
 
 1. Import the lib project into your workspace and add it as a library project
-2. Look into the library project manifest and copy the definitions
-3. Define a Class extending application and init the Authorization class
+2. Look into the demo project manifest and copy the definitions
+3. Check the App.java class inside the Demo project on how to configure the library.
 
 
 ## Adding just the JAR files
@@ -133,6 +133,10 @@ Look at the demo project to see how the Authentication Provider can be set. Use 
 
 
 # Changelog:
+
+## Release 1.7.0
+
+  Added RestClientConfiguration so all the global configuration is done through it.
 
 ## Release 1.6.0
 

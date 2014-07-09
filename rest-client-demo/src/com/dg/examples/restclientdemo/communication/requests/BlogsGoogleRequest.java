@@ -13,7 +13,7 @@ public class BlogsGoogleRequest extends ParameterHttpRequestImpl<ResponseModel> 
   public static final String TAG = BlogsGoogleRequest.class.getSimpleName();
 
   public BlogsGoogleRequest(Context context, String query, HttpCallback<ResponseModel> callback) {
-    super(context, RequestMethod.GET, new BlogsGoogleParser(), callback);
+    super(RequestMethod.GET, new BlogsGoogleParser(), callback);
     addParam("q", query);
     addParam("v", "1.0");
     addParam("include_entities", "" + true);

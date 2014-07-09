@@ -36,7 +36,6 @@ public class EntityBodyRestClient extends BaseRestClient {
         executeRequest(postRequest);
         break;
       case PUT:
-
         HttpPut putRequest = new HttpPut(getUrl() + generateParametersString(getParams()));
         putRequest.setEntity(entity);
         executeRequest(putRequest);

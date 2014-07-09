@@ -1,10 +1,10 @@
 package com.dg.libs.rest.requests;
 
-import android.content.Context;
 import com.araneaapps.android.libs.asyncrunners.models.RequestOptions;
 import com.araneaapps.android.libs.asyncrunners.models.TaskStore;
 import com.araneaapps.android.libs.logger.ALog;
 import com.dg.libs.rest.HttpRequest;
+import com.dg.libs.rest.RestClientConfiguration;
 import com.dg.libs.rest.callbacks.HttpCallback;
 import com.dg.libs.rest.client.Rest;
 import com.dg.libs.rest.domain.ResponseStatus;
@@ -18,8 +18,6 @@ public abstract class BaseHttpRequestImpl<T> implements HttpRequest {
 
   public static final String TAG = BaseHttpRequestImpl.class.getSimpleName();
 
-  private final Context context;
-
   private final HttpResponseParser<T> parser;
   private ResponseHandler<T> handler;
   private ResponseStatusHandler statusHandler;
@@ -27,19 +25,14 @@ public abstract class BaseHttpRequestImpl<T> implements HttpRequest {
 
   RequestOptions requestOptions = null;
 
-  public BaseHttpRequestImpl(final Context context, final HttpResponseParser<T> parser,
+  public BaseHttpRequestImpl(final HttpResponseParser<T> parser,
                              final HttpCallback<T> callback) {
     super();
     this.parser = parser;
     this.callback = callback;
-    this.context = context.getApplicationContext();
   }
 
   public abstract Rest getClient();
-
-  public Context getContext() {
-    return context;
-  }
 
   protected HttpCallback<T> getCallback() {
     return callback;
@@ -102,6 +95,7 @@ public abstract class BaseHttpRequestImpl<T> implements HttpRequest {
       statusHandler = new DefaultResponseStatusHandler();
     }
 
+
     final Rest client = getClient();
     try {
       client.setUrl(url);
@@ -143,7 +137,7 @@ public abstract class BaseHttpRequestImpl<T> implements HttpRequest {
 
   @Override
   public void executeAsync() {
-    TaskStore.get(context).queue(this, getRequestOptions());
+    TaskStore.get(RestClientConfiguration.get().getContext()).queue(this, getRequestOptions());
   }
 
   public RequestOptions getRequestOptions() {

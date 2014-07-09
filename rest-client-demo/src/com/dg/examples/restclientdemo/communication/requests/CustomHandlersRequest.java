@@ -28,7 +28,7 @@ public class CustomHandlersRequest extends ParameterHttpRequestImpl<Void> {
 
   public CustomHandlersRequest(Context context, VoidHttpResponseParser parser,
                                VoidHttpCallback callback) {
-    super(context, BaseRestClient.RequestMethod.GET, parser, callback);
+    super(BaseRestClient.RequestMethod.GET, parser, callback);
     this.callback = callback;
 
     handler = new CustomUIHandler(callback);

@@ -1,6 +1,5 @@
 package com.dg.examples.restclientdemo.communication.requests;
 
-import android.content.Context;
 import com.araneaapps.android.libs.logger.ALog;
 import com.dg.examples.restclientdemo.communication.RestConstants;
 import com.dg.libs.rest.callbacks.HttpCallback;
@@ -14,8 +13,8 @@ public class PatchRequest extends ParameterHttpRequestImpl<Void> {
 
   public static final String TAG = PatchRequest.class.getSimpleName();
 
-  public PatchRequest(Context context, String query, HttpCallback<Void> callback) {
-    super(context, RequestMethod.PATCH, new HttpResponseParser<Void>() {
+  public PatchRequest(String query, HttpCallback<Void> callback) {
+    super(RequestMethod.PATCH, new HttpResponseParser<Void>() {
       @Override
       public Void parse(InputStream instream) throws Exception {
         ALog.d(org.apache.commons.io.IOUtils.toString(instream));

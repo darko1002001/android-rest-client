@@ -2,6 +2,7 @@ package com.dg.libs.rest.client;
 
 import android.text.TextUtils;
 import com.araneaapps.android.libs.logger.ALog;
+import com.dg.libs.rest.RestClientConfiguration;
 import com.dg.libs.rest.authentication.AuthenticationProvider;
 import com.dg.libs.rest.domain.ResponseStatus;
 import com.dg.libs.rest.entities.UnicodeBOMInputStream;
@@ -40,7 +41,6 @@ public abstract class BaseRestClient implements Rest {
   private InputStream responseStream;
 
   private AuthenticationProvider authProvider;
-  private static AuthenticationProvider authenticationProvider;
 
   public BaseRestClient() {
     headers = new ArrayList<NameValuePair>();
@@ -122,10 +122,6 @@ public abstract class BaseRestClient implements Rest {
     return requestMethod;
   }
 
-  public static void setDefaultAuthenticationProvider(AuthenticationProvider provider) {
-    BaseRestClient.authenticationProvider = provider;
-  }
-
   @Override
   public void execute() throws HttpException {
     authenticateRequest();
@@ -136,9 +132,9 @@ public abstract class BaseRestClient implements Rest {
       authProvider.authenticateRequest(this);
       return;
     }
+    AuthenticationProvider authenticationProvider = RestClientConfiguration.get().getAuthenticationProvider();
     if (authenticationProvider != null) {
       authenticationProvider.authenticateRequest(this);
-      return;
     }
   }
 
