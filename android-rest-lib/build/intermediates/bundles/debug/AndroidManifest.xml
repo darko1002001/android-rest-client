@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.araneaapps.android.libs.androidrest" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="19" />
+
+    <application>
+        <service android:name="com.araneaapps.android.libs.asyncrunners.services.ExecutorService" />
+    </application>
+
+</manifest>
