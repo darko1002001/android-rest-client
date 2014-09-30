@@ -1,5 +1,5 @@
 <manifest
-  package="com.aranea-apps.android.libs.android-rest"
+  package="com.araneaapps.android.libs.androidrest"
   xmlns:android="http://schemas.android.com/apk/res/android">
 
   <application>

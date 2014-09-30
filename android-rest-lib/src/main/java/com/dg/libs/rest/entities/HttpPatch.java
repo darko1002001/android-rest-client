@@ -27,7 +27,6 @@
 
 package com.dg.libs.rest.entities;
 
-import org.apache.http.annotation.NotThreadSafe;
 import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 
 import java.net.URI;
@@ -49,7 +48,6 @@ import java.net.URI;
  *
  * @since 4.2
  */
-@NotThreadSafe
 public class HttpPatch extends HttpEntityEnclosingRequestBase {
 
     public final static String METHOD_NAME = "PATCH";

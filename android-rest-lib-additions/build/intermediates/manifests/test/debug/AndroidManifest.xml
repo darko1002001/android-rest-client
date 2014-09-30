@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.araneaapps.android.libs.androidrest.additions.test" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="19" />
+
+    <instrumentation
+        android:name="android.test.InstrumentationTestRunner"
+        android:functionalTest="false"
+        android:handleProfiling="false"
+        android:label="Tests for com.araneaapps.android.libs.androidrest.additions.test"
+        android:targetPackage="com.araneaapps.android.libs.androidrest.additions.test" />
+
+    <application>
+        <uses-library android:name="android.test.runner" />
+
+        <service android:name="com.araneaapps.android.libs.asyncrunners.services.ExecutorService" />
+    </application>
+
+</manifest>
