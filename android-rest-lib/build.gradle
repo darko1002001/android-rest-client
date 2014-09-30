@@ -1,0 +1,46 @@
+apply plugin: 'com.android.library'
+
+def versionMajor = 1
+def versionMinor = 1
+def versionPatch = 0
+def versionBuild = 0
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion "20.0.0"
+    lintOptions {
+        abortOnError false
+    }
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 20
+        versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}.${versionBuild}"
+    }
+
+    buildTypes {
+        release {
+            runProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+            applicationVariants.all { variant ->
+                def file = variant.outputFile
+                variant.outputFile = new File(file.parent, file.name.replace(".apk", "-" + defaultConfig.versionName + ".apk"))
+            }
+        }
+    }
+    
+    dexOptions {
+        preDexLibraries = false
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'info.metadude.android:typed-preferences:1.0.1'
+    compile 'uk.co.chrisjenx:calligraphy:1.1.+'
+    compile('eu.inmite.android.lib:android-validation-komensky:0.9.2') {
+        exclude module: 'support-v4'
+    }
+}
