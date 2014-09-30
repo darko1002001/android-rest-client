@@ -6,12 +6,15 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.12.+'
+        classpath 'com.android.tools.build:gradle:0.13.+'
     }
 }
 
 allprojects {
-    repositories {
-        jcenter()
-    }
+  version "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}.${VERSION_BUILD}"
+  group = GROUP
+
+  repositories {
+    jcenter()
+  }
 }

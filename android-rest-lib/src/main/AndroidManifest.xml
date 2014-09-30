@@ -1,0 +1,8 @@
+<manifest
+  package="com.getchute.android.photopickerplus"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <application>
+    <service android:name="com.araneaapps.android.libs.asyncrunners.services.ExecutorService"/>
+  </application>
+</manifest>

@@ -1,46 +1,32 @@
 apply plugin: 'com.android.library'
 
-def versionMajor = 1
-def versionMinor = 1
-def versionPatch = 0
-def versionBuild = 0
-
 android {
-    compileSdkVersion 19
-    buildToolsVersion "20.0.0"
-    lintOptions {
-        abortOnError false
-    }
+  compileSdkVersion Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
+  buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
 
-    defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 20
-        versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
-        versionName "${versionMajor}.${versionMinor}.${versionPatch}.${versionBuild}"
-    }
+
+  defaultConfig {
+    applicationId "${project.GROUP}.android-rest"
+    targetSdkVersion Integer.parseInt(project.ANDROID_BUILD_TARGET_SDK_VERSION)
+    minSdkVersion 8
 
     buildTypes {
-        release {
-            runProguard false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
-            applicationVariants.all { variant ->
-                def file = variant.outputFile
-                variant.outputFile = new File(file.parent, file.name.replace(".apk", "-" + defaultConfig.versionName + ".apk"))
-            }
-        }
+      release {
+        runProguard false
+        proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+      }
     }
-    
-    dexOptions {
-        preDexLibraries = false
-    }
+  }
+
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'info.metadude.android:typed-preferences:1.0.1'
-    compile 'uk.co.chrisjenx:calligraphy:1.1.+'
-    compile('eu.inmite.android.lib:android-validation-komensky:0.9.2') {
-        exclude module: 'support-v4'
-    }
+  compile fileTree(dir: 'libs', include: ['*.jar'])
+  compile 'com.android.support:appcompat-v7:20.+'
+  compile 'com.android.support:support-v4:20.+'
+  compile 'com.getchute.android.sdk.v2:chute-sdk-v2-android:2.3.2'
+  compile 'com.squareup.okhttp:okhttp-urlconnection:1.6.0'
+  compile 'com.squareup.picasso:picasso:2.3.2'
 }
+
+apply from: '../gradle-mvn-push.gradle'
