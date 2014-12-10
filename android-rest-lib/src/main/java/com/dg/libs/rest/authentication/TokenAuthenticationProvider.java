@@ -6,7 +6,7 @@ import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
-import com.dg.libs.rest.client.BaseRestClient;
+import com.dg.libs.rest.requests.RestClientRequest;
 
 public class TokenAuthenticationProvider implements AuthenticationProvider {
 
@@ -23,11 +23,7 @@ public class TokenAuthenticationProvider implements AuthenticationProvider {
    * extending application
    * <p>
    * <b> Dont forget to set the password on first init </b>
-   * 
-   * @param context
-   *          it is only used into the first time init of the singleton, its
-   *          reference is stored so the singleton is alive during the
-   *          application lifecycle.
+   *
    * @return
    */
   public static synchronized TokenAuthenticationProvider getInstance() {
@@ -49,7 +45,7 @@ public class TokenAuthenticationProvider implements AuthenticationProvider {
   }
 
   @Override
-  public void authenticateRequest(BaseRestClient client) {
+  public void authenticateRequest(RestClientRequest client) {
     if (TextUtils.isEmpty(token)) {
       return;
     }
@@ -82,7 +78,6 @@ public class TokenAuthenticationProvider implements AuthenticationProvider {
    * 
    * @param apiKey
    *          the token aqured from chute auth
-   * @param context
    * @return if the save was successful
    */
   private boolean saveApiKey(final String apiKey) {

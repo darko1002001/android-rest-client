@@ -1,59 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pre-dex-items>
+<items version="2" >
 
     <item
-        dex="/Users/darko/Android/Workspace/android-rest-client/rest-client-demo/build/intermediates/pre-dexed/debug/jackson-annotations-2.4.0-79b43a8d71e8a1db28bedc2af2bea63dc6a6acf9.jar"
-        jar="/Users/darko/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.4.0/d6a66c7a5f01cf500377bd669507a08cfeba882a/jackson-annotations-2.4.0.jar"
+        jar="/Users/darko/Android/Workspace/android-rest-client/rest-client-demo/build/intermediates/exploded-aar/com.aranea-apps.android.libs/android-rest-lib-additions/2.0.0.0/classes.jar"
         jumboMode="false"
-        revision="20.0.0"
-        sha1="d6a66c7a5f01cf500377bd669507a08cfeba882a"/>
+        revision="21.0.0"
+        sha1="c5004093490f5aa20850bd39e6fbf6ace9697aa3">
+        <dex dex="/Users/darko/Android/Workspace/android-rest-client/rest-client-demo/build/intermediates/pre-dexed/debug/classes-254ad8ed87238588f85a59a1032e8cd44fc1dbe2.jar" />
+    </item>
     <item
-        dex="/Users/darko/Android/Workspace/android-rest-client/rest-client-demo/build/intermediates/pre-dexed/debug/jackson-core-2.4.0-ae3656ed27c5a179b6597eb11d1b3aac8430565f.jar"
-        jar="/Users/darko/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.4.0/1e33fd4cca6c4a9bf3d2f638cabb504a5b5c989d/jackson-core-2.4.0.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="1e33fd4cca6c4a9bf3d2f638cabb504a5b5c989d"/>
-    <item
-        dex="/Users/darko/Android/Workspace/android-rest-client/rest-client-demo/build/intermediates/pre-dexed/debug/commons-io-2.4-b9cfb9ddea3b0d4ea5e71dea40777910e1fc2ddb.jar"
-        jar="/Users/darko/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/2.4/b1b6ea3b7e4aa4f492509a4952029cd8e48019ad/commons-io-2.4.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="b1b6ea3b7e4aa4f492509a4952029cd8e48019ad"/>
-    <item
-        dex="/Users/darko/Android/Workspace/android-rest-client/rest-client-demo/build/intermediates/pre-dexed/debug/classes-3d3c70bfa760f720da6ce0ec650b3736fc79c4a2.jar"
-        jar="/Users/darko/Android/Workspace/android-rest-client/rest-client-demo/build/intermediates/exploded-aar/com.aranea-apps.android.libs/android-rest-lib-additions/1.7.1.0/classes.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="0158107de6db478d0668929244ddf04dcdcab696"/>
-    <item
-        dex="/Users/darko/Android/Workspace/android-rest-client/rest-client-demo/build/intermediates/pre-dexed/debug/jackson-databind-2.4.0-2b1d419b78cdef4b55bb8865e6d2e19c2c9cceb4.jar"
-        jar="/Users/darko/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.4.0/473e063d6396a1ff6e4b9c7943e604291ce18b07/jackson-databind-2.4.0.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="473e063d6396a1ff6e4b9c7943e604291ce18b07"/>
-    <item
-        dex="/Users/darko/Android/Workspace/android-rest-client/rest-client-demo/build/intermediates/pre-dexed/debug/android-async-runners-1.0.1-671146f4b629826e6fd511f232b297ec87592686.jar"
-        jar="/Users/darko/.gradle/caches/modules-2/files-2.1/com.aranea-apps.android.libs/android-async-runners/1.0.1/67be87a2bea1cabd45d91a0a0b8600654b962d81/android-async-runners-1.0.1.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="67be87a2bea1cabd45d91a0a0b8600654b962d81"/>
-    <item
-        dex="/Users/darko/Android/Workspace/android-rest-client/rest-client-demo/build/intermediates/pre-dexed/debug/classes-4a3a47c2d4c44c9c1651b47ccc2fa54f9222974f.jar"
-        jar="/Users/darko/Android/Workspace/android-rest-client/rest-client-demo/build/intermediates/exploded-aar/com.aranea-apps.android.libs/android-rest-lib/1.7.1.0/classes.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="cd27a3b278405ee71606466c37c450516b45b075"/>
-    <item
-        dex="/Users/darko/Android/Workspace/android-rest-client/rest-client-demo/build/intermediates/pre-dexed/debug/okhttp-1.6.0-c4070421f26cf3d47a5f30bc811d6c1c184e7955.jar"
-        jar="/Users/darko/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp/okhttp/1.6.0/e32c6b4bee8b61f0de12b337c48df0f5df8caccc/okhttp-1.6.0.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="e32c6b4bee8b61f0de12b337c48df0f5df8caccc"/>
-    <item
-        dex="/Users/darko/Android/Workspace/android-rest-client/rest-client-demo/build/intermediates/pre-dexed/debug/android-logger-1.0.10-63d081508aa49dbc82d8c968e188b6838d9ebf87.jar"
         jar="/Users/darko/.gradle/caches/modules-2/files-2.1/com.aranea-apps.android.libs/android-logger/1.0.10/bf8039285b3197f1a6eeffefa02081d13c770153/android-logger-1.0.10.jar"
         jumboMode="false"
-        revision="20.0.0"
-        sha1="bf8039285b3197f1a6eeffefa02081d13c770153"/>
+        revision="21.0.0"
+        sha1="bf8039285b3197f1a6eeffefa02081d13c770153">
+        <dex dex="/Users/darko/Android/Workspace/android-rest-client/rest-client-demo/build/intermediates/pre-dexed/debug/android-logger-1.0.10-63d081508aa49dbc82d8c968e188b6838d9ebf87.jar" />
+    </item>
+    <item
+        jar="/Users/darko/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/2.4/b1b6ea3b7e4aa4f492509a4952029cd8e48019ad/commons-io-2.4.jar"
+        jumboMode="false"
+        revision="21.0.0"
+        sha1="b1b6ea3b7e4aa4f492509a4952029cd8e48019ad">
+        <dex dex="/Users/darko/Android/Workspace/android-rest-client/rest-client-demo/build/intermediates/pre-dexed/debug/commons-io-2.4-b9cfb9ddea3b0d4ea5e71dea40777910e1fc2ddb.jar" />
+    </item>
+    <item
+        jar="/Users/darko/.gradle/caches/modules-2/files-2.1/com.aranea-apps.android.libs/android-async-runners/1.0.1/67be87a2bea1cabd45d91a0a0b8600654b962d81/android-async-runners-1.0.1.jar"
+        jumboMode="false"
+        revision="21.0.0"
+        sha1="67be87a2bea1cabd45d91a0a0b8600654b962d81">
+        <dex dex="/Users/darko/Android/Workspace/android-rest-client/rest-client-demo/build/intermediates/pre-dexed/debug/android-async-runners-1.0.1-671146f4b629826e6fd511f232b297ec87592686.jar" />
+    </item>
+    <item
+        jar="/Users/darko/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.4.0/1e33fd4cca6c4a9bf3d2f638cabb504a5b5c989d/jackson-core-2.4.0.jar"
+        jumboMode="false"
+        revision="21.0.0"
+        sha1="1e33fd4cca6c4a9bf3d2f638cabb504a5b5c989d">
+        <dex dex="/Users/darko/Android/Workspace/android-rest-client/rest-client-demo/build/intermediates/pre-dexed/debug/jackson-core-2.4.0-ae3656ed27c5a179b6597eb11d1b3aac8430565f.jar" />
+    </item>
+    <item
+        jar="/Users/darko/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.0.1/39eff75ddcb987ff65888361a29f489c178429a3/okio-1.0.1.jar"
+        jumboMode="false"
+        revision="21.0.0"
+        sha1="39eff75ddcb987ff65888361a29f489c178429a3">
+        <dex dex="/Users/darko/Android/Workspace/android-rest-client/rest-client-demo/build/intermediates/pre-dexed/debug/okio-1.0.1-6382ba1e7e1add8b84989308e0e9ea5b62b43931.jar" />
+    </item>
+    <item
+        jar="/Users/darko/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.4.0/d6a66c7a5f01cf500377bd669507a08cfeba882a/jackson-annotations-2.4.0.jar"
+        jumboMode="false"
+        revision="21.0.0"
+        sha1="d6a66c7a5f01cf500377bd669507a08cfeba882a">
+        <dex dex="/Users/darko/Android/Workspace/android-rest-client/rest-client-demo/build/intermediates/pre-dexed/debug/jackson-annotations-2.4.0-79b43a8d71e8a1db28bedc2af2bea63dc6a6acf9.jar" />
+    </item>
+    <item
+        jar="/Users/darko/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp/okhttp-apache/2.1.0/558fb26941c975ace98e49685a3d438b6d371872/okhttp-apache-2.1.0.jar"
+        jumboMode="false"
+        revision="21.0.0"
+        sha1="558fb26941c975ace98e49685a3d438b6d371872">
+        <dex dex="/Users/darko/Android/Workspace/android-rest-client/rest-client-demo/build/intermediates/pre-dexed/debug/okhttp-apache-2.1.0-8500bb75a6d9797103d918e3e32434e408b6961d.jar" />
+    </item>
+    <item
+        jar="/Users/darko/Android/Workspace/android-rest-client/rest-client-demo/build/intermediates/exploded-aar/com.aranea-apps.android.libs/android-rest-lib/2.0.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.0.0"
+        sha1="10a59ea66df92a47f88040c8f61cfd05ce8568af">
+        <dex dex="/Users/darko/Android/Workspace/android-rest-client/rest-client-demo/build/intermediates/pre-dexed/debug/classes-cc6c415f800841d37b519f288a3ad45bcf50acbd.jar" />
+    </item>
+    <item
+        jar="/Users/darko/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp/okhttp/2.1.0/9b51f7d0c19f179b52beab7cb433f8ba5cf786a4/okhttp-2.1.0.jar"
+        jumboMode="false"
+        revision="21.0.0"
+        sha1="9b51f7d0c19f179b52beab7cb433f8ba5cf786a4">
+        <dex dex="/Users/darko/Android/Workspace/android-rest-client/rest-client-demo/build/intermediates/pre-dexed/debug/okhttp-2.1.0-933ef381dcf918a763c42b714047f3fae4e56bee.jar" />
+    </item>
+    <item
+        jar="/Users/darko/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.4.0/473e063d6396a1ff6e4b9c7943e604291ce18b07/jackson-databind-2.4.0.jar"
+        jumboMode="false"
+        revision="21.0.0"
+        sha1="473e063d6396a1ff6e4b9c7943e604291ce18b07">
+        <dex dex="/Users/darko/Android/Workspace/android-rest-client/rest-client-demo/build/intermediates/pre-dexed/debug/jackson-databind-2.4.0-2b1d419b78cdef4b55bb8865e6d2e19c2c9cceb4.jar" />
+    </item>
 
-</pre-dex-items>
+</items>

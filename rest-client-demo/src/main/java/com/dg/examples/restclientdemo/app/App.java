@@ -5,7 +5,7 @@ import com.araneaapps.android.libs.logger.ALog;
 import com.araneaapps.android.libs.logger.ALog.DebugLevel;
 import com.dg.libs.rest.RestClientConfiguration;
 import com.dg.libs.rest.authentication.AuthenticationProvider;
-import com.dg.libs.rest.client.BaseRestClient;
+import com.dg.libs.rest.requests.RestClientRequest;
 
 public class App extends Application {
 
@@ -27,7 +27,7 @@ public class App extends Application {
     RestClientConfiguration builder = new RestClientConfiguration.ConfigurationBuilder()
         .setAuthenticationProvider(new AuthenticationProvider() {
           @Override
-          public void authenticateRequest(BaseRestClient client) {
+          public void authenticateRequest(RestClientRequest client) {
             // YOu can add parameters or headers which will be attached to each request
           }
         })

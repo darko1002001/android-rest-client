@@ -4,15 +4,13 @@ android {
   compileSdkVersion Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
   buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
 
-
   defaultConfig {
-    applicationId project.PACKAGE_NAME
     targetSdkVersion Integer.parseInt(project.ANDROID_BUILD_TARGET_SDK_VERSION)
     minSdkVersion 8
 
     buildTypes {
       release {
-        runProguard false
+        minifyEnabled false
         proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
       }
     }
@@ -22,9 +20,10 @@ android {
 
 dependencies {
   compile fileTree(dir: 'libs', include: ['*.jar'])
-  androidTestCompile 'junit:junit:3.8.1'
-  compile 'com.squareup.okhttp:okhttp:1.6.0'
+  compile 'com.squareup.okhttp:okhttp:2.1.0'
+  compile 'com.squareup.okhttp:okhttp-apache:2.1.0'
   compile 'com.aranea-apps.android.libs:android-logger:1.0.+'
   compile 'com.aranea-apps.android.libs:android-async-runners:1.0.+'
+  androidTestCompile 'junit:junit:3.8.1'
 }
 apply from: '../gradle-mvn-push.gradle'

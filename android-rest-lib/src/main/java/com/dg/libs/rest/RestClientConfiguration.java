@@ -24,6 +24,11 @@ public class RestClientConfiguration {
 
   private static RestClientConfiguration instance;
 
+  public static void init(Context context) {
+    applicationContext = context.getApplicationContext();
+    AsyncRunners.init(applicationContext);
+    instance = generateDefaultConfig();
+  }
   public static void init(Context context, RestClientConfiguration restClientConfiguration) {
     applicationContext = context.getApplicationContext();
     AsyncRunners.init(applicationContext);
@@ -32,7 +37,7 @@ public class RestClientConfiguration {
 
   public static RestClientConfiguration get() {
     if (instance == null) {
-      instance = generateDefaultConfig();
+      throw new IllegalStateException("You need to call Init on " + RestClientConfiguration.class + " First. Do it in your class extending application");
     }
     return instance;
   }
@@ -56,7 +61,7 @@ public class RestClientConfiguration {
 
   public static class ConfigurationBuilder {
     private AuthenticationProvider authenticationProvider;
-    private int connectionTimeout = 8000;
+    private int connectionTimeout = 10000;
     private int socketTimeout = 20000;
 
     public ConfigurationBuilder setAuthenticationProvider(AuthenticationProvider authenticationProvider) {

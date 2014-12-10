@@ -1,35 +1,26 @@
 package com.dg.examples.restclientdemo.communication.requests;
 
-import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
+
 import com.araneaapps.android.libs.asyncrunners.enums.DownloadPriority;
 import com.araneaapps.android.libs.asyncrunners.models.RequestOptions;
 import com.dg.libs.rest.callbacks.HttpCallback;
-import com.dg.libs.rest.client.BaseRestClient;
+import com.dg.libs.rest.client.RequestMethod;
 import com.dg.libs.rest.domain.ResponseStatus;
 import com.dg.libs.rest.handlers.UIThreadResponseHandler;
-import com.dg.libs.rest.parsers.HttpResponseParser;
-import com.dg.libs.rest.requests.ParameterHttpRequestImpl;
+import com.dg.libs.rest.requests.RestClientRequest;
 
-import java.io.InputStream;
-
-public class CustomHandlersRequest extends ParameterHttpRequestImpl<Void> {
+public class CustomHandlersRequest extends RestClientRequest<Void> {
 
   private final CustomHandlersRequest.CustomUIHandler handler;
   private VoidHttpCallback callback;
 
-  public static CustomHandlersRequest createInstance(Context c) {
-    CustomHandlersRequest customHandlersRequest = new CustomHandlersRequest(c,
-        new VoidHttpResponseParser(),
-        new VoidHttpCallback());
-    return customHandlersRequest;
-  }
-
-  public CustomHandlersRequest(Context context, VoidHttpResponseParser parser,
-                               VoidHttpCallback callback) {
-    super(BaseRestClient.RequestMethod.GET, parser, callback);
+  public CustomHandlersRequest(VoidHttpCallback callback) {
+    super();
     this.callback = callback;
+    setRequestMethod(RequestMethod.GET);
+    setUrl("http://some-dummy-url.com");
 
     handler = new CustomUIHandler(callback);
     setResponseHandler(handler);
@@ -90,9 +81,8 @@ public class CustomHandlersRequest extends ParameterHttpRequestImpl<Void> {
   }
 
   @Override
-  protected void doAfterRunRequestInBackgroundThread() {
-    // this will run in after the request completes in background.
-    super.doAfterRunRequestInBackgroundThread();
+  protected void doAfterSuccessfulRequestInBackgroundThread(Void data) {
+    super.doAfterSuccessfulRequestInBackgroundThread(data);
   }
 
   @Override
@@ -100,18 +90,6 @@ public class CustomHandlersRequest extends ParameterHttpRequestImpl<Void> {
     // this will run before the request runs. here you can query databases, add parameters or headers in the request background thread.
     // So there is no need to do async tasks or similar stuff to fetch parameters before executing a request if needed.
     super.doBeforeRunRequestInBackgroundThread();
-  }
-
-  @Override
-  protected String getUrl() {
-    return "http://some-dummy-url.com";
-  }
-
-  private static class VoidHttpResponseParser implements HttpResponseParser<Void> {
-    @Override
-    public Void parse(InputStream instream) throws Exception {
-      return null;
-    }
   }
 
   private static class VoidHttpCallback implements HttpCallback<Void> {

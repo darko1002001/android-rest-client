@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.aranea-apps.android.libs</groupId>
+  <artifactId>android-rest-additions</artifactId>
+  <version>2.0.0.0</version>
+  <packaging>aar</packaging>
+  <name>Rest Client Android - Additions</name>
+  <description>Android library for creating async HTTP reuqests</description>
+  <url>https://github.com/darko1002001/android-rest-client</url>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <id>darko10002001</id>
+      <name>Darko Grozdanovski</name>
+    </developer>
+  </developers>
+  <scm>
+    <connection>scm:git:git@github.com:darko1002001/android-rest-client.git</connection>
+    <developerConnection>scm:git:git@github.com:darko1002001/android-rest-client.git</developerConnection>
+    <url>https://github.com/darko1002001/android-rest-client</url>
+  </scm>
+  <dependencies>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>2.4.0</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+      <version>2.4.0</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.4</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.aranea-apps.android.libs</groupId>
+      <artifactId>android-rest</artifactId>
+      <version>2.0.0.0</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.4.0</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
+</project>
