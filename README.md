@@ -134,6 +134,13 @@ Look at the demo project to see how the Authentication Provider can be set. Use 
 
 # Changelog:
 
+## Release 2.2.0
+
+Updated version of OKHTTP to 2.+
+Changed the requests to RestClientRequest.class which handles all the request types.
+Added the option to run requests without a parser or a callback
+The callback can be set externally when creating the request
+
 ## Release 1.7.0
 
   Added RestClientConfiguration so all the global configuration is done through it.

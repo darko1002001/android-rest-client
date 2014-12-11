@@ -3,7 +3,7 @@
   <component name="FacetManager">
     <facet type="android-gradle" name="Android-Gradle">
       <configuration>
-        <option name="GRADLE_PROJECT_PATH" value=":android-rest-lib-additions" />
+        <option name="GRADLE_PROJECT_PATH" value=":android-rest-lib" />
       </configuration>
     </facet>
     <facet type="android" name="Android">
@@ -87,16 +87,12 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 19 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="jackson-annotations-2.4.0" level="project" />
     <orderEntry type="library" exported="" name="okhttp-apache-2.1.0" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="junit-3.8.1" level="project" />
     <orderEntry type="library" exported="" name="android-async-runners-1.0.1" level="project" />
-    <orderEntry type="library" exported="" name="jackson-core-2.4.0" level="project" />
-    <orderEntry type="library" exported="" name="jackson-databind-2.4.0" level="project" />
     <orderEntry type="library" exported="" name="okio-1.0.1" level="project" />
-    <orderEntry type="library" exported="" name="commons-io-2.4" level="project" />
     <orderEntry type="library" exported="" name="okhttp-2.1.0" level="project" />
     <orderEntry type="library" exported="" name="android-logger-1.0.10" level="project" />
-    <orderEntry type="module" module-name="android-rest-lib" exported="" />
   </component>
 </module>
 
