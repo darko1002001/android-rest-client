@@ -117,16 +117,19 @@ public abstract class RestClientRequest<T> implements HttpRequest {
     return parser;
   }
 
-  public void setUrl(String url) {
+  public RestClientRequest<T> setUrl(String url) {
     this.url = url;
+    return this;
   }
 
-  public void setRequestMethod(RequestMethod requestMethod) {
-    setRequestMethod(requestMethod, null);
+  public RestClientRequest<T> setRequestMethod(RequestMethod requestMethod) {
+    return setRequestMethod(requestMethod, null);
+
   }
 
-  public void setRequestMethod(RequestMethod requestMethod, RequestBody requestBody) {
+  public RestClientRequest<T> setRequestMethod(RequestMethod requestMethod, RequestBody requestBody) {
     request.method(requestMethod.name(), requestBody);
+    return this;
   }
 
   protected void runRequest() {

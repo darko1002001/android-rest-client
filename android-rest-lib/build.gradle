@@ -22,8 +22,8 @@ dependencies {
   compile fileTree(dir: 'libs', include: ['*.jar'])
   compile 'com.squareup.okhttp:okhttp:2.1.0'
   compile 'com.squareup.okhttp:okhttp-apache:2.1.0'
-  compile 'com.aranea-apps.android.libs:android-logger:1.0.+'
-  compile 'com.aranea-apps.android.libs:android-async-runners:1.0.+'
+  compile 'com.aranea-apps.android.libs:android-logger:1.0.10'
+  compile 'com.aranea-apps.android.libs:android-async-runners:1.0.1'
   androidTestCompile 'junit:junit:3.8.1'
 }
 apply from: '../gradle-mvn-push.gradle'

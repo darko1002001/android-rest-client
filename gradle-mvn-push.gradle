@@ -46,7 +46,7 @@ afterEvaluate { project ->
 
         pom.groupId = GROUP
         pom.artifactId = POM_ARTIFACT_ID
-        pom.version = "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}.${VERSION_BUILD}"
+        pom.version = "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}"
 
         repository(url: getReleaseRepositoryUrl()) {
           authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())

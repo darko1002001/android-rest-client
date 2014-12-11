@@ -1,8 +1,0 @@
--classpath '/Users/darko/Android/adt-bundle/sdk/platforms/android-19/android.jar'
--d '/Users/darko/Android/Workspace/android-rest-client/android-rest-lib-additions/build/docs/javadoc'
--doctitle 'android-rest-lib-additions 2.0.0.0 API'
--quiet 
--windowtitle 'android-rest-lib-additions 2.0.0.0 API'
-'/Users/darko/Android/Workspace/android-rest-client/android-rest-lib-additions/src/main/java/com/dg/libs/rest/parsers/BaseJacksonMapperResponseParser.java'
-'/Users/darko/Android/Workspace/android-rest-client/android-rest-lib-additions/src/main/java/com/dg/libs/rest/parsers/FileHttpResponseParser.java'
-'/Users/darko/Android/Workspace/android-rest-client/android-rest-lib-additions/src/main/java/com/dg/libs/rest/parsers/StringHttpResponseParser.java'
