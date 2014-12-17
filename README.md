@@ -56,9 +56,9 @@ Note: The process of getting an oauth token from the server is not a part of thi
 Usage:
 ======
 
-Look at the demo project for details.
+Look at the demo project included in this repo for details.
 
-Also this demo sample project
+There is another sample project with an older version of android-rest-client found here:
 https://github.com/darko1002001/sync-notes-android
 
 
@@ -84,6 +84,24 @@ and add your own parsers if the responses aren't JSON or you want to use a diffe
       <service android:name="com.araneaapps.android.libs.asyncrunners.services.ExecutorService"></service>
       </application>
 
+## Configuration
+
+The library needs to be configured in a class extending Application (look into the demo project for specifics).
+
+
+    RestClientConfiguration builder = new RestClientConfiguration.ConfigurationBuilder()
+        .setAuthenticationProvider(new AuthenticationProvider() {
+          @Override
+          public void authenticateRequest(RestClientRequest client) {
+            // YOu can add parameters or headers which will be attached to each request
+          }
+        })
+        .create();
+
+    RestClientConfiguration.init(this, builder);
+
+## Note - If including this library with gradle will automatically merge your manifest with the one with the library. The lib is published as AAR.
+
 
 ## Calling requests (From the demo project)
 
@@ -91,7 +109,7 @@ and add your own parsers if the responses aren't JSON or you want to use a diffe
 
     //----------------------------------
     
-    TwitterService.getUsersTwitterRequest(getApplicationContext(), "android", new HttpCallbackImplementation())
+    TwitterService.getUsersTwitterRequest("android").setCallback(new HttpCallbackImplementation())
         .executeAsync();
     
     //----------------------------------
@@ -102,7 +120,7 @@ and add your own parsers if the responses aren't JSON or you want to use a diffe
     private final class HttpCallbackImplementation implements HttpCallback<UserModel> {
 
         @Override
-        public void onSuccess(UserModel responseData) {
+        public void onSuccess(UserModel responseData, ResponseStatus responseCode) {
             textViewResponse.setText(responseData.toString());
         }
 
@@ -174,9 +192,3 @@ The callback can be set externally when creating the request
 ## Release 1.1.0
    Reworked the HttpRequestParser to return an InputStream instead of a String.
    Use StringResponseParser (extend or use directly) to get the input stream into a String
-   
-
-   
-# TODO
-
-Split the Jackson support inside a new library so the HTTP library is cleaner. convert to parent/child maven project.
