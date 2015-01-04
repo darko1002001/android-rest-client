@@ -88,13 +88,13 @@
     <orderEntry type="jdk" jdkName="Android API 19 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="jackson-annotations-2.4.0" level="project" />
-    <orderEntry type="library" exported="" name="okhttp-apache-2.1.0" level="project" />
     <orderEntry type="library" exported="" name="android-async-runners-1.0.1" level="project" />
+    <orderEntry type="library" exported="" name="okhttp-apache-2.2.0" level="project" />
+    <orderEntry type="library" exported="" name="okio-1.2.0" level="project" />
+    <orderEntry type="library" exported="" name="okhttp-2.2.0" level="project" />
     <orderEntry type="library" exported="" name="jackson-core-2.4.0" level="project" />
     <orderEntry type="library" exported="" name="jackson-databind-2.4.0" level="project" />
-    <orderEntry type="library" exported="" name="okio-1.0.1" level="project" />
     <orderEntry type="library" exported="" name="commons-io-2.4" level="project" />
-    <orderEntry type="library" exported="" name="okhttp-2.1.0" level="project" />
     <orderEntry type="library" exported="" name="android-logger-1.0.10" level="project" />
     <orderEntry type="module" module-name="android-rest-lib" exported="" />
   </component>

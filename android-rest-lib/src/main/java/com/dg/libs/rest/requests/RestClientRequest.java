@@ -46,6 +46,11 @@ public abstract class RestClientRequest<T> implements HttpRequest {
     authenticationProvider = RestClientConfiguration.get().getAuthenticationProvider();
   }
 
+  public RestClientRequest<T> setAuthenticationProvider(AuthenticationProvider authenticationProvider) {
+    this.authenticationProvider = authenticationProvider;
+    return this;
+  }
+
   protected HttpCallback<T> getCallback() {
     return callback;
   }
@@ -70,8 +75,9 @@ public abstract class RestClientRequest<T> implements HttpRequest {
    * @param key
    * @param value
    */
-  public void addHeader(final String key, final String value) {
+  public RestClientRequest<T> addHeader(final String key, final String value) {
     request.addHeader(key, value);
+    return this;
   }
 
   /**
@@ -80,8 +86,9 @@ public abstract class RestClientRequest<T> implements HttpRequest {
    * @param key
    * @param value
    */
-  public void header(final String key, final String value) {
+  public RestClientRequest<T> header(final String key, final String value) {
     request.header(key, value);
+    return this;
   }
 
   @Override
@@ -98,8 +105,9 @@ public abstract class RestClientRequest<T> implements HttpRequest {
    *
    * @param handler
    */
-  public void setResponseHandler(ResponseHandler<T> handler) {
+  public RestClientRequest<T> setResponseHandler(ResponseHandler<T> handler) {
     this.handler = handler;
+    return this;
   }
 
   /**
@@ -109,8 +117,9 @@ public abstract class RestClientRequest<T> implements HttpRequest {
    *
    * @param statusHandler
    */
-  public void setStatusHandler(ResponseStatusHandler statusHandler) {
+  public RestClientRequest<T> setStatusHandler(ResponseStatusHandler statusHandler) {
     this.statusHandler = statusHandler;
+    return this;
   }
 
   protected HttpResponseParser<T> getParser() {
@@ -216,8 +225,9 @@ public abstract class RestClientRequest<T> implements HttpRequest {
     return requestOptions;
   }
 
-  public void setRequestOptions(RequestOptions requestOptions) {
+  public RestClientRequest<T> setRequestOptions(RequestOptions requestOptions) {
     this.requestOptions = requestOptions;
+    return this;
   }
 
   /**
@@ -246,12 +256,14 @@ public abstract class RestClientRequest<T> implements HttpRequest {
     client.setReadTimeout(RestClientConfiguration.get().getSocketTimeout(), TimeUnit.MILLISECONDS);
   }
 
-  public void addQueryParam(String name, String value) {
+  public RestClientRequest<T> addQueryParam(String name, String value) {
     addQueryParam(name, value, false, true);
+    return this;
   }
 
-  public void addEncodedQueryParam(String name, String value) {
+  public RestClientRequest<T> addEncodedQueryParam(String name, String value) {
     addQueryParam(name, value, false, false);
+    return this;
   }
 
   private void addQueryParam(String name, Object value, boolean encodeName, boolean encodeValue) {
@@ -301,7 +313,7 @@ public abstract class RestClientRequest<T> implements HttpRequest {
     }
   }
 
-  public void close(ResponseBody body) {
+  private void close(ResponseBody body) {
     try {
       if (body != null) {
         body.close();
