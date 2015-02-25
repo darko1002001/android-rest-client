@@ -16,7 +16,7 @@ public interface HttpResponseParser<T> {
    * This method is used for parsing JSON response from server. Given a JSON
    * string, returns response data which can be of any type.
    * 
-   * @param responseStream
+   * @param instream
    *          The JSON string needed for parsing.
    * @return Object of any type returned by the parser.
    * @throws Exception

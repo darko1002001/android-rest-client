@@ -5,6 +5,7 @@ import com.dg.examples.restclientdemo.communication.parsers.BlogsGoogleParser;
 import com.dg.examples.restclientdemo.domain.ResponseModel;
 import com.dg.libs.rest.client.RequestMethod;
 import com.dg.libs.rest.requests.RestClientRequest;
+import com.squareup.okhttp.OkHttpClient;
 
 public class BlogsGoogleRequest extends RestClientRequest<ResponseModel> {
 
@@ -22,5 +23,9 @@ public class BlogsGoogleRequest extends RestClientRequest<ResponseModel> {
     addQueryParam("include_entities", "" + true);
   }
 
-
+  @Override
+  protected void customizeClient(OkHttpClient client) {
+    super.customizeClient(client);
+    client.setRetryOnConnectionFailure(false);
+  }
 }

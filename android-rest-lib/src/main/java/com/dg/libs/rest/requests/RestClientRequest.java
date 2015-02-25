@@ -1,8 +1,9 @@
 package com.dg.libs.rest.requests;
 
+import android.util.Log;
+
 import com.araneaapps.android.libs.asyncrunners.models.RequestOptions;
 import com.araneaapps.android.libs.asyncrunners.models.TaskStore;
-import com.araneaapps.android.libs.logger.ALog;
 import com.dg.libs.rest.HttpRequest;
 import com.dg.libs.rest.RestClientConfiguration;
 import com.dg.libs.rest.authentication.AuthenticationProvider;
@@ -142,7 +143,6 @@ public abstract class RestClientRequest<T> implements HttpRequest {
   }
 
   protected void runRequest() {
-
     if (handler == null) {
       handler = new UIThreadResponseHandler<T>(callback);
     }
@@ -151,9 +151,7 @@ public abstract class RestClientRequest<T> implements HttpRequest {
     }
 
     OkHttpClient client = generateClient();
-
     StringBuilder url = new StringBuilder(this.url);
-
     StringBuilder queryParams = this.queryParams;
     if (queryParams != null) {
       url.append(queryParams);
@@ -166,25 +164,23 @@ public abstract class RestClientRequest<T> implements HttpRequest {
     }
 
     Request preparedRequest = request.build();
-
     Response response;
     try {
       response = client.newCall(preparedRequest).execute();
     } catch (final Exception e) {
       ResponseStatus responseStatus = ResponseStatus.getConnectionErrorStatus();
-      ALog.e(TAG, responseStatus.toString(), e);
+      Log.e(TAG, responseStatus.toString(), e);
       handler.handleError(responseStatus);
       return;
     }
 
     final ResponseStatus status = new ResponseStatus(response.code(), response.message());
-    ALog.d(TAG, status.toString());
+    Log.d(TAG, status.toString());
     if (handleResponseStatus(status)) {
       return;
     }
 
     try {
-
       if (parser != null) {
         InputStream instream = response.body().byteStream();
         final T responseData = parser.parse(instream);
@@ -192,14 +188,13 @@ public abstract class RestClientRequest<T> implements HttpRequest {
         handler.handleSuccess(responseData, status);
         doAfterSuccessfulRequestInBackgroundThread(responseData);
       } else {
-        ALog.i("You haven't added a parser for your request");
+        Log.i(TAG, "You haven't added a parser for your request");
         handler.handleSuccess(null, status);
         doAfterSuccessfulRequestInBackgroundThread(null);
       }
-
     } catch (final Exception e) {
       ResponseStatus responseStatus = ResponseStatus.getParseErrorStatus();
-      ALog.d(TAG, responseStatus.toString(), e);
+      Log.d(TAG, responseStatus.toString(), e);
       handler.handleError(responseStatus);
     }
 
@@ -253,7 +248,8 @@ public abstract class RestClientRequest<T> implements HttpRequest {
 
   protected void customizeClient(OkHttpClient client) {
     client.setConnectTimeout(RestClientConfiguration.get().getConnectionTimeout(), TimeUnit.MILLISECONDS);
-    client.setReadTimeout(RestClientConfiguration.get().getSocketTimeout(), TimeUnit.MILLISECONDS);
+    client.setReadTimeout(RestClientConfiguration.get().getReadTimeout(), TimeUnit.MILLISECONDS);
+    client.setWriteTimeout(RestClientConfiguration.get().getWriteTimeout(), TimeUnit.MILLISECONDS);
   }
 
   public RestClientRequest<T> addQueryParam(String name, String value) {
