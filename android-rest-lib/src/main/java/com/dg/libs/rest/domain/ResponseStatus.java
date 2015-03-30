@@ -2,7 +2,7 @@ package com.dg.libs.rest.domain;
 
 import org.apache.http.HttpStatus;
 
-public class ResponseStatus {
+public class ResponseStatus extends RuntimeException {
 
   public static final String TAG = ResponseStatus.class.getSimpleName();
 
@@ -10,6 +10,7 @@ public class ResponseStatus {
   private String statusMessage;
 
   public ResponseStatus(int statusCode, String statusMessage) {
+    super(statusMessage);
     this.statusCode = statusCode;
     this.statusMessage = statusMessage;
   }

@@ -10,6 +10,10 @@ import com.dg.examples.restclientdemo.communication.requests.PatchRequest;
 import com.dg.examples.restclientdemo.domain.ResponseModel;
 import com.dg.libs.rest.callbacks.HttpCallback;
 import com.dg.libs.rest.domain.ResponseStatus;
+import com.dg.libs.rest.rx.RestRxResult;
+
+import rx.Subscription;
+import rx.functions.Action1;
 
 
 public class MainActivity extends Activity {
@@ -24,8 +28,22 @@ public class MainActivity extends Activity {
 
     textViewResponse = (TextView) findViewById(R.id.textViewResponse);
 
-    new BlogsGoogleRequest("Official Google Blogs").setCallback(new GoogleBlogsCallback())
-      .executeAsync();
+    Subscription subscribe = new BlogsGoogleRequest("Official Google Blogs")
+      .executeWithObservable()
+      .subscribe(new Action1<RestRxResult<ResponseModel>>() {
+        @Override
+        public void call(RestRxResult<ResponseModel> responseModelRestRxResult) {
+          textViewResponse.setText(responseModelRestRxResult.getData().toString());
+        }
+      }, new Action1<Throwable>() {
+        @Override
+        public void call(Throwable throwable) {
+          Toast.makeText(getApplicationContext(),
+            throwable.toString(),
+            Toast.LENGTH_LONG).show();
+        }
+      });
+    subscribe.unsubscribe();
 
     new PatchRequest("Hello").setCallback(new HttpCallback<Void>() {
       @Override

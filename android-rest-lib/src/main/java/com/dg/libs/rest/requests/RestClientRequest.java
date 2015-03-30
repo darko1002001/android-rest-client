@@ -15,6 +15,8 @@ import com.dg.libs.rest.handlers.ResponseHandler;
 import com.dg.libs.rest.handlers.ResponseStatusHandler;
 import com.dg.libs.rest.handlers.UIThreadResponseHandler;
 import com.dg.libs.rest.parsers.HttpResponseParser;
+import com.dg.libs.rest.rx.RestRxResult;
+import com.dg.libs.rest.rx.RxUtil;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
@@ -27,6 +29,8 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Array;
 import java.net.URLEncoder;
 import java.util.concurrent.TimeUnit;
+
+import rx.Observable;
 
 public abstract class RestClientRequest<T> implements HttpRequest {
 
@@ -209,6 +213,10 @@ public abstract class RestClientRequest<T> implements HttpRequest {
       return true;
     }
     return false;
+  }
+
+  public Observable<RestRxResult<T>> executeWithObservable() {
+    return RxUtil.createObservable(this);
   }
 
   @Override

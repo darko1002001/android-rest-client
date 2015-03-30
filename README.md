@@ -152,6 +152,10 @@ Look at the demo project to see how the Authentication Provider can be set. Use 
 
 # Changelog:
 
+## Release 2.7.0
+
+Added support for RxJava
+
 ## Release 2.2.0
 
 Updated version of OKHTTP to 2.+

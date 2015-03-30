@@ -1,4 +1,4 @@
-package com.dg.libs.rest.authentication;
+package com.dg.examples.restclientdemo.app;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -6,6 +6,7 @@ import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
+import com.dg.libs.rest.authentication.AuthenticationProvider;
 import com.dg.libs.rest.requests.RestClientRequest;
 
 public class TokenAuthenticationProvider implements AuthenticationProvider {
