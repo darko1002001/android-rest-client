@@ -1,5 +1,7 @@
 package com.dg.examples.restclientdemo.communication.requests;
 
+import android.util.Log;
+
 import com.dg.examples.restclientdemo.communication.RestConstants;
 import com.dg.examples.restclientdemo.communication.parsers.BlogsGoogleParser;
 import com.dg.examples.restclientdemo.domain.ResponseModel;
@@ -21,6 +23,17 @@ public class BlogsGoogleRequest extends RestClientRequest<ResponseModel> {
     addQueryParam("q", query);
     addQueryParam("v", "1.0");
     addQueryParam("include_entities", "" + true);
+  }
+
+  @Override
+  protected void doAfterSuccessfulRequestInBackgroundThread(ResponseModel data) {
+    try {
+
+      Log.d(TAG, "sleeping to be able to see Bound callbacks in action");
+      Thread.sleep(3000);
+    } catch (InterruptedException e) {
+    }
+    super.doAfterSuccessfulRequestInBackgroundThread(data);
   }
 
   @Override

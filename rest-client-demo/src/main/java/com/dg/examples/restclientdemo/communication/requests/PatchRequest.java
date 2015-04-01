@@ -1,6 +1,7 @@
 package com.dg.examples.restclientdemo.communication.requests;
 
-import com.araneaapps.android.libs.logger.ALog;
+import android.util.Log;
+
 import com.dg.examples.restclientdemo.communication.RestConstants;
 import com.dg.libs.rest.client.RequestMethod;
 import com.dg.libs.rest.parsers.HttpResponseParser;
@@ -18,10 +19,11 @@ public class PatchRequest extends RestClientRequest<Void> {
     setParser(new HttpResponseParser<Void>() {
       @Override
       public Void parse(InputStream instream) throws Exception {
-        ALog.d(org.apache.commons.io.IOUtils.toString(instream));
+        Log.d(TAG, org.apache.commons.io.IOUtils.toString(instream));
         return null;
       }
     });
+
     setRequestMethod(RequestMethod.PATCH);
     addEncodedQueryParam("q", query);
     addQueryParam("v", "1.0");

@@ -14,4 +14,10 @@ public interface HttpRequest extends Runnable {
    */
   public void executeAsync();
 
+  /**
+   * Calling this method will prevent the callback to be executed. Good for avoiding memory leaks if you bind callbacks with views that are a part of a
+   * lifecycle of an activity or fragment.
+   */
+  public void cancel();
+
 }

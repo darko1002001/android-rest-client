@@ -1,5 +1,8 @@
 package com.dg.libs.rest.requests;
 
+import android.app.Activity;
+import android.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.araneaapps.android.libs.asyncrunners.models.RequestOptions;
@@ -7,6 +10,9 @@ import com.araneaapps.android.libs.asyncrunners.models.TaskStore;
 import com.dg.libs.rest.HttpRequest;
 import com.dg.libs.rest.RestClientConfiguration;
 import com.dg.libs.rest.authentication.AuthenticationProvider;
+import com.dg.libs.rest.callbacks.ActivityBoundHttpCallback;
+import com.dg.libs.rest.callbacks.BoundCallback;
+import com.dg.libs.rest.callbacks.FragmentBoundHttpCallback;
 import com.dg.libs.rest.callbacks.HttpCallback;
 import com.dg.libs.rest.client.RequestMethod;
 import com.dg.libs.rest.domain.ResponseStatus;
@@ -35,7 +41,7 @@ public abstract class RestClientRequest<T> implements HttpRequest {
   private HttpResponseParser<T> parser;
   private ResponseHandler<T> handler;
   private ResponseStatusHandler statusHandler;
-  private HttpCallback<T> callback;
+  private BoundCallback<T> callback;
   private Request.Builder request = new Request.Builder();
   private StringBuilder queryParams;
   private String url;
@@ -57,9 +63,21 @@ public abstract class RestClientRequest<T> implements HttpRequest {
   }
 
   public RestClientRequest<T> setCallback(HttpCallback<T> callback) {
-    this.callback = callback;
+    BoundCallback<T> boundCallback = new BoundCallback<>(callback);
+    this.callback = boundCallback;
     return this;
   }
+
+  public RestClientRequest<T> setActivityBoundCallback(Activity activity, HttpCallback<T> callback) {
+    this.callback = new ActivityBoundHttpCallback<>(activity, callback);
+    return this;
+  }
+
+  public RestClientRequest<T> setFragmentBoundCallback(Fragment fragment, HttpCallback<T> callback) {
+    this.callback = new FragmentBoundHttpCallback<>(fragment, callback);
+    return this;
+  }
+
 
   public RestClientRequest<T> setParser(HttpResponseParser<T> parser) {
     this.parser = parser;
@@ -95,7 +113,25 @@ public abstract class RestClientRequest<T> implements HttpRequest {
   @Override
   public void run() {
     doBeforeRunRequestInBackgroundThread();
+    validateRequestArguments();
     runRequest();
+  }
+
+  public void validateRequestArguments() {
+    if(TextUtils.isEmpty(this.url)) {
+      Log.e(TAG, "Request url is empty or null", new IllegalArgumentException());
+    }
+  }
+
+  @Override
+  public void cancel() {
+    if (callback != null) {
+      callback.unregister();
+    }
+  }
+
+  public boolean isCanceled() {
+    return callback != null && callback.isRegistered();
   }
 
   /**
@@ -144,7 +180,7 @@ public abstract class RestClientRequest<T> implements HttpRequest {
 
   protected void runRequest() {
     if (handler == null) {
-      handler = new UIThreadResponseHandler<T>(callback);
+      handler = new UIThreadResponseHandler<>(callback);
     }
     if (statusHandler == null) {
       statusHandler = new DefaultResponseStatusHandler();
@@ -185,8 +221,8 @@ public abstract class RestClientRequest<T> implements HttpRequest {
         InputStream instream = response.body().byteStream();
         final T responseData = parser.parse(instream);
         close(response.body());
-        handler.handleSuccess(responseData, status);
         doAfterSuccessfulRequestInBackgroundThread(responseData);
+        handler.handleSuccess(responseData, status);
       } else {
         Log.i(TAG, "You haven't added a parser for your request");
         handler.handleSuccess(null, status);

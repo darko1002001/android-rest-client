@@ -10,12 +10,14 @@ import com.dg.examples.restclientdemo.communication.requests.PatchRequest;
 import com.dg.examples.restclientdemo.domain.ResponseModel;
 import com.dg.libs.rest.callbacks.HttpCallback;
 import com.dg.libs.rest.domain.ResponseStatus;
+import com.dg.libs.rest.requests.RestClientRequest;
 
 
 public class MainActivity extends Activity {
 
 
   private TextView textViewResponse;
+  private RestClientRequest<ResponseModel> request;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -24,7 +26,8 @@ public class MainActivity extends Activity {
 
     textViewResponse = (TextView) findViewById(R.id.textViewResponse);
 
-    new BlogsGoogleRequest("Official Google Blogs").setCallback(new GoogleBlogsCallback())
+    request = new BlogsGoogleRequest("Official Google Blogs").setCallback(new GoogleBlogsCallback());
+    request
       .executeAsync();
 
     new PatchRequest("Hello").setCallback(new HttpCallback<Void>() {
@@ -40,19 +43,24 @@ public class MainActivity extends Activity {
     }).executeAsync();
   }
 
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    request.cancel();
+  }
+
   private final class GoogleBlogsCallback implements HttpCallback<ResponseModel> {
 
+
     @Override
-    public void onSuccess(ResponseModel responseData, ResponseStatus status) {
+    public void onSuccess(ResponseModel responseData, ResponseStatus responseStatus) {
       textViewResponse.setText(responseData.toString());
     }
 
     @Override
-    public void onHttpError(ResponseStatus responseCode) {
-      Toast.makeText(getApplicationContext(),
-        responseCode.getStatusCode() + " " + responseCode.getStatusMessage(),
-        Toast.LENGTH_LONG).show();
+    public void onHttpError(ResponseStatus responseStatus) {
 
     }
+
   }
 }
