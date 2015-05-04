@@ -237,12 +237,14 @@ public abstract class RestClientRequest<T> implements HttpRequest {
       ResponseStatus responseStatus = ResponseStatus.getConnectionErrorStatus();
       Log.e(TAG, responseStatus.toString(), e);
       handler.handleError(responseStatus);
+      doAfterRunRequestInBackgroundThread();
       return;
     }
 
     final ResponseStatus status = new ResponseStatus(response.code(), response.message());
     Log.d(TAG, status.toString());
     if (handleResponseStatus(status)) {
+      doAfterRunRequestInBackgroundThread();
       return;
     }
 
@@ -263,6 +265,7 @@ public abstract class RestClientRequest<T> implements HttpRequest {
       Log.d(TAG, responseStatus.toString(), e);
       handler.handleError(responseStatus);
     }
+    doAfterRunRequestInBackgroundThread();
 
   }
 
@@ -302,6 +305,12 @@ public abstract class RestClientRequest<T> implements HttpRequest {
   /**
    * This will happen in the background thread which enables you to do some
    * cleanup in the background after the request finishes
+   */
+  protected void doAfterRunRequestInBackgroundThread() {
+  }
+
+  /**
+   * This will happen in the background thread only if the request execution is successful
    */
   protected void doAfterSuccessfulRequestInBackgroundThread(T data) {
   }
