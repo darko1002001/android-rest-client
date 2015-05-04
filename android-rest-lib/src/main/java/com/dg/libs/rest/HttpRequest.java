@@ -12,12 +12,12 @@ public interface HttpRequest extends Runnable {
    * This method runs asynchronously in the same thread as the application and
    * launches a service for further server communication.
    */
-  public void executeAsync();
+  void executeAsync();
 
   /**
    * Calling this method will prevent the callback to be executed. Good for avoiding memory leaks if you bind callbacks with views that are a part of a
    * lifecycle of an activity or fragment.
    */
-  public void cancel();
+  void cancel();
 
 }

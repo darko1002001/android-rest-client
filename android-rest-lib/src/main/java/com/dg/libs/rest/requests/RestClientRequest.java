@@ -118,7 +118,7 @@ public abstract class RestClientRequest<T> implements HttpRequest {
   }
 
   public void validateRequestArguments() {
-    if(TextUtils.isEmpty(this.url)) {
+    if (TextUtils.isEmpty(this.url)) {
       Log.e(TAG, "Request url is empty or null", new IllegalArgumentException());
     }
   }
@@ -165,6 +165,36 @@ public abstract class RestClientRequest<T> implements HttpRequest {
 
   public RestClientRequest<T> setUrl(String url) {
     this.url = url;
+    return this;
+  }
+
+  /**
+   * Access URL formatting options with the format ex. /action/:type/otheraction/:other
+   * Removes any suffixes such as query params (url ends with somepath?one=two becomes somepath)
+   *
+   * @param url    a string url
+   * @param params
+   * @return
+   */
+  public RestClientRequest<T> setUrlWithFormat(String url, String... params) {
+    if (params.length == 0) {
+      this.url = url;
+      return this;
+    }
+    int questionMark = url.indexOf("?");
+    StringBuilder sb = new StringBuilder(questionMark > -1 ? url.substring(0, questionMark) : url);
+    for (String param : params) {
+      int start = sb.indexOf("/:");
+      if (start == -1) {
+        throw new IllegalArgumentException("Need to add the same amount of placeholder params in the string as /:value/ where you want to replace it");
+      }
+      int end = sb.indexOf("/", start + 1);
+      if (end == -1) {
+        end = sb.length();
+      }
+      sb.replace(start + 1, end, param);
+    }
+    this.url = sb.toString();
     return this;
   }
 
