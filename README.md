@@ -5,6 +5,9 @@ android-rest-client
 
 A simple rest API client library
 
+Check for the latest version on [Maven Central](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.aranea-apps.android.libs%22%20AND%20a%3A%22android-rest%22)
+
+
 
 used libraries
 ================
